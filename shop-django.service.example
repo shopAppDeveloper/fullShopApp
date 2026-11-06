@@ -1,0 +1,14 @@
+[Unit]
+Description=My Shop Django application
+After=network.target postgresql.service
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/srv/my-shop/backend
+EnvironmentFile=/srv/my-shop/backend/.env
+ExecStart=/srv/my-shop/backend/venv/bin/gunicorn config.wsgi:application --bind 127.0.0.1:8000 --workers 3
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
