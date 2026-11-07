@@ -1,101 +1,72 @@
 import React from "react";
-import Image from "next/image";
+import Link from "next/link";
 
-const PromoBanner = () => {
+const campaigns = [
+  {
+    eyebrow: "انتخاب روزمره",
+    title: "قدم‌های راحت‌تر",
+    description: "مدل‌های متنوع کفش را ببینید و گزینه مناسب استفاده روزانه‌تان را پیدا کنید.",
+    href: "/shop-with-sidebar",
+    action: "مشاهده کفش‌ها",
+    tone: "bg-[#E7F0FA]",
+    accent: "bg-[#D4E5F7]",
+    mark: "01",
+  },
+  {
+    eyebrow: "استایل شخصی",
+    title: "برای هر سلیقه‌ای",
+    description: "محصولات فروشگاه را بررسی کنید و ترکیب مورد علاقه‌تان را بسازید.",
+    href: "/shop-with-sidebar",
+    action: "رفتن به فروشگاه",
+    tone: "bg-[#E7F4F1]",
+    accent: "bg-[#CFE9E2]",
+    mark: "02",
+  },
+  {
+    eyebrow: "تازه‌های فروشگاه",
+    title: "انتخاب‌های تازه",
+    description: "جدیدترین محصولات اضافه‌شده به فروشگاه را از نزدیک ببینید.",
+    href: "/shop-with-sidebar?sort=latest",
+    action: "دیدن تازه‌رسیده‌ها",
+    tone: "bg-[#FFF0E8]",
+    accent: "bg-[#F9DCCB]",
+    mark: "03",
+  },
+];
+
+export default function PromoBanner() {
   return (
-    <section className="overflow-hidden py-20">
-      <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-        {/* <!-- promo banner big --> */}
-        <div className="relative z-1 overflow-hidden rounded-lg bg-[#F5F5F7] py-12.5 lg:py-17.5 xl:py-22.5 px-4 sm:px-7.5 lg:px-14 xl:px-19 mb-7.5">
-          <div className="max-w-[550px] w-full">
-            <span className="block font-medium text-xl text-dark mb-3">Apple iPhone 14 Plus</span>
-
-            <h2 className="font-bold text-xl lg:text-heading-4 xl:text-heading-3 text-dark mb-5">
-              تا ۳۰٪ تخفیف
-            </h2>
-
-            <p>
-              iPhone 14 has the same superspeedy chip that’s in iPhone 13 Pro, A15 Bionic, with a
-              5‑core GPU, powers all the latest features.
-            </p>
-
-            <a
-              href="#"
-              className="inline-flex font-medium text-custom-sm text-white bg-blue py-[11px] px-9.5 rounded-md ease-out duration-200 hover:bg-blue-dark mt-7.5"
+    <section className="overflow-hidden py-16 lg:py-20">
+      <div className="mx-auto grid w-full max-w-[1170px] grid-cols-1 gap-5 px-4 sm:px-8 lg:grid-cols-3 xl:px-0">
+        {campaigns.map((campaign) => (
+          <article
+            key={campaign.mark}
+            className={`relative isolate min-h-[245px] overflow-hidden rounded-xl ${campaign.tone} p-7 sm:p-8`}
+          >
+            <span
+              aria-hidden="true"
+              className={`absolute -left-12 -top-12 -z-10 h-44 w-44 rounded-full ${campaign.accent}`}
+            />
+            <span
+              aria-hidden="true"
+              className="absolute bottom-5 left-7 -z-10 text-7xl font-bold tracking-tight text-black/[0.045]"
             >
-              همین حالا بخرید
-            </a>
-          </div>
-
-          <Image
-            src="/images/promo/promo-01.png"
-            alt="promo img"
-            className="absolute bottom-0 right-4 lg:right-26 -z-1"
-            width={274}
-            height={350}
-          />
-        </div>
-
-        <div className="grid gap-7.5 grid-cols-1 lg:grid-cols-2">
-          {/* <!-- promo banner small --> */}
-          <div className="relative z-1 overflow-hidden rounded-lg bg-[#DBF4F3] py-10 xl:py-16 px-4 sm:px-7.5 xl:px-10">
-            <Image
-              src="/images/promo/promo-02.png"
-              alt="promo img"
-              className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-10 -z-1"
-              width={241}
-              height={241}
-            />
-
-            <div className="text-right">
-              <span className="block text-lg text-dark mb-1.5">Foldable Motorised Treadmill</span>
-
-              <h2 className="font-bold text-xl lg:text-heading-4 text-dark mb-2.5">ورزش در خانه</h2>
-
-              <p className="font-semibold text-custom-1 text-teal">۲۰٪ تخفیف</p>
-
-              <a
-                href="#"
-                className="inline-flex font-medium text-custom-sm text-white bg-teal py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-teal-dark mt-9"
+              {campaign.mark}
+            </span>
+            <div className="max-w-[270px]">
+              <span className="mb-2 block text-sm font-medium text-blue">{campaign.eyebrow}</span>
+              <h2 className="mb-3 text-2xl font-semibold text-dark">{campaign.title}</h2>
+              <p className="min-h-[52px] text-sm leading-7 text-dark-4">{campaign.description}</p>
+              <Link
+                href={campaign.href}
+                className="mt-6 inline-flex items-center rounded-md bg-dark px-6 py-3 text-sm font-medium text-white transition hover:bg-blue"
               >
-                همین حالا ببینید
-              </a>
+                {campaign.action}
+              </Link>
             </div>
-          </div>
-
-          {/* <!-- promo banner small --> */}
-          <div className="relative z-1 overflow-hidden rounded-lg bg-[#FFECE1] py-10 xl:py-16 px-4 sm:px-7.5 xl:px-10">
-            <Image
-              src="/images/promo/promo-03.png"
-              alt="promo img"
-              className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-8.5 -z-1"
-              width={200}
-              height={200}
-            />
-
-            <div>
-              <span className="block text-lg text-dark mb-1.5">Apple Watch Ultra</span>
-
-              <h2 className="font-bold text-xl lg:text-heading-4 text-dark mb-2.5">
-                Up to <span className="text-orange">40%</span> off
-              </h2>
-
-              <p className="max-w-[285px] text-custom-sm">
-                طراحی تیتانیومی مقاوم با ترکیبی متعادل از زیبایی و کارایی.
-              </p>
-
-              <a
-                href="#"
-                className="inline-flex font-medium text-custom-sm text-white bg-orange py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-orange-dark mt-7.5"
-              >
-                همین حالا بخرید
-              </a>
-            </div>
-          </div>
-        </div>
+          </article>
+        ))}
       </div>
     </section>
   );
-};
-
-export default PromoBanner;
+}
