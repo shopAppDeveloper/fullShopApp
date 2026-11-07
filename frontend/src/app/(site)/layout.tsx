@@ -1,7 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
-import "../css/euclid-circular-a-font.css";
-import "../css/style.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -15,43 +12,33 @@ import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import PreviewSliderModal from "@/components/Common/PreviewSlider";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
-import PreLoader from "@/components/Common/PreLoader";
 import { Toaster } from "react-hot-toast";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
-
+/**
+ * Storefront shell (providers + header/footer). <html>/<body> live in the root
+ * layout (src/app/layout.tsx) so pages are server-rendered instead of waiting
+ * for a client-side preloader.
+ */
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fa" dir="rtl" suppressHydrationWarning={true}>
-      <body>
-        {loading ? (
-          <PreLoader />
-        ) : (
-          <StoreProvider>
-            <ReduxProvider>
-              <CartModalProvider>
-                <ModalProvider>
-                  <PreviewSliderProvider>
-                    <Header />
-                    {children}
+    <StoreProvider>
+      <ReduxProvider>
+        <CartModalProvider>
+          <ModalProvider>
+            <PreviewSliderProvider>
+              <Header />
+              {children}
 
-                    <QuickViewModal />
-                    <CartSidebarModal />
-                    <PreviewSliderModal />
-                    <Toaster position="bottom-right" />
-                  </PreviewSliderProvider>
-                </ModalProvider>
-              </CartModalProvider>
-            </ReduxProvider>
-            <ScrollToTop />
-            <Footer />
-          </StoreProvider>
-        )}
-      </body>
-    </html>
+              <QuickViewModal />
+              <CartSidebarModal />
+              <PreviewSliderModal />
+              <Toaster position="bottom-right" />
+            </PreviewSliderProvider>
+          </ModalProvider>
+        </CartModalProvider>
+      </ReduxProvider>
+      <ScrollToTop />
+      <Footer />
+    </StoreProvider>
   );
 }

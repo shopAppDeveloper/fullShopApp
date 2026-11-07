@@ -1,0 +1,20 @@
+/*
+ * Vazirmatn - open source Persian/Arabic/Latin variable font (SIL OFL 1.1).
+ * License text: src/app/fonts/Vazirmatn-OFL.txt
+ */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../fonts/Vazirmatn-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Persian pages use Vazirmatn everywhere (Euclid stays as the Latin fallback). */
+html[lang="fa"] body,
+html[lang="fa"] input,
+html[lang="fa"] select,
+html[lang="fa"] textarea,
+html[lang="fa"] button {
+  font-family: "Vazirmatn", "Euclid Circular A", Tahoma, sans-serif;
+}
