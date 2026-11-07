@@ -47,14 +47,14 @@ export default function ShopWithoutSidebar() {
         <div className="mx-auto w-full max-w-[1170px] px-4 sm:px-8 xl:px-0">
           <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-semibold text-dark">All Products</h2>
-              <p className="mt-1 text-sm text-gray-5">Browse the current Oscar catalogue.</p>
+              <h2 className="text-2xl font-semibold text-dark">همه‌ی محصولات</h2>
+              <p className="mt-1 text-sm text-gray-5">محصولات موجود فروشگاه را مرور کنید.</p>
             </div>
             <Link
               href="/shop-with-sidebar"
               className="rounded-md border border-gray-3 bg-white px-5 py-2.5 font-medium text-dark hover:bg-gray-1"
             >
-              Open filters
+              باز کردن فیلترها
             </Link>
           </div>
 
@@ -70,7 +70,7 @@ export default function ShopWithoutSidebar() {
             <div className="rounded-xl bg-white p-10 text-center shadow-1">
               <p className="text-dark">محصولی پیدا نشد.</p>
               <Link href="/shop-with-sidebar" className="mt-4 inline-block text-blue">
-                Open the catalogue
+                مشاهده‌ی محصولات
               </Link>
             </div>
           )}

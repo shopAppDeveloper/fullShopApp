@@ -225,11 +225,11 @@ export default function ShopWithSidebar() {
                 {(search || category) && (
                   <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
                     {search && (
-                      <span className="rounded-full bg-gray-1 px-3 py-1">Search: {search}</span>
+                      <span className="rounded-full bg-gray-1 px-3 py-1">جستجو: {search}</span>
                     )}
                     {category && (
                       <span className="rounded-full bg-gray-1 px-3 py-1">
-                        Category:{" "}
+                        دسته‌بندی:{" "}
                         {categories.find((item) => item.slug === category)?.name ?? category}
                       </span>
                     )}
@@ -289,7 +289,7 @@ export default function ShopWithSidebar() {
                     قبلی
                   </button>
                   <span className="px-3 text-sm text-gray-5">
-                    Page {page} of {totalPages}
+                    صفحه‌ی {page} از {totalPages}
                   </span>
                   <button
                     disabled={page >= totalPages}
