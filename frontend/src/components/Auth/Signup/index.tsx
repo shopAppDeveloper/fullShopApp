@@ -146,7 +146,7 @@ const Signup = () => {
                 disabled={submitting}
                 className="mt-7.5 flex w-full justify-center rounded-lg bg-dark px-6 py-3 font-medium text-white duration-200 hover:bg-blue disabled:cursor-not-allowed disabled:bg-gray-4"
               >
-                {submitting ? "Creating account..." : "Create account"}
+                {submitting ? "در حال ساخت حساب..." : "ساخت حساب کاربری"}
               </button>
 
               <p className="mt-6 text-center">

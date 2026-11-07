@@ -25,7 +25,7 @@ export default function SingleItem({ item }: { item: Product }) {
 
   async function handleAddToCart() {
     if (!canDirectlyAdd) {
-      setMessage("Choose the product options first.");
+      setMessage("ابتدا گزینه‌های محصول را انتخاب کنید.");
       return;
     }
 
@@ -33,7 +33,7 @@ export default function SingleItem({ item }: { item: Product }) {
       await addToBasket(item.id, 1);
       setMessage("محصول به سبد خرید اضافه شد.");
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Unable to add to cart.");
+      setMessage(error instanceof Error ? error.message : "افزودن به سبد خرید ممکن نشد.");
     }
   }
 
@@ -42,7 +42,7 @@ export default function SingleItem({ item }: { item: Product }) {
       <button
         type="button"
         onClick={() => dispatch(removeItemFromWishlist(item.id))}
-        aria-label="Remove product from wishlist"
+        aria-label="حذف محصول از علاقه‌مندی‌ها"
         className="flex h-9.5 w-9.5 items-center justify-center rounded-lg border border-gray-3 bg-gray-2 text-dark hover:border-red hover:text-red"
       >
         ×

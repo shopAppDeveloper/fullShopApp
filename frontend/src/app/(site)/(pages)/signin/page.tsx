@@ -3,7 +3,7 @@ import React from "react";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Signin Page | قالب فروشگاه اینترنتی",
-  description: "This is Signin Page for NextCommerce Template",
+  description: "ورود به حساب کاربری",
   // other metadata
 };
 

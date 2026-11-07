@@ -61,7 +61,7 @@ export default function MyAccount() {
         setCountries(countryResult);
       })
       .catch((error) => {
-        setAddressError(error instanceof Error ? error.message : "Unable to load your addresses.");
+        setAddressError(error instanceof Error ? error.message : "بارگذاری آدرس‌ها ممکن نشد.");
       });
   }, [user]);
 
@@ -75,7 +75,7 @@ export default function MyAccount() {
       setAddresses(await getAddresses());
       setAddressForm(emptyAddress);
     } catch (error) {
-      setAddressError(error instanceof Error ? error.message : "Unable to save the address.");
+      setAddressError(error instanceof Error ? error.message : "ذخیره‌ی آدرس ممکن نشد.");
     } finally {
       setSavingAddress(false);
     }
@@ -86,7 +86,7 @@ export default function MyAccount() {
       await deleteAddress(id);
       setAddresses(await getAddresses());
     } catch (error) {
-      setAddressError(error instanceof Error ? error.message : "Unable to delete the address.");
+      setAddressError(error instanceof Error ? error.message : "حذف آدرس ممکن نشد.");
     }
   }
 
@@ -180,11 +180,10 @@ export default function MyAccount() {
               {tab === "dashboard" && (
                 <div className="p-7.5">
                   <h2 className="text-2xl font-semibold text-dark">
-                    Welcome, {user.first_name || user.email}.
+                    خوش آمدید، {user.first_name || user.email}.
                   </h2>
                   <p className="mt-3 max-w-2xl text-gray-5">
-                    From your account you can review your orders, manage addresses, and keep your
-                    store details up to date.
+                    از حساب کاربری خود می‌توانید سفارش‌ها را ببینید، آدرس‌ها را مدیریت کنید و اطلاعات خود را به‌روز نگه دارید.
                   </p>
 
                   <Link
@@ -411,7 +410,7 @@ export default function MyAccount() {
                       disabled={savingAddress}
                       className="mt-6 rounded-md bg-blue px-7 py-3 font-medium text-white hover:bg-blue-dark disabled:bg-gray-4"
                     >
-                      {savingAddress ? "Saving..." : "Save address"}
+                      {savingAddress ? "در حال ذخیره..." : "ذخیره‌ی آدرس"}
                     </button>
                   </form>
                 </div>

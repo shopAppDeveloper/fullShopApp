@@ -1,5 +1,6 @@
 "use client";
 
+import { orderStatusLabel } from "@/lib/labels";
 import React, { useEffect, useState } from "react";
 import { getOrders, type StoreOrder } from "@/lib/store-api";
 import { useStore } from "@/app/context/StoreContext";
@@ -25,7 +26,7 @@ export default function Orders() {
         if (active) setOrders(result);
       } catch (err) {
         if (active) {
-          setError(err instanceof Error ? err.message : "Unable to load orders.");
+          setError(err instanceof Error ? err.message : "بارگذاری سفارش‌ها ممکن نشد.");
         }
       } finally {
         if (active) setLoading(false);
@@ -38,7 +39,7 @@ export default function Orders() {
   }, [user]);
 
   if (loading) {
-    return <p className="p-7.5 text-gray-5">Loading orders...</p>;
+    return <p className="p-7.5 text-gray-5">در حال بارگذاری سفارش‌ها...</p>;
   }
 
   if (error) {
@@ -48,7 +49,7 @@ export default function Orders() {
   if (!orders.length) {
     return (
       <div className="p-7.5">
-        <p className="text-dark">You don&apos;t have any orders yet.</p>
+        <p className="text-dark">هنوز سفارشی ثبت نکرده‌اید.</p>
       </div>
     );
   }
@@ -61,7 +62,7 @@ export default function Orders() {
             <th className="pb-4 pe-5 font-medium">Order</th>
             <th className="pb-4 pe-5 font-medium">Date</th>
             <th className="pb-4 pe-5 font-medium">Status</th>
-            <th className="pb-4 pe-5 font-medium">Items</th>
+            <th className="pb-4 pe-5 font-medium">اقلام</th>
             <th className="pb-4 font-medium">مجموع</th>
           </tr>
         </thead>
@@ -73,7 +74,7 @@ export default function Orders() {
               <td className="py-4 pe-5 text-sm text-gray-5">
                 {new Date(order.date_placed).toLocaleDateString()}
               </td>
-              <td className="py-4 pe-5 text-sm text-gray-5">{order.status}</td>
+              <td className="py-4 pe-5 text-sm text-gray-5">{orderStatusLabel(order.status)}</td>
               <td className="py-4 pe-5 text-sm text-gray-5">
                 {order.lines.reduce((total, line) => total + line.quantity, 0)}
               </td>

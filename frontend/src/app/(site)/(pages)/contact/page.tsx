@@ -3,7 +3,7 @@ import Contact from "@/components/Contact";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact Page | قالب فروشگاه اینترنتی",
-  description: "This is Contact Page for NextCommerce Template",
+  description: "تماس با ما",
   // other metadata
 };
 

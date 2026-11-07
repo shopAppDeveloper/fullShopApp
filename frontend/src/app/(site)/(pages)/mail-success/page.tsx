@@ -4,7 +4,7 @@ import MailSuccess from "@/components/MailSuccess";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Mail Success Page | قالب فروشگاه اینترنتی",
-  description: "This is Mail Success Page for NextCommerce Template",
+  description: "پیام ارسال شد",
   // other metadata
 };
 
