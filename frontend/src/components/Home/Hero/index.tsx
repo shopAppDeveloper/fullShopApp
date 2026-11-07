@@ -133,7 +133,7 @@ const Hero = () => {
 
               {secondary.length === 0 && (
                 <div className="rounded-[10px] bg-white p-7.5 text-dark-4 min-h-[197px] flex items-center">
-                  برای تکمیل این بخش، محصولات بیشتری را در پیشخوان Oscar منتشر کنید.
+                  برای نمایش پیشنهادهای بیشتر، محصولات را در پیشخوان فروشگاه منتشر کنید.
                 </div>
               )}
             </div>
