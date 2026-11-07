@@ -1,6 +1,6 @@
 /** Public storefront configuration. */
 export const siteConfig = {
-  name: process.env.NEXT_PUBLIC_STORE_NAME || "My Store",
+  name: process.env.NEXT_PUBLIC_STORE_NAME || "فروشگاه من",
   email: process.env.NEXT_PUBLIC_STORE_EMAIL || "",
   phone: process.env.NEXT_PUBLIC_STORE_PHONE || "",
   address: process.env.NEXT_PUBLIC_STORE_ADDRESS || "",

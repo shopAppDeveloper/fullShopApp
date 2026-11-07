@@ -61,7 +61,7 @@ const Header = () => {
           {/* <!-- header top start --> */}
           <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link className="flex-shrink-0" href="/">
-              <Image src="/images/logo/logo.svg" alt="Logo" width={219} height={36} />
+              <Image src="/images/logo/logo.svg" alt="لوگو" width={219} height={36} />
             </Link>
 
             <div className="max-w-[475px] w-full">
@@ -178,7 +178,7 @@ const Header = () => {
                   </svg>
 
                   <div>
-                    <span className="block text-2xs text-dark-4 uppercase">account</span>
+                    <span className="block text-2xs text-dark-4 uppercase">حساب کاربری</span>
                     <p className="font-medium text-custom-sm text-dark">
                       {user ? user.first_name || "حساب کاربری من" : "ورود"}
                     </p>
@@ -224,7 +224,7 @@ const Header = () => {
                   </span>
 
                   <div>
-                    <span className="block text-2xs text-dark-4 uppercase">cart</span>
+                    <span className="block text-2xs text-dark-4 uppercase">سبد خرید</span>
                     <p className="font-medium text-custom-sm text-dark">
                       {totalPrice} {currency}
                     </p>

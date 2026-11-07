@@ -60,7 +60,7 @@ const Footer = () => {
                       fill="#3C50E0"
                     />
                   </svg>
-                  {siteConfig.phone || "Store phone configured by the owner."}
+                  {siteConfig.phone || "شماره تلفن فروشگاه توسط مدیر تنظیم می‌شود."}
                 </a>
               </li>
 
@@ -80,7 +80,7 @@ const Footer = () => {
                       fill="#3C50E0"
                     />
                   </svg>
-                  {siteConfig.email || "Store email configured by the owner."}
+                  {siteConfig.email || "ایمیل فروشگاه توسط مدیر تنظیم می‌شود."}
                 </a>
               </li>
             </ul>
@@ -89,7 +89,7 @@ const Footer = () => {
             <div className="flex items-center gap-4 mt-7.5">
               <a
                 href="#"
-                aria-label="Facebook Social Link"
+                aria-label="فیس‌بوک"
                 className="flex ease-out duration-200 hover:text-blue"
               >
                 <svg
@@ -114,7 +114,7 @@ const Footer = () => {
 
               <a
                 href="#"
-                aria-label="Twitter Social Link"
+                aria-label="توییتر"
                 className="flex ease-out duration-200 hover:text-blue"
               >
                 <svg
@@ -134,7 +134,7 @@ const Footer = () => {
 
               <a
                 href="#"
-                aria-label="Instagram Social Link"
+                aria-label="اینستاگرام"
                 className="flex ease-out duration-200 hover:text-blue"
               >
                 <svg
@@ -169,7 +169,7 @@ const Footer = () => {
 
               <a
                 href="#"
-                aria-label="Linkedin Social Link"
+                aria-label="لینکدین"
                 className="flex ease-out duration-200 hover:text-blue"
               >
                 <svg
@@ -206,7 +206,7 @@ const Footer = () => {
               </li>
               <li>
                 <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Login / Register
+                  ورود / ثبت‌نام
                 </a>
               </li>
               <li>
@@ -228,27 +228,27 @@ const Footer = () => {
           </div>
 
           <div className="w-full sm:w-auto">
-            <h2 className="mb-7.5 text-custom-1 font-medium text-dark">Quick Link</h2>
+            <h2 className="mb-7.5 text-custom-1 font-medium text-dark">دسترسی سریع</h2>
 
             <ul className="flex flex-col gap-3">
               <li>
                 <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Privacy Policy
+                  حریم خصوصی
                 </a>
               </li>
               <li>
                 <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Refund Policy
+                  سیاست بازگشت وجه
                 </a>
               </li>
               <li>
                 <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Terms of Use
+                  قوانین و مقررات
                 </a>
               </li>
               <li>
                 <a className="ease-out duration-200 hover:text-blue" href="#">
-                  FAQ’s
+                  سؤالات متداول
                 </a>
               </li>
               <li>
@@ -261,10 +261,10 @@ const Footer = () => {
 
           <div className="w-full sm:w-auto">
             <h2 className="mb-7.5 text-custom-1 font-medium text-dark lg:text-end">
-              Download App
+              دانلود اپلیکیشن
             </h2>
 
-            <p className="lg:text-end text-custom-sm mb-4">Save $3 With App & New User only</p>
+            <p className="lg:text-end text-custom-sm mb-4">با نصب اپلیکیشن، ویژه‌ی کاربران جدید تخفیف بگیرید</p>
 
             <ul className="flex flex-col lg:items-end gap-3">
               <li>
@@ -287,8 +287,8 @@ const Footer = () => {
                   </svg>
 
                   <div>
-                    <span className="block text-custom-xs">Download on the</span>
-                    <p className="font-medium">App Store</p>
+                    <span className="block text-custom-xs">دانلود از</span>
+                    <p className="font-medium">اپ استور</p>
                   </div>
                 </a>
               </li>
@@ -313,8 +313,8 @@ const Footer = () => {
                   </svg>
 
                   <div>
-                    <span className="block text-custom-xs"> Get in On </span>
-                    <p className="font-medium">Google Play</p>
+                    <span className="block text-custom-xs"> دریافت از </span>
+                    <p className="font-medium">گوگل پلی</p>
                   </div>
                 </a>
               </li>

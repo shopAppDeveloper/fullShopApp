@@ -52,7 +52,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setError(null);
       setBasket(await getBasket());
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to load the basket.");
+      setError(err instanceof Error ? err.message : "بارگذاری سبد خرید ممکن نشد.");
     } finally {
       setRefreshingBasket(false);
     }

@@ -40,7 +40,7 @@ async function ensureCsrfToken(): Promise<string | null> {
   });
 
   if (!response.ok) {
-    throw new Error("Unable to initialize CSRF protection.");
+    throw new Error("راه‌اندازی محافظ امنیتی (CSRF) ممکن نشد.");
   }
 
   return getCookie("csrftoken");

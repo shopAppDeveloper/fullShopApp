@@ -37,7 +37,7 @@ export default function CartSidebarModal() {
             <h2 className="font-medium text-dark text-lg sm:text-2xl">سبد خرید</h2>
             <button
               onClick={closeCartModal}
-              aria-label="Close cart"
+              aria-label="بستن سبد خرید"
               className="flex items-center justify-center text-dark-5 hover:text-dark"
             >
               <span className="text-3xl leading-none">×</span>

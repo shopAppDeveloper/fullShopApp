@@ -71,7 +71,7 @@ export default function QuickViewModal() {
       await addToBasket(product.id, quantity);
       setMessage("محصول به سبد خرید اضافه شد.");
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Unable to add the product to the cart.");
+      setMessage(error instanceof Error ? error.message : "افزودن محصول به سبد خرید ممکن نشد.");
     } finally {
       setAdding(false);
     }
@@ -89,7 +89,7 @@ export default function QuickViewModal() {
           <button
             type="button"
             onClick={closeModal}
-            aria-label="Close quick view"
+            aria-label="بستن نمایش سریع"
             className="absolute end-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-2 text-dark hover:text-blue sm:end-6 sm:top-6"
           >
             ×
@@ -103,7 +103,7 @@ export default function QuickViewModal() {
                     type="button"
                     onClick={handlePreviewSlider}
                     className="block"
-                    aria-label="Open larger product preview"
+                    aria-label="نمایش بزرگ‌تر تصویر محصول"
                   >
                     <Image
                       src={image}
@@ -161,7 +161,7 @@ export default function QuickViewModal() {
                 {product.available === false ? (
                   <p className="text-red">در حال حاضر موجود نیست.</p>
                 ) : product.stock !== null && product.stock !== undefined ? (
-                  <p className="text-sm text-gray-5">{product.stock} available</p>
+                  <p className="text-sm text-gray-5">{product.stock} عدد موجود است</p>
                 ) : (
                   <p className="text-sm text-gray-5">موجودی توسط فروشگاه تأیید شده است.</p>
                 )}
@@ -203,7 +203,7 @@ export default function QuickViewModal() {
                     disabled={!canDirectlyAdd || adding}
                     className="rounded-md bg-blue px-7 py-3 font-medium text-white hover:bg-blue-dark disabled:cursor-not-allowed disabled:bg-gray-4"
                   >
-                    {adding ? "Adding..." : "افزودن به سبد خرید"}
+                    {adding ? "در حال افزودن..." : "افزودن به سبد خرید"}
                   </button>
                 </div>
               )}

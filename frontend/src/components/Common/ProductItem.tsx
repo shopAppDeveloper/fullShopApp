@@ -36,9 +36,9 @@ export default function ProductItem({ item }: { item: Product }) {
       await addToBasket(item.id, 1);
     } catch (error) {
       // Keep the error visible to the user without exposing backend details.
-      console.error("Unable to add product to basket:", error);
+      console.error("افزودن محصول به سبد خرید ممکن نشد:", error);
       toast.error(
-        error instanceof Error ? error.message : "The product could not be added to your basket.",
+        error instanceof Error ? error.message : "محصول به سبد خرید شما اضافه نشد.",
       );
     } finally {
       setAdding(false);
@@ -100,7 +100,7 @@ export default function ProductItem({ item }: { item: Product }) {
 
           <button
             onClick={wishlist}
-            aria-label="Add to wishlist"
+            aria-label="افزودن به علاقه‌مندی‌ها"
             className="flex h-9 w-9 items-center justify-center rounded-[5px] bg-white text-dark shadow-1 hover:text-blue"
           >
             ♡
