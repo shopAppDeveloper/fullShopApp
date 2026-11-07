@@ -1,5 +1,6 @@
 "use client";
 
+import { orderStatusLabel } from "@/lib/labels";
 import React, { FormEvent, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Breadcrumb from "../Common/Breadcrumb";
@@ -106,7 +107,7 @@ export default function Checkout() {
           }));
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Unable to prepare checkout.");
+        setError(err instanceof Error ? err.message : "آماده‌سازی تسویه‌حساب ممکن نشد.");
       } finally {
         if (active) setLoadingData(false);
       }
@@ -134,12 +135,12 @@ export default function Checkout() {
     event.preventDefault();
 
     if (!user) {
-      setError("Please sign in before placing an order.");
+      setError("لطفاً پیش از ثبت سفارش وارد حساب کاربری شوید.");
       return;
     }
 
     if (!basket || basket.is_empty) {
-      setError("Your basket is empty.");
+      setError("سبد خرید شما خالی است.");
       return;
     }
 
@@ -184,7 +185,7 @@ export default function Checkout() {
 
       setOrder(result.order);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to create the order.");
+      setError(err instanceof Error ? err.message : "ثبت سفارش ممکن نشد.");
     } finally {
       setSubmitting(false);
     }
@@ -195,7 +196,7 @@ export default function Checkout() {
       <>
         <Breadcrumb title="تسویه‌حساب" pages={["تسویه‌حساب"]} />
         <section className="bg-gray-2 py-20">
-          <div className="mx-auto max-w-[1170px] px-4 text-center">Loading checkout...</div>
+          <div className="mx-auto max-w-[1170px] px-4 text-center">در حال بارگذاری تسویه‌حساب...</div>
         </section>
       </>
     );
@@ -207,9 +208,9 @@ export default function Checkout() {
         <Breadcrumb title="تسویه‌حساب" pages={["تسویه‌حساب"]} />
         <section className="bg-gray-2 py-20">
           <div className="mx-auto max-w-[570px] rounded-xl bg-white p-8 text-center shadow-1">
-            <h1 className="text-2xl font-semibold text-dark">Sign in to checkout</h1>
+            <h1 className="text-2xl font-semibold text-dark">برای تسویه‌حساب وارد شوید</h1>
             <p className="mt-3 text-gray-5">
-              Your basket can be created before login, but checkout requires a customer account.
+              می‌توانید پیش از ورود سبد خرید بسازید، اما برای تسویه‌حساب باید وارد حساب کاربری شوید.
             </p>
             <Link
               href="/signin"
@@ -226,14 +227,13 @@ export default function Checkout() {
   if (order) {
     return (
       <>
-        <Breadcrumb title="Order Received" pages={["تسویه‌حساب", "/", "Complete"]} />
+        <Breadcrumb title="سفارش دریافت شد" pages={["تسویه‌حساب", "/", "تکمیل سفارش"]} />
         <section className="bg-gray-2 py-20">
           <div className="mx-auto max-w-[700px] rounded-xl bg-white p-8 shadow-1">
-            <p className="text-sm font-medium text-blue">Order created</p>
-            <h1 className="mt-2 text-3xl font-semibold text-dark">Order #{order.number}</h1>
+            <p className="text-sm font-medium text-blue">سفارش ثبت شد</p>
+            <h1 className="mt-2 text-3xl font-semibold text-dark">سفارش شماره‌ی {order.number}</h1>
             <p className="mt-4 text-gray-5">
-              Your order is currently <strong>{order.status}</strong>. No payment has been confirmed
-              yet.
+              وضعیت سفارش شما: <strong>{orderStatusLabel(order.status)}</strong>. هنوز هیچ پرداختی تأیید نشده است.
             </p>
 
             <div className="mt-8 border-y border-gray-3 py-5">
@@ -257,7 +257,7 @@ export default function Checkout() {
                 href="/my-account"
                 className="rounded-md bg-blue px-6 py-3 font-medium text-white hover:bg-blue-dark"
               >
-                View account
+                مشاهده‌ی حساب کاربری
               </Link>
               <Link
                 href="/shop-with-sidebar"
@@ -282,9 +282,9 @@ export default function Checkout() {
             <div className="grid gap-7.5 lg:grid-cols-[1fr_420px]">
               <div className="rounded-xl bg-white p-5 shadow-1 sm:p-8">
                 <div>
-                  <h2 className="text-xl font-semibold text-dark">Shipping information</h2>
+                  <h2 className="text-xl font-semibold text-dark">اطلاعات ارسال</h2>
                   <p className="mt-1 text-sm text-gray-5">
-                    The address below will be saved to your order.
+                    آدرس زیر برای سفارش شما ثبت می‌شود.
                   </p>
                 </div>
 
@@ -356,7 +356,7 @@ export default function Checkout() {
                       onChange={(event) => updateField("country", event.target.value)}
                       className="w-full rounded-lg border border-gray-3 bg-gray-1 px-5 py-3 outline-none focus:ring-2 focus:ring-blue/20"
                     >
-                      <option value="">Select a country</option>
+                      <option value="">انتخاب کشور</option>
                       {countries.map((country) => (
                         <option key={country.code} value={country.code}>
                           {country.name}
@@ -376,7 +376,7 @@ export default function Checkout() {
 
                 <div className="mt-5">
                   <label className="block">
-                    <span className="mb-2.5 block">Notes (optional)</span>
+                    <span className="mb-2.5 block">توضیحات (اختیاری)</span>
                     <textarea
                       value={form.notes}
                       onChange={(event) => updateField("notes", event.target.value)}
@@ -390,8 +390,7 @@ export default function Checkout() {
                   <div className="mt-6 rounded-lg bg-gray-1 p-4">
                     <p className="font-medium text-dark">نشانی‌های ذخیره‌شده</p>
                     <p className="mt-1 text-sm text-gray-5">
-                      Your default address was loaded automatically. You can edit the fields above
-                      before placing the order.
+                      آدرس پیش‌فرض شما به‌صورت خودکار بارگذاری شد. پیش از ثبت سفارش می‌توانید فیلدهای بالا را ویرایش کنید.
                     </p>
                   </div>
                 )}
@@ -402,7 +401,7 @@ export default function Checkout() {
                     checked={form.save_address}
                     onChange={(event) => updateField("save_address", event.target.checked)}
                   />
-                  <span className="text-sm text-gray-5">Save this address to my account.</span>
+                  <span className="text-sm text-gray-5">این آدرس در حساب کاربری من ذخیره شود.</span>
                 </label>
               </div>
 
@@ -417,7 +416,7 @@ export default function Checkout() {
                     >
                       <div className="text-sm">
                         <p className="font-medium text-dark">{line.title}</p>
-                        <p className="mt-1 text-gray-5">Qty: {line.quantity}</p>
+                        <p className="mt-1 text-gray-5">تعداد: {line.quantity}</p>
                       </div>
                       <p className="text-sm font-medium text-dark">
                         {line.line_total} {line.currency ?? basket.currency ?? ""}
@@ -444,9 +443,7 @@ export default function Checkout() {
                 </div>
 
                 <div className="mt-6 rounded-lg bg-yellow-light-4 p-4 text-sm text-dark">
-                  Payment provider integration is the remaining production step. In local
-                  development you may create a pending order; production checkout should remain
-                  disabled until payment verification is connected.
+                  اتصال به درگاه پرداخت هنوز انجام نشده است. در حالت توسعه می‌توان سفارش «در انتظار پرداخت» ساخت؛ ثبت سفارش در محیط تولید تا اتصال تأیید پرداخت غیرفعال می‌ماند.
                 </div>
 
                 <button
@@ -454,7 +451,7 @@ export default function Checkout() {
                   disabled={submitting || !basket || basket.is_empty}
                   className="mt-6 w-full rounded-md bg-blue px-6 py-3 font-medium text-white hover:bg-blue-dark disabled:cursor-not-allowed disabled:bg-gray-4"
                 >
-                  {submitting ? "Creating order..." : "Place pending order"}
+                  {submitting ? "در حال ثبت سفارش..." : "ثبت سفارش"}
                 </button>
               </div>
             </div>

@@ -130,7 +130,7 @@ export default function Cart() {
               <div className="mt-8 flex justify-end">
                 <div className="w-full max-w-[420px] rounded-xl bg-white p-7.5 shadow-1">
                   <div className="flex items-center justify-between border-b border-gray-3 pb-5">
-                    <span className="text-dark">Items</span>
+                    <span className="text-dark">تعداد اقلام</span>
                     <span className="font-medium text-dark">{basket.num_items}</span>
                   </div>
                   <div className="flex items-center justify-between py-5">
