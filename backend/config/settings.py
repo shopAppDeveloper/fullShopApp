@@ -165,6 +165,7 @@ MIDDLEWARE = [
     # Serve static assets efficiently.
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     # Protect POST/PUT/PATCH/DELETE requests.
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -283,9 +284,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Authentication
 # ---------------------------------------------------------
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = os.getenv("DJANGO_LANGUAGE_CODE", "fa")
+LANGUAGES = [
+    ("fa", "فارسی (ایران)"),
+    ("en", "English"),
+]
+LOCALE_PATHS = [BASE_DIR / "locale"]
 
-TIME_ZONE = os.getenv("DJANGO_TIME_ZONE", "UTC")
+TIME_ZONE = os.getenv("DJANGO_TIME_ZONE", "Asia/Tehran")
 
 USE_I18N = True
 USE_TZ = True
@@ -313,6 +319,7 @@ SITE_ID = 1
 STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
 # ---------------------------------------------------------

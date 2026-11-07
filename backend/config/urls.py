@@ -27,6 +27,7 @@ urlpatterns = [
         admin.site.urls,
     ),
     # Our API.
+    path("i18n/", include("django.conf.urls.i18n")),
     path(
         "api/",
         include("api.urls"),

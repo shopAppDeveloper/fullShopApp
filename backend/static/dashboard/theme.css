@@ -1,0 +1,119 @@
+/* Vazirmatn for Persian */
+@font-face {
+    font-family: "Vazirmatn";
+    src: url("fonts/Vazirmatn-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+}
+html[lang^="fa"] body, html[lang^="fa"] input, html[lang^="fa"] select,
+html[lang^="fa"] textarea, html[lang^="fa"] button, html[lang^="fa"] .btn {
+    font-family: "Vazirmatn", Tahoma, "Segoe UI", sans-serif;
+}
+
+/* Theme toggle button */
+.theme-toggle-item, .language-item { display: flex; align-items: center; margin: 0 .35rem; }
+.theme-toggle-floating { position: fixed; bottom: 1rem; inset-inline-start: 1rem; z-index: 2000; list-style: none; }
+.language-item select { min-width: 8rem; }
+
+/* ---------- Dark theme ---------- */
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --dk-bg: #14171c;
+    --dk-surface: #1c2026;
+    --dk-surface-2: #242a32;
+    --dk-border: #2f3742;
+    --dk-text: #e4e8ee;
+    --dk-muted: #9aa5b4;
+    --dk-link: #6cb2ff;
+    --dk-primary: #3b82f6;
+}
+html[data-theme="dark"] body,
+html[data-theme="dark"] .dashboard,
+html[data-theme="dark"] .dashboard .content,
+html[data-theme="dark"] .content_page,
+html[data-theme="dark"] .page-content { background: var(--dk-bg); color: var(--dk-text); }
+html[data-theme="dark"] a { color: var(--dk-link); }
+html[data-theme="dark"] a.btn, html[data-theme="dark"] .dropdown-item,
+html[data-theme="dark"] .nav-link, html[data-theme="dark"] .page-link { color: inherit; }
+html[data-theme="dark"] h1, html[data-theme="dark"] h2, html[data-theme="dark"] h3,
+html[data-theme="dark"] h4, html[data-theme="dark"] h5, html[data-theme="dark"] h6,
+html[data-theme="dark"] label, html[data-theme="dark"] .col-form-label { color: var(--dk-text); }
+html[data-theme="dark"] .text-muted, html[data-theme="dark"] .help-block,
+html[data-theme="dark"] small, html[data-theme="dark"] .form-text { color: var(--dk-muted) !important; }
+html[data-theme="dark"] hr { border-color: var(--dk-border); }
+
+html[data-theme="dark"] .navbar-dark.bg-dark, html[data-theme="dark"] .navbar-primary { background: #0e1013 !important; }
+html[data-theme="dark"] .navbar-accounts { border-bottom: 1px solid var(--dk-border); }
+html[data-theme="dark"] .breadcrumb, html[data-theme="dark"] .page-header,
+html[data-theme="dark"] .breadcrumbs { background: var(--dk-surface); border-color: var(--dk-border); }
+html[data-theme="dark"] .breadcrumb-item.active { color: var(--dk-muted); }
+
+html[data-theme="dark"] .card, html[data-theme="dark"] .well, html[data-theme="dark"] .modal-content,
+html[data-theme="dark"] .list-group-item, html[data-theme="dark"] .dropdown-menu,
+html[data-theme="dark"] .popover, html[data-theme="dark"] .bg-white, html[data-theme="dark"] .bg-light,
+html[data-theme="dark"] .jumbotron, html[data-theme="dark"] .navbar-light {
+    background: var(--dk-surface) !important; color: var(--dk-text); border-color: var(--dk-border);
+}
+html[data-theme="dark"] .card-header, html[data-theme="dark"] .card-footer,
+html[data-theme="dark"] .modal-header, html[data-theme="dark"] .modal-footer,
+html[data-theme="dark"] .table-header, html[data-theme="dark"] .well h2 {
+    background: var(--dk-surface-2); border-color: var(--dk-border); color: var(--dk-text);
+}
+html[data-theme="dark"] .dropdown-item:hover, html[data-theme="dark"] .dropdown-item:focus,
+html[data-theme="dark"] .list-group-item-action:hover { background: var(--dk-surface-2); color: #fff; }
+html[data-theme="dark"] .dropdown-divider { border-color: var(--dk-border); }
+
+html[data-theme="dark"] .table, html[data-theme="dark"] table { color: var(--dk-text); }
+html[data-theme="dark"] .table th, html[data-theme="dark"] .table td,
+html[data-theme="dark"] .table thead th { border-color: var(--dk-border); }
+html[data-theme="dark"] .table thead th, html[data-theme="dark"] .thead-light th { background: var(--dk-surface-2); color: var(--dk-text); }
+html[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) { background: rgba(255,255,255,.03); }
+html[data-theme="dark"] .table-hover tbody tr:hover { background: rgba(255,255,255,.06); color: var(--dk-text); }
+html[data-theme="dark"] .table-bordered, html[data-theme="dark"] .table-bordered td,
+html[data-theme="dark"] .table-bordered th { border-color: var(--dk-border); }
+
+html[data-theme="dark"] .form-control, html[data-theme="dark"] .custom-select,
+html[data-theme="dark"] input[type=text], html[data-theme="dark"] input[type=number],
+html[data-theme="dark"] input[type=email], html[data-theme="dark"] input[type=password],
+html[data-theme="dark"] input[type=search], html[data-theme="dark"] select, html[data-theme="dark"] textarea,
+html[data-theme="dark"] .input-group-text {
+    background: var(--dk-surface-2); border-color: var(--dk-border); color: var(--dk-text);
+}
+html[data-theme="dark"] .form-control:focus { border-color: var(--dk-primary); box-shadow: 0 0 0 .2rem rgba(59,130,246,.25); }
+html[data-theme="dark"] .form-control::placeholder { color: var(--dk-muted); }
+html[data-theme="dark"] .form-control:disabled, html[data-theme="dark"] .form-control[readonly] { background: #191d23; }
+
+html[data-theme="dark"] .btn-light, html[data-theme="dark"] .btn-secondary,
+html[data-theme="dark"] .btn-outline-secondary { background: var(--dk-surface-2); border-color: var(--dk-border); color: var(--dk-text); }
+html[data-theme="dark"] .btn-light:hover, html[data-theme="dark"] .btn-secondary:hover { background: #2e3640; }
+html[data-theme="dark"] .close { color: var(--dk-text); text-shadow: none; }
+
+html[data-theme="dark"] .nav-tabs { border-color: var(--dk-border); }
+html[data-theme="dark"] .nav-tabs .nav-link.active, html[data-theme="dark"] .nav-pills .nav-link.active { background: var(--dk-surface-2); color: #fff; border-color: var(--dk-border); }
+html[data-theme="dark"] .nav-tabs .nav-link:hover { border-color: var(--dk-border); }
+html[data-theme="dark"] .page-link { background: var(--dk-surface); border-color: var(--dk-border); }
+html[data-theme="dark"] .page-item.active .page-link { background: var(--dk-primary); border-color: var(--dk-primary); color: #fff; }
+html[data-theme="dark"] .page-item.disabled .page-link { background: var(--dk-surface); color: var(--dk-muted); }
+
+html[data-theme="dark"] .alert-info    { background: #12303f; border-color: #1c4a60; color: #bfe6f5; }
+html[data-theme="dark"] .alert-success { background: #12361f; border-color: #1d5530; color: #c6efd2; }
+html[data-theme="dark"] .alert-warning { background: #3d3212; border-color: #5c4a15; color: #f6e5a8; }
+html[data-theme="dark"] .alert-danger, html[data-theme="dark"] .alert-error { background: #40191d; border-color: #6a262d; color: #f6c6cb; }
+
+/* Select2 / datetimepicker / Oscar widgets */
+html[data-theme="dark"] .select2-container--default .select2-selection--single,
+html[data-theme="dark"] .select2-container--default .select2-selection--multiple,
+html[data-theme="dark"] .select2-dropdown, html[data-theme="dark"] .select2-search__field {
+    background: var(--dk-surface-2); border-color: var(--dk-border); color: var(--dk-text);
+}
+html[data-theme="dark"] .select2-container--default .select2-selection--single .select2-selection__rendered { color: var(--dk-text); }
+html[data-theme="dark"] .select2-container--default .select2-results__option[aria-selected=true] { background: #2e3640; }
+html[data-theme="dark"] .bootstrap-datetimepicker-widget, html[data-theme="dark"] .bootstrap-datetimepicker-widget table td,
+html[data-theme="dark"] .bootstrap-datetimepicker-widget table th { background: var(--dk-surface); color: var(--dk-text); }
+html[data-theme="dark"] .bootstrap-datetimepicker-widget .btn { color: var(--dk-text); }
+html[data-theme="dark"] .stat-box, html[data-theme="dark"] .dashboard .table-header,
+html[data-theme="dark"] .sub-nav, html[data-theme="dark"] .nav-list a { background: var(--dk-surface); color: var(--dk-text); border-color: var(--dk-border); }
+html[data-theme="dark"] .progress { background: var(--dk-surface-2); }
+html[data-theme="dark"] code, html[data-theme="dark"] pre { background: var(--dk-surface-2); color: #f0b3c4; }
+html[data-theme="dark"] .mce-tinymce, html[data-theme="dark"] .tox-tinymce { border-color: var(--dk-border); }
+html[data-theme="dark"] img.thumbnail { background: var(--dk-surface-2); border-color: var(--dk-border); }

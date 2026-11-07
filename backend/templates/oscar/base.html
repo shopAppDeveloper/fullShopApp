@@ -1,0 +1,58 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"fa" }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="{% block html_class %}no-js{% endblock %}">
+    <head>
+        <title>{% block title %}{{ shop_name }} - {{ shop_tagline }}{% endblock %}</title>
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="{% block description %}{% endblock %}" />
+        <meta name="viewport" content="{% block viewport %}width=device-width, initial-scale=1{% endblock %}" />
+        <meta name="color-scheme" content="light dark" />
+
+        {# Apply the saved theme before first paint so there is no light/dark flash. #}
+        <script>
+            (function () {
+                var theme = "light";
+                try {
+                    theme = localStorage.getItem("dashboard-theme") ||
+                        (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+                } catch (e) {}
+                document.documentElement.setAttribute("data-theme", theme);
+            })();
+        </script>
+
+        {% block favicon %}
+            <link rel="shortcut icon" href="{% static "oscar/favicon.ico" %}" />
+        {% endblock %}
+
+        {% block styles %}{% endblock %}
+        {% block extrastyles %}{% endblock %}
+        <link rel="stylesheet" href="{% static "dashboard/theme.css" %}" />
+        {% if LANGUAGE_BIDI %}<link rel="stylesheet" href="{% static "dashboard/rtl.css" %}" />{% endif %}
+        {% block extrahead %}{% endblock %}
+
+        {% block tracking %}{% endblock %}
+    </head>
+
+    <body id="{% block body_id %}default{% endblock %}" class="{% block body_class %}default{% endblock %}">
+        {% block layout %}{% endblock %}
+
+        {% block cdn_scripts %}
+            {# Served locally: no third-party CDN requests from the admin area. #}
+            <script src="{% static "oscar/js/jquery/jquery.min.js" %}"></script>
+        {% endblock %}
+
+        {% block scripts %}{% endblock %}
+        {% block extrascripts %}{% endblock %}
+
+        <script>
+            $(function() {
+                {% block onbodyload %}{% endblock %}
+            });
+        </script>
+        <script src="{% static "dashboard/theme.js" %}"></script>
+    </body>
+</html>
