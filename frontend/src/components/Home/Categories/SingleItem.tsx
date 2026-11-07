@@ -26,7 +26,7 @@ export default function SingleItem({ item }: { item: StoreCategory }) {
 
       <div className="text-center">
         <h3 className="font-medium text-dark group-hover:text-blue">{item.name}</h3>
-        <p className="mt-1 text-xs text-gray-5">{item.product_count ?? 0} products</p>
+        <p className="mt-1 text-xs text-gray-5">{item.product_count ?? 0} محصول</p>
       </div>
     </Link>
   );

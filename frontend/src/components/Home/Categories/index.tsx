@@ -53,14 +53,14 @@ export default function Categories() {
           <div className="flex items-center gap-3">
             <button
               onClick={handlePrev}
-              aria-label="Previous categories"
+              aria-label="دسته‌بندی‌های قبلی"
               className="swiper-button-prev"
             >
               <span>‹</span>
             </button>
             <button
               onClick={handleNext}
-              aria-label="Next categories"
+              aria-label="دسته‌بندی‌های بعدی"
               className="swiper-button-next"
             >
               <span>›</span>

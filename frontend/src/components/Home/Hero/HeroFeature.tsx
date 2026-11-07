@@ -4,23 +4,23 @@ import Image from "next/image";
 const featureData = [
   {
     img: "/images/icons/icon-01.svg",
-    title: "Real inventory",
-    description: "Stock is managed by Oscar",
+    title: "موجودی واقعی",
+    description: "موجودی کالاها به‌صورت زنده مدیریت می‌شود",
   },
   {
     img: "/images/icons/icon-02.svg",
-    title: "Product variants",
-    description: "Sizes and colours from your catalogue",
+    title: "تنوع محصول",
+    description: "سایزها و رنگ‌های موجود در کاتالوگ فروشگاه",
   },
   {
     img: "/images/icons/icon-03.svg",
-    title: "Secure sessions",
-    description: "Django sessions and CSRF protection",
+    title: "نشست امن",
+    description: "حساب کاربری شما با نشست امن و محافظ CSRF نگهداری می‌شود",
   },
   {
     img: "/images/icons/icon-04.svg",
-    title: "Self hosted",
-    description: "Your shop runs on your own server",
+    title: "میزبانی اختصاصی",
+    description: "فروشگاه روی سرور شخصی خودتان اجرا می‌شود",
   },
 ];
 

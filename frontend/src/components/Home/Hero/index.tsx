@@ -43,8 +43,7 @@ const Hero = () => {
                       {featured.title}
                     </h1>
                     <p className="text-dark-4 line-clamp-4">
-                      Discover this product and choose from the available variants on the product
-                      page.
+                      این محصول را ببینید و از صفحه‌ی محصول، تنوع مورد نظرتان را انتخاب کنید.
                     </p>
                     <div className="mt-7 flex items-center gap-4">
                       <span className="font-semibold text-heading-5 text-dark">
