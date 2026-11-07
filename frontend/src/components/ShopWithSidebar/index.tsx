@@ -108,8 +108,8 @@ export default function ShopWithSidebar() {
 
           <div className="flex gap-7.5">
             <aside
-              className={`fixed left-0 top-0 z-[10000] h-screen w-[300px] max-w-[85vw] overflow-y-auto bg-white p-6 shadow-xl transition-transform xl:static xl:z-auto xl:h-auto xl:w-[270px] xl:max-w-none xl:translate-x-0 xl:bg-transparent xl:p-0 xl:shadow-none ${
-                sidebarOpen ? "translate-x-0" : "-translate-x-full"
+              className={`fixed start-0 top-0 z-[10000] h-screen w-[300px] max-w-[85vw] overflow-y-auto bg-white p-6 shadow-xl transition-transform xl:static xl:z-auto xl:h-auto xl:w-[270px] xl:max-w-none xl:translate-x-0 xl:bg-transparent xl:p-0 xl:shadow-none ${
+                sidebarOpen ? "translate-x-0" : "ltr:-translate-x-full rtl:translate-x-full"
               }`}
             >
               <div className="mb-6 flex items-center justify-between xl:hidden">
@@ -133,7 +133,7 @@ export default function ShopWithSidebar() {
                       setCategory("");
                       setPage(1);
                     }}
-                    className={`mb-2 block w-full rounded px-3 py-2 text-left text-sm ${!category ? "bg-blue text-white" : "hover:bg-gray-1"}`}
+                    className={`mb-2 block w-full rounded px-3 py-2 text-start text-sm ${!category ? "bg-blue text-white" : "hover:bg-gray-1"}`}
                   >
                     همه دسته‌بندی‌ها
                   </button>
@@ -146,7 +146,7 @@ export default function ShopWithSidebar() {
                         setPage(1);
                         setSidebarOpen(false);
                       }}
-                      className={`mb-1 flex w-full items-center justify-between rounded px-3 py-2 text-left text-sm ${category === item.slug ? "bg-blue text-white" : "hover:bg-gray-1"}`}
+                      className={`mb-1 flex w-full items-center justify-between rounded px-3 py-2 text-start text-sm ${category === item.slug ? "bg-blue text-white" : "hover:bg-gray-1"}`}
                     >
                       <span
                         className="flex-1"

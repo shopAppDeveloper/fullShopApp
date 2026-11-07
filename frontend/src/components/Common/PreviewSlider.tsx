@@ -34,7 +34,7 @@ const PreviewSliderModal = () => {
       <button
         onClick={() => closePreviewModal()}
         aria-label="بستن پنجره"
-        className="absolute top-0 right-0 sm:top-6 sm:right-6 flex items-center justify-center w-10 h-10 rounded-full ease-in duration-150 text-white hover:text-meta-5 z-10"
+        className="absolute top-0 end-0 sm:top-6 sm:end-6 flex items-center justify-center w-10 h-10 rounded-full ease-in duration-150 text-white hover:text-meta-5 z-10"
       >
         <svg
           className="fill-current"
@@ -55,7 +55,7 @@ const PreviewSliderModal = () => {
 
       <div>
         <button
-          className="rotate-180 absolute left-100 p-5 cursor-pointer z-10 "
+          className="rotate-180 absolute start-100 p-5 cursor-pointer z-10 "
           onClick={handlePrev}
         >
           <svg
@@ -74,7 +74,7 @@ const PreviewSliderModal = () => {
           </svg>
         </button>
 
-        <button className="absolute right-100 p-5 cursor-pointer z-10" onClick={handleNext}>
+        <button className="absolute end-100 p-5 cursor-pointer z-10" onClick={handleNext}>
           <svg
             width="36"
             height="36"

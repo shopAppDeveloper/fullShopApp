@@ -260,16 +260,16 @@ const Footer = () => {
           </div>
 
           <div className="w-full sm:w-auto">
-            <h2 className="mb-7.5 text-custom-1 font-medium text-dark lg:text-right">
+            <h2 className="mb-7.5 text-custom-1 font-medium text-dark lg:text-end">
               Download App
             </h2>
 
-            <p className="lg:text-right text-custom-sm mb-4">Save $3 With App & New User only</p>
+            <p className="lg:text-end text-custom-sm mb-4">Save $3 With App & New User only</p>
 
             <ul className="flex flex-col lg:items-end gap-3">
               <li>
                 <a
-                  className="inline-flex items-center gap-3 py-[9px] pl-4 pr-7.5 text-white rounded-md bg-dark ease-out duration-200 hover:bg-opacity-95"
+                  className="inline-flex items-center gap-3 py-[9px] ps-4 pe-7.5 text-white rounded-md bg-dark ease-out duration-200 hover:bg-opacity-95"
                   href="#"
                 >
                   <svg
@@ -295,7 +295,7 @@ const Footer = () => {
 
               <li>
                 <a
-                  className="inline-flex items-center gap-3 py-[9px] pl-4 pr-8.5 text-white rounded-md bg-blue ease-out duration-200 hover:bg-opacity-95"
+                  className="inline-flex items-center gap-3 py-[9px] ps-4 pe-8.5 text-white rounded-md bg-blue ease-out duration-200 hover:bg-opacity-95"
                   href="#"
                 >
                   <svg

@@ -27,8 +27,8 @@ export default function CartSidebarModal() {
 
   return (
     <div
-      className={`fixed top-0 left-0 z-99999 overflow-y-auto no-scrollbar w-full h-screen bg-dark/70 duration-300 ${
-        isCartModalOpen ? "translate-x-0" : "translate-x-full"
+      className={`fixed top-0 start-0 z-99999 overflow-y-auto no-scrollbar w-full h-screen bg-dark/70 duration-300 ${
+        isCartModalOpen ? "translate-x-0" : "ltr:translate-x-full rtl:-translate-x-full"
       }`}
     >
       <div className="flex items-center justify-end">

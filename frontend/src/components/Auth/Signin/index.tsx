@@ -102,7 +102,7 @@ export default function Signin() {
                 حساب کاربری ندارید؟
                 <Link
                   href="/signup"
-                  className="text-dark ease-out duration-200 hover:text-blue pl-1"
+                  className="text-dark ease-out duration-200 hover:text-blue ps-1"
                 >
                   ایجاد حساب
                 </Link>

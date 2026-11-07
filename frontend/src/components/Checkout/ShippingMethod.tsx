@@ -48,11 +48,11 @@ const ShippingMethod = () => {
 
             <div className="rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none">
               <div className="flex items-center">
-                <div className="pr-4">
+                <div className="pe-4">
                   <Image src="/images/checkout/fedex.svg" alt="fedex" width={64} height={18} />
                 </div>
 
-                <div className="border-l border-gray-4 pl-4">
+                <div className="border-s border-gray-4 ps-4">
                   <p className="font-semibold text-dark">$10.99</p>
                   <p className="text-custom-xs">Standard Shipping</p>
                 </div>
@@ -78,11 +78,11 @@ const ShippingMethod = () => {
 
             <div className="rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none">
               <div className="flex items-center">
-                <div className="pr-4">
+                <div className="pe-4">
                   <Image src="/images/checkout/dhl.svg" alt="dhl" width={64} height={20} />
                 </div>
 
-                <div className="border-l border-gray-4 pl-4">
+                <div className="border-s border-gray-4 ps-4">
                   <p className="font-semibold text-dark">$12.50</p>
                   <p className="text-custom-xs">Standard Shipping</p>
                 </div>

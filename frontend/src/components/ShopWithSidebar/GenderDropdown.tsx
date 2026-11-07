@@ -55,7 +55,7 @@ const GenderDropdown = ({ genders }) => {
     <div className="bg-white shadow-1 rounded-lg">
       <div
         onClick={() => setToggleDropdown(!toggleDropdown)}
-        className={`cursor-pointer flex items-center justify-between py-3 pl-6 pr-5.5 ${
+        className={`cursor-pointer flex items-center justify-between py-3 ps-6 pe-5.5 ${
           toggleDropdown && "shadow-filter"
         }`}
       >
@@ -84,7 +84,7 @@ const GenderDropdown = ({ genders }) => {
       </div>
 
       {/* <!-- dropdown menu --> */}
-      <div className={`flex-col gap-3 py-6 pl-6 pr-5.5 ${toggleDropdown ? "flex" : "hidden"}`}>
+      <div className={`flex-col gap-3 py-6 ps-6 pe-5.5 ${toggleDropdown ? "flex" : "hidden"}`}>
         {genders.map((gender, key) => (
           <GenderItem key={key} category={gender} />
         ))}

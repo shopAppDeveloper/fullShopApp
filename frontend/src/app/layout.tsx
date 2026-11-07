@@ -17,7 +17,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 /**
  * Root layout (server component): reads the language cookie so the first HTML
- * already has the right `lang` and `dir` - no flash, and the page is fully
+ * already has the end `lang` and `dir` - no flash, and the page is fully
  * server-rendered (good for SEO).
  */
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

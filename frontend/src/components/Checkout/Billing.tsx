@@ -56,13 +56,13 @@ const Billing = () => {
           </label>
 
           <div className="relative">
-            <select className="w-full bg-gray-1 rounded-md border border-gray-3 text-dark-4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20">
+            <select className="w-full bg-gray-1 rounded-md border border-gray-3 text-dark-4 py-3 ps-5 pe-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20">
               <option value="0">Australia</option>
               <option value="1">America</option>
               <option value="2">England</option>
             </select>
 
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-dark-4">
+            <span className="absolute end-4 top-1/2 -translate-y-1/2 text-dark-4">
               <svg
                 className="fill-current"
                 width="16"
@@ -166,7 +166,7 @@ const Billing = () => {
           >
             <div className="relative">
               <input type="checkbox" id="checkboxLabelTwo" className="sr-only" />
-              <div className="mr-2 flex h-4 w-4 items-center justify-center rounded border border-gray-4">
+              <div className="me-2 flex h-4 w-4 items-center justify-center rounded border border-gray-4">
                 <span className="opacity-0">
                   <svg
                     width="24"

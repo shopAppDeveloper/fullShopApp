@@ -106,7 +106,7 @@ const ShopDetails = () => {
                       <button
                         onClick={handlePreviewSlider}
                         aria-label="button for zoom"
-                        className="gallery__Image w-11 h-11 rounded-[5px] bg-gray-1 shadow-1 flex items-center justify-center ease-out duration-200 text-dark hover:text-blue absolute top-4 lg:top-6 right-4 lg:right-6 z-50"
+                        className="gallery__Image w-11 h-11 rounded-[5px] bg-gray-1 shadow-1 flex items-center justify-center ease-out duration-200 text-dark hover:text-blue absolute top-4 lg:top-6 end-4 lg:end-6 z-50"
                       >
                         <svg
                           className="fill-current"
@@ -421,7 +421,7 @@ const ShopDetails = () => {
 
                                 {/*  */}
                                 <div
-                                  className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
+                                  className={`me-2 flex h-4 w-4 items-center justify-center rounded border ${
                                     storage === item.id ? "border-blue bg-blue" : "border-gray-4"
                                   } `}
                                 >
@@ -483,7 +483,7 @@ const ShopDetails = () => {
 
                                 {/*  */}
                                 <div
-                                  className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
+                                  className={`me-2 flex h-4 w-4 items-center justify-center rounded border ${
                                     type === item.id ? "border-blue bg-blue" : "border-gray-4"
                                   } `}
                                 >
@@ -543,7 +543,7 @@ const ShopDetails = () => {
 
                                 {/*  */}
                                 <div
-                                  className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
+                                  className={`me-2 flex h-4 w-4 items-center justify-center rounded border ${
                                     sim === item.id ? "border-blue bg-blue" : "border-gray-4"
                                   } `}
                                 >
@@ -673,7 +673,7 @@ const ShopDetails = () => {
                   <button
                     key={key}
                     onClick={() => setActiveTab(item.id)}
-                    className={`font-medium lg:text-lg ease-out duration-200 hover:text-blue relative before:h-0.5 before:bg-blue before:absolute before:left-0 before:bottom-0 before:ease-out before:duration-200 hover:before:w-full ${
+                    className={`font-medium lg:text-lg ease-out duration-200 hover:text-blue relative before:h-0.5 before:bg-blue before:absolute before:start-0 before:bottom-0 before:ease-out before:duration-200 hover:before:w-full ${
                       activeTab === item.id ? "text-blue before:w-full" : "text-dark before:w-0"
                     }`}
                   >

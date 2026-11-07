@@ -156,7 +156,7 @@ export default function MyAccount() {
                     key={value}
                     type="button"
                     onClick={() => setTab(value)}
-                    className={`rounded-md px-4 py-3 text-left text-sm font-medium ${
+                    className={`rounded-md px-4 py-3 text-start text-sm font-medium ${
                       tab === value
                         ? "bg-blue text-white"
                         : "bg-gray-1 text-dark hover:bg-blue hover:text-white"
@@ -169,7 +169,7 @@ export default function MyAccount() {
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="rounded-md bg-gray-1 px-4 py-3 text-left text-sm font-medium text-dark hover:bg-red hover:text-white"
+                  className="rounded-md bg-gray-1 px-4 py-3 text-start text-sm font-medium text-dark hover:bg-red hover:text-white"
                 >
                   خروج از حساب
                 </button>
@@ -462,7 +462,7 @@ function AccountField({
     <label className="block">
       <span className="mb-2.5 block">
         {label}
-        {required && <span className="pl-1 text-red">*</span>}
+        {required && <span className="ps-1 text-red">*</span>}
       </span>
       <input
         required={required}

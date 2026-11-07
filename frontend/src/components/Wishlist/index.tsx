@@ -36,7 +36,7 @@ export const Wishlist = () => {
                   </div>
 
                   <div className="min-w-[150px]">
-                    <p className="text-dark text-right">عملیات</p>
+                    <p className="text-dark text-end">عملیات</p>
                   </div>
                 </div>
 

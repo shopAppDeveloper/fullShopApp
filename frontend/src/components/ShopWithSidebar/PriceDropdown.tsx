@@ -14,7 +14,7 @@ const PriceDropdown = () => {
     <div className="bg-white shadow-1 rounded-lg">
       <div
         onClick={() => setToggleDropdown(!toggleDropdown)}
-        className="cursor-pointer flex items-center justify-between py-3 pl-6 pr-5.5"
+        className="cursor-pointer flex items-center justify-between py-3 ps-6 pe-5.5"
       >
         <p className="text-dark">قیمت</p>
         <button
@@ -59,14 +59,14 @@ const PriceDropdown = () => {
 
             <div className="price-amount flex items-center justify-between pt-4">
               <div className="text-custom-xs text-dark-4 flex rounded border border-gray-3/80">
-                <span className="block border-r border-gray-3/80 px-2.5 py-1.5">$</span>
+                <span className="block border-e border-gray-3/80 px-2.5 py-1.5">$</span>
                 <span id="minAmount" className="block px-3 py-1.5">
                   {selectedPrice.from}
                 </span>
               </div>
 
               <div className="text-custom-xs text-dark-4 flex rounded border border-gray-3/80">
-                <span className="block border-r border-gray-3/80 px-2.5 py-1.5">$</span>
+                <span className="block border-e border-gray-3/80 px-2.5 py-1.5">$</span>
                 <span id="maxAmount" className="block px-3 py-1.5">
                   {selectedPrice.to}
                 </span>

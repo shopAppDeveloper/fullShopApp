@@ -1,7 +1,7 @@
 /**
  * Locale configuration shared by server and client code.
  *
- * The storefront supports Persian (default, right-to-left) and English.
+ * The storefront supports Persian (default, end-to-left) and English.
  * The chosen language is kept in a cookie so that the server can render
  * <html lang dir> correctly on the very first byte (no flash of the wrong
  * direction) and so that the Next.js API proxy can forward the language to

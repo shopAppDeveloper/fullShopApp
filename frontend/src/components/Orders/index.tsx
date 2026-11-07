@@ -55,13 +55,13 @@ export default function Orders() {
 
   return (
     <div className="overflow-x-auto p-5 sm:p-7.5">
-      <table className="w-full min-w-[650px] text-left">
+      <table className="w-full min-w-[650px] text-start">
         <thead>
           <tr className="border-b border-gray-3 text-sm text-gray-5">
-            <th className="pb-4 pr-5 font-medium">Order</th>
-            <th className="pb-4 pr-5 font-medium">Date</th>
-            <th className="pb-4 pr-5 font-medium">Status</th>
-            <th className="pb-4 pr-5 font-medium">Items</th>
+            <th className="pb-4 pe-5 font-medium">Order</th>
+            <th className="pb-4 pe-5 font-medium">Date</th>
+            <th className="pb-4 pe-5 font-medium">Status</th>
+            <th className="pb-4 pe-5 font-medium">Items</th>
             <th className="pb-4 font-medium">مجموع</th>
           </tr>
         </thead>
@@ -69,12 +69,12 @@ export default function Orders() {
         <tbody>
           {orders.map((order) => (
             <tr key={order.id} className="border-b border-gray-3 last:border-b-0">
-              <td className="py-4 pr-5 font-medium text-dark">#{order.number}</td>
-              <td className="py-4 pr-5 text-sm text-gray-5">
+              <td className="py-4 pe-5 font-medium text-dark">#{order.number}</td>
+              <td className="py-4 pe-5 text-sm text-gray-5">
                 {new Date(order.date_placed).toLocaleDateString()}
               </td>
-              <td className="py-4 pr-5 text-sm text-gray-5">{order.status}</td>
-              <td className="py-4 pr-5 text-sm text-gray-5">
+              <td className="py-4 pe-5 text-sm text-gray-5">{order.status}</td>
+              <td className="py-4 pe-5 text-sm text-gray-5">
                 {order.lines.reduce((total, line) => total + line.quantity, 0)}
               </td>
               <td className="py-4 font-medium text-dark">

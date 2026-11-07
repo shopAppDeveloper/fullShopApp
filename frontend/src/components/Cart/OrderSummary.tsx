@@ -22,7 +22,7 @@ const OrderSummary = () => {
               <h4 className="font-medium text-dark">محصول</h4>
             </div>
             <div>
-              <h4 className="font-medium text-dark text-right">جمع جزء</h4>
+              <h4 className="font-medium text-dark text-end">جمع جزء</h4>
             </div>
           </div>
 
@@ -36,7 +36,7 @@ const OrderSummary = () => {
                 <p className="text-dark">{item.title}</p>
               </div>
               <div>
-                <p className="text-dark text-right">${item.discountedPrice * item.quantity}</p>
+                <p className="text-dark text-end">${item.discountedPrice * item.quantity}</p>
               </div>
             </div>
           ))}
@@ -47,7 +47,7 @@ const OrderSummary = () => {
               <p className="font-medium text-lg text-dark">مجموع</p>
             </div>
             <div>
-              <p className="font-medium text-lg text-dark text-right">${totalPrice}</p>
+              <p className="font-medium text-lg text-dark text-end">${totalPrice}</p>
             </div>
           </div>
 

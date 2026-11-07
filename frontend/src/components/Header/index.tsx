@@ -47,7 +47,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed left-0 top-0 w-full z-9999 bg-white transition-all ease-in-out duration-300 ${
+      className={`fixed start-0 top-0 w-full z-9999 bg-white transition-all ease-in-out duration-300 ${
         stickyMenu && "shadow"
       }`}
     >
@@ -58,7 +58,7 @@ const Header = () => {
             stickyMenu ? "py-4" : "py-6"
           }`}
         >
-          {/* <!-- header top left --> */}
+          {/* <!-- header top start --> */}
           <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link className="flex-shrink-0" href="/">
               <Image src="/images/logo/logo.svg" alt="Logo" width={219} height={36} />
@@ -79,7 +79,7 @@ const Header = () => {
 
                   <div className="relative max-w-[333px] sm:min-w-[333px] w-full">
                     {/* <!-- divider --> */}
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 inline-block w-px h-5.5 bg-gray-4"></span>
+                    <span className="absolute start-0 top-1/2 -translate-y-1/2 inline-block w-px h-5.5 bg-gray-4"></span>
                     <input
                       onChange={(e) => setSearchQuery(e.target.value)}
                       value={searchQuery}
@@ -88,13 +88,13 @@ const Header = () => {
                       id="search"
                       placeholder="دنبال چه محصولی هستید؟"
                       autoComplete="off"
-                      className="custom-search w-full rounded-r-[5px] bg-gray-1 !border-l-0 border border-gray-3 py-2.5 pl-4 pr-10 outline-none ease-in duration-200"
+                      className="custom-search w-full rounded-e-[5px] bg-gray-1 !border-s-0 border border-gray-3 py-2.5 ps-4 pe-10 outline-none ease-in duration-200"
                     />
 
                     <button
                       id="search-btn"
                       aria-label="جستجو"
-                      className="flex items-center justify-center absolute right-3 top-1/2 -translate-y-1/2 ease-in duration-200 hover:text-blue"
+                      className="flex items-center justify-center absolute end-3 top-1/2 -translate-y-1/2 ease-in duration-200 hover:text-blue"
                     >
                       <svg
                         className="fill-current"
@@ -116,7 +116,7 @@ const Header = () => {
             </div>
           </div>
 
-          {/* <!-- header top right --> */}
+          {/* <!-- header top end --> */}
           <div className="flex w-full lg:w-auto items-center gap-7.5">
             <div className="hidden xl:flex items-center gap-3.5">
               <svg
@@ -218,7 +218,7 @@ const Header = () => {
                       />
                     </svg>
 
-                    <span className="flex items-center justify-center font-medium text-2xs absolute -right-2 -top-2.5 bg-blue w-4.5 h-4.5 rounded-full text-white">
+                    <span className="flex items-center justify-center font-medium text-2xs absolute -end-2 -top-2.5 bg-blue w-4.5 h-4.5 rounded-full text-white">
                       {productCount}
                     </span>
                   </span>
@@ -240,32 +240,32 @@ const Header = () => {
                 onClick={() => setNavigationOpen(!navigationOpen)}
               >
                 <span className="block relative cursor-pointer w-5.5 h-5.5">
-                  <span className="du-block absolute right-0 w-full h-full">
+                  <span className="du-block absolute end-0 w-full h-full">
                     <span
-                      className={`block relative top-0 left-0 bg-dark rounded-sm w-0 h-0.5 my-1 ease-in-out duration-200 delay-[0] ${
+                      className={`block relative top-0 start-0 bg-dark rounded-sm w-0 h-0.5 my-1 ease-in-out duration-200 delay-[0] ${
                         !navigationOpen && "!w-full delay-300"
                       }`}
                     ></span>
                     <span
-                      className={`block relative top-0 left-0 bg-dark rounded-sm w-0 h-0.5 my-1 ease-in-out duration-200 delay-150 ${
+                      className={`block relative top-0 start-0 bg-dark rounded-sm w-0 h-0.5 my-1 ease-in-out duration-200 delay-150 ${
                         !navigationOpen && "!w-full delay-400"
                       }`}
                     ></span>
                     <span
-                      className={`block relative top-0 left-0 bg-dark rounded-sm w-0 h-0.5 my-1 ease-in-out duration-200 delay-200 ${
+                      className={`block relative top-0 start-0 bg-dark rounded-sm w-0 h-0.5 my-1 ease-in-out duration-200 delay-200 ${
                         !navigationOpen && "!w-full delay-500"
                       }`}
                     ></span>
                   </span>
 
-                  <span className="block absolute right-0 w-full h-full rotate-45">
+                  <span className="block absolute end-0 w-full h-full rotate-45">
                     <span
-                      className={`block bg-dark rounded-sm ease-in-out duration-200 delay-300 absolute left-2.5 top-0 w-0.5 h-full ${
+                      className={`block bg-dark rounded-sm ease-in-out duration-200 delay-300 absolute start-2.5 top-0 w-0.5 h-full ${
                         !navigationOpen && "!h-0 delay-[0] "
                       }`}
                     ></span>
                     <span
-                      className={`block bg-dark rounded-sm ease-in-out duration-200 delay-400 absolute left-0 top-2.5 w-full h-0.5 ${
+                      className={`block bg-dark rounded-sm ease-in-out duration-200 delay-400 absolute start-0 top-2.5 w-full h-0.5 ${
                         !navigationOpen && "!h-0 dealy-200"
                       }`}
                     ></span>
@@ -284,7 +284,7 @@ const Header = () => {
           <div className="flex items-center justify-between">
             {/* <!--=== Main Nav Start ===--> */}
             <div
-              className={`w-[288px] absolute right-4 top-full xl:static xl:w-auto h-0 xl:h-auto invisible xl:visible xl:flex items-center justify-between ${
+              className={`w-[288px] absolute end-4 top-full xl:static xl:w-auto h-0 xl:h-auto invisible xl:visible xl:flex items-center justify-between ${
                 navigationOpen &&
                 `!visible bg-white shadow-lg border border-gray-3 !h-auto max-h-[400px] overflow-y-scroll rounded-md p-5`
               }`}
@@ -298,7 +298,7 @@ const Header = () => {
                     ) : (
                       <li
                         key={i}
-                        className="group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full "
+                        className="group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:start-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full "
                       >
                         <Link
                           href={menuItem.path}

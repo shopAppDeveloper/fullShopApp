@@ -30,7 +30,7 @@ const PromoBanner = () => {
           <Image
             src="/images/promo/promo-01.png"
             alt="promo img"
-            className="absolute bottom-0 right-4 lg:right-26 -z-1"
+            className="absolute bottom-0 end-4 lg:end-26 -z-1"
             width={274}
             height={350}
           />
@@ -42,12 +42,12 @@ const PromoBanner = () => {
             <Image
               src="/images/promo/promo-02.png"
               alt="promo img"
-              className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-10 -z-1"
+              className="absolute top-1/2 -translate-y-1/2 start-3 sm:start-10 -z-1"
               width={241}
               height={241}
             />
 
-            <div className="text-right">
+            <div className="text-end">
               <span className="block text-lg text-dark mb-1.5">Foldable Motorised Treadmill</span>
 
               <h2 className="font-bold text-xl lg:text-heading-4 text-dark mb-2.5">ورزش در خانه</h2>
@@ -68,7 +68,7 @@ const PromoBanner = () => {
             <Image
               src="/images/promo/promo-03.png"
               alt="promo img"
-              className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-8.5 -z-1"
+              className="absolute top-1/2 -translate-y-1/2 end-3 sm:end-8.5 -z-1"
               width={200}
               height={200}
             />

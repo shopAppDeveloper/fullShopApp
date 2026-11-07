@@ -151,7 +151,7 @@ const Signup = () => {
 
               <p className="mt-6 text-center">
                 قبلاً حساب ساخته‌اید؟
-                <Link href="/signin" className="pl-2 text-dark duration-200 hover:text-blue">
+                <Link href="/signin" className="ps-2 text-dark duration-200 hover:text-blue">
                   ورود
                 </Link>
               </p>

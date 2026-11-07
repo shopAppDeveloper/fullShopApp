@@ -480,7 +480,7 @@ function Field({
     <label className="block">
       <span className="mb-2.5 block">
         {label}
-        {required && <span className="pl-1 text-red">*</span>}
+        {required && <span className="ps-1 text-red">*</span>}
       </span>
       <input
         required={required}

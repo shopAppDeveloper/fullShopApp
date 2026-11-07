@@ -18,3 +18,7 @@ html[lang="fa"] textarea,
 html[lang="fa"] button {
   font-family: "Vazirmatn", "Euclid Circular A", Tahoma, sans-serif;
 }
+
+/* Mirror directional carousel arrows in RTL */
+[dir="rtl"] .swiper-button-prev svg,
+[dir="rtl"] .swiper-button-next svg { transform: scaleX(-1); }

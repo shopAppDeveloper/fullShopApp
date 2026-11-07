@@ -77,7 +77,7 @@ export default function ProductItem({ item }: { item: Product }) {
           </Link>
         )}
 
-        <div className="absolute bottom-0 left-0 flex w-full translate-y-full items-center justify-center gap-2.5 pb-5 duration-200 group-hover:translate-y-0">
+        <div className="absolute bottom-0 start-0 flex w-full translate-y-full items-center justify-center gap-2.5 pb-5 duration-200 group-hover:translate-y-0">
           <button
             onClick={() => {
               dispatch(updateQuickView({ ...item }));

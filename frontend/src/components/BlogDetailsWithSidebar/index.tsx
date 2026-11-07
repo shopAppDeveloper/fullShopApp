@@ -69,7 +69,7 @@ const BlogDetailsWithSidebar = () => {
                     Digital marketplace for Ui/Ux designers.
                   </h3>
 
-                  <ul className="list-disc pl-6">
+                  <ul className="list-disc ps-6">
                     <li>Consectetur adipiscing elit in voluptate velit.</li>
                     <li>Mattis vulputate cupidatat.</li>
                     <li>Vulputate enim nulla aliquet porttitor odio pellentesque</li>
