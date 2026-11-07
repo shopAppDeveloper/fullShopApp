@@ -178,7 +178,7 @@ const Header = () => {
                   </svg>
 
                   <div>
-                    <span className="block text-2xs text-dark-4 uppercase">account</span>
+                    <span className="block text-2xs text-dark-4">حساب کاربری</span>
                     <p className="font-medium text-custom-sm text-dark">
                       {user ? user.first_name || "حساب کاربری من" : "ورود"}
                     </p>
