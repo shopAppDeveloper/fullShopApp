@@ -1,121 +1,69 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { adaptOscarProduct, getProducts } from "@/lib/store-api";
+import type { Product } from "@/types/product";
 
-const CounDown = () => {
-  const [days, setDays] = useState(0);
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-
-  const deadline = "December, 31, 2024";
-
-  const getTime = () => {
-    const time = Date.parse(deadline) - Date.now();
-
-    setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
-    setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
-    setMinutes(Math.floor((time / 1000 / 60) % 60));
-    setSeconds(Math.floor((time / 1000) % 60));
-  };
+/**
+ * NextMerce-style wide feature panel, populated from the live Oscar catalogue.
+ * We avoid showing an expired timer or an unconfigured discount.
+ */
+export default function Countdown() {
+  const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    // @ts-ignore
-    const interval = setInterval(() => getTime(deadline), 1000);
+    let active = true;
+    getProducts({ sort: "priority", page: 1 })
+      .then((response) => {
+        if (!active) return;
+        const featured = response.results[0];
+        setProduct(featured ? adaptOscarProduct(featured) : null);
+      })
+      .catch(() => {
+        if (active) setProduct(null);
+      });
 
-    return () => clearInterval(interval);
+    return () => {
+      active = false;
+    };
   }, []);
 
   return (
-    <section className="overflow-hidden py-20">
-      <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-        <div className="relative overflow-hidden z-1 rounded-lg bg-[#D0E9F3] p-4 sm:p-7.5 lg:p-10 xl:p-15">
-          <div className="max-w-[422px] w-full">
-            <span className="block font-medium text-custom-1 text-blue mb-2.5">از دست ندهید!</span>
-
-            <h2 className="font-bold text-dark text-xl lg:text-heading-4 xl:text-heading-3 mb-3">
-              تجربه‌ای بهتر با محصولات ما
-            </h2>
-
-            <p>هدفون سیمی Havit H206d</p>
-
-            {/* <!-- Countdown timer --> */}
-            <div className="flex flex-wrap gap-6 mt-6" x-data="timer()" x-init="countdown()">
-              {/* <!-- timer day --> */}
-              <div>
-                <span
-                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl text-dark rounded-lg flex items-center justify-center bg-white shadow-2 px-4 mb-2"
-                  x-text="days"
-                >
-                  {" "}
-                  {days < 10 ? "0" + days : days}{" "}
-                </span>
-                <span className="block text-custom-sm text-dark text-center">روز</span>
-              </div>
-
-              {/* <!-- timer hours --> */}
-              <div>
-                <span
-                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl text-dark rounded-lg flex items-center justify-center bg-white shadow-2 px-4 mb-2"
-                  x-text="hours"
-                >
-                  {" "}
-                  {hours < 10 ? "0" + hours : hours}{" "}
-                </span>
-                <span className="block text-custom-sm text-dark text-center">ساعت</span>
-              </div>
-
-              {/* <!-- timer minutes --> */}
-              <div>
-                <span
-                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl text-dark rounded-lg flex items-center justify-center bg-white shadow-2 px-4 mb-2"
-                  x-text="minutes"
-                >
-                  {minutes < 10 ? "0" + minutes : minutes}{" "}
-                </span>
-                <span className="block text-custom-sm text-dark text-center">دقیقه</span>
-              </div>
-
-              {/* <!-- timer seconds --> */}
-              <div>
-                <span
-                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl text-dark rounded-lg flex items-center justify-center bg-white shadow-2 px-4 mb-2"
-                  x-text="seconds"
-                >
-                  {seconds < 10 ? "0" + seconds : seconds}{" "}
-                </span>
-                <span className="block text-custom-sm text-dark text-center">ثانیه</span>
-              </div>
-            </div>
-            {/* <!-- Countdown timer ends --> */}
-
-            <a
-              href="#"
-              className="inline-flex font-medium text-custom-sm text-white bg-blue py-3 px-9.5 rounded-md ease-out duration-200 hover:bg-blue-dark mt-7.5"
+    <section className="overflow-hidden pb-16 lg:pb-20">
+      <div className="mx-auto w-full max-w-[1170px] px-4 sm:px-8 xl:px-0">
+        <div className="relative isolate overflow-hidden rounded-xl bg-[#DCECF4] px-6 py-10 sm:px-10 lg:min-h-[310px] lg:px-14 lg:py-14">
+          <div aria-hidden="true" className="absolute -bottom-28 -left-16 -z-10 h-80 w-80 rounded-full bg-white/40" />
+          <div className="relative z-10 max-w-[510px]">
+            <span className="mb-2 block text-sm font-medium text-blue">پیشنهاد فروشگاه</span>
+            <h2 className="mb-3 text-2xl font-bold text-dark sm:text-3xl">انتخاب بعدی شما اینجاست</h2>
+            <p className="max-w-[440px] leading-7 text-dark-4">
+              محصولات فروشگاه را ببینید، جزئیات و موجودی را بررسی کنید و با خیال راحت انتخاب کنید.
+            </p>
+            <Link
+              href={product?.slug ? `/products/${encodeURIComponent(product.slug)}` : "/shop-with-sidebar"}
+              className="mt-6 inline-flex rounded-md bg-blue px-8 py-3 text-sm font-medium text-white transition hover:bg-blue-dark"
             >
-              مشاهده کنید
-            </a>
+              {product ? "مشاهده محصول منتخب" : "مشاهده فروشگاه"}
+            </Link>
           </div>
 
-          {/* <!-- bg shapes --> */}
-          <Image
-            src="/images/countdown/countdown-bg.png"
-            alt="bg shapes"
-            className="hidden sm:block absolute right-0 bottom-0 -z-1"
-            width={737}
-            height={482}
-          />
-          <Image
-            src="/images/countdown/countdown-01.png"
-            alt="product"
-            className="hidden lg:block absolute right-4 xl:right-33 bottom-4 xl:bottom-10 -z-1"
-            width={411}
-            height={376}
-          />
+          {product?.imgs?.previews?.[0] ? (
+            <div className="relative mt-8 flex h-52 items-center justify-center sm:h-64 lg:absolute lg:bottom-0 lg:left-12 lg:mt-0 lg:h-[285px] lg:w-[360px]">
+              <Image
+                src={product.imgs.previews[0]}
+                alt={product.title}
+                fill
+                sizes="(min-width: 1024px) 360px, 80vw"
+                className="object-contain"
+              />
+            </div>
+          ) : (
+            <div aria-hidden="true" className="absolute -bottom-16 left-10 hidden h-64 w-64 rounded-full border-[28px] border-white/30 lg:block" />
+          )}
         </div>
       </div>
     </section>
   );
-};
-
-export default CounDown;
+}
