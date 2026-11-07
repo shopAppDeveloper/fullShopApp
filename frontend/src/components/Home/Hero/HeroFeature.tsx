@@ -4,37 +4,36 @@ import Image from "next/image";
 const featureData = [
   {
     img: "/images/icons/icon-01.svg",
-    title: "Real inventory",
-    description: "Stock is managed by Oscar",
+    title: "موجودی به‌روز",
+    description: "اطلاعات موجودی از سیستم فروشگاه",
   },
   {
     img: "/images/icons/icon-02.svg",
-    title: "Product variants",
-    description: "Sizes and colours from your catalogue",
+    title: "تنوع سایز و رنگ",
+    description: "انتخاب از میان ویژگی‌های واقعی کالا",
   },
   {
     img: "/images/icons/icon-03.svg",
-    title: "Secure sessions",
-    description: "Django sessions and CSRF protection",
+    title: "خرید امن",
+    description: "مدیریت نشست و امنیت توسط سرور فروشگاه",
   },
   {
     img: "/images/icons/icon-04.svg",
-    title: "Self hosted",
-    description: "Your shop runs on your own server",
+    title: "میزبانی مستقل",
+    description: "کنترل کامل زیرساخت و اطلاعات فروشگاه",
   },
 ];
 
 const HeroFeature = () => {
   return (
-    <div className="max-w-[1060px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-      <div className="flex flex-wrap items-center gap-7.5 xl:gap-12.5 mt-10">
-        {featureData.map((item, key) => (
-          <div className="flex items-center gap-4" key={key}>
-            <Image src={item.img} alt="icons" width={40} height={41} />
-
+    <div className="mx-auto w-full max-w-[1060px] px-4 sm:px-8 xl:px-0">
+      <div className="mt-10 flex flex-wrap items-center justify-between gap-7.5 xl:gap-8">
+        {featureData.map((item) => (
+          <div className="flex items-center gap-4" key={item.title}>
+            <Image src={item.img} alt="" aria-hidden="true" width={40} height={41} />
             <div>
-              <h3 className="font-medium text-lg text-dark">{item.title}</h3>
-              <p className="text-sm">{item.description}</p>
+              <h3 className="text-lg font-medium text-dark">{item.title}</h3>
+              <p className="text-sm text-dark-4">{item.description}</p>
             </div>
           </div>
         ))}
