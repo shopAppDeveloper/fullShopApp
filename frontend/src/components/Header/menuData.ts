@@ -125,4 +125,11 @@ export const menuData: Menu[] = [
       },
     ],
   },
+  {
+    id: 7,
+    title: "پرفروش‌ترین‌ها",
+    newTab: false,
+    path: "/shop-with-sidebar",
+    badge: "حراج",
+  },
 ];
