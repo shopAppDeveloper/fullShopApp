@@ -56,3 +56,35 @@ class AuthenticationApiTests(TestCase):
         response = self.client.get("/api/auth/me/")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["user"]["email"], "customer@example.com")
+
+
+class SecurityTests(TestCase):
+    """Authorization and abuse-protection checks."""
+
+    def setUp(self):
+        from django.core.cache import cache
+
+        cache.clear()
+        self.client = APIClient()
+
+    def test_private_endpoints_require_login(self):
+        for url in ("/api/orders/", "/api/addresses/", "/api/auth/me/"):
+            self.assertIn(self.client.get(url).status_code, (401, 403), url)
+
+    def test_order_lookup_is_scoped_to_the_logged_in_user(self):
+        from django.contrib.auth import get_user_model
+
+        User = get_user_model()
+        other = User.objects.create_user(username="b", email="b@example.com", password="x-Strong-pass-123")
+        self.client.force_authenticate(user=other)
+        self.assertEqual(self.client.get("/api/orders/100001/").status_code, 404)
+
+    def test_login_is_rate_limited(self):
+        statuses = [
+            self.client.post(
+                "/api/auth/login/", {"email": "x@example.com", "password": "wrong"}, format="json"
+            ).status_code
+            for _ in range(12)
+        ]
+        self.assertEqual(statuses[0], 400)
+        self.assertIn(429, statuses)

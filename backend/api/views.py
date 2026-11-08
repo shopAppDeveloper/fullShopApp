@@ -37,7 +37,7 @@ from rest_framework import status
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.throttling import AnonRateThrottle
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
 from .models import NewsletterSubscriber
@@ -414,6 +414,8 @@ class CsrfTokenView(APIView):
 class LoginView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "auth"
 
     def post(self, request):
         email = str(request.data.get("email", "")).strip().lower()
@@ -451,6 +453,8 @@ class LoginView(APIView):
 class RegisterView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "auth"
 
     def post(self, request):
         email = str(request.data.get("email", "")).strip().lower()
@@ -1070,17 +1074,11 @@ class AddressDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class NewsletterThrottle(AnonRateThrottle):
-    """Keeps the public newsletter form from being abused to flood the table."""
-
-    scope = "newsletter"
-    THROTTLE_RATES = {"newsletter": "10/hour"}
-
-
 class NewsletterSubscribeView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
-    throttle_classes = [NewsletterThrottle]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "newsletter"
 
     def post(self, request):
         email = str(request.data.get("email", "")).strip().lower()

@@ -80,7 +80,15 @@ SECRET_KEY = os.getenv(
     "dev-only-change-this-secret-key",
 )
 
-DEBUG = env_bool("DJANGO_DEBUG", True)
+# Secure by default: debug mode must be switched on explicitly (DJANGO_DEBUG=True).
+DEBUG = env_bool("DJANGO_DEBUG", False)
+
+if not DEBUG and SECRET_KEY == "dev-only-change-this-secret-key":
+    from django.core.exceptions import ImproperlyConfigured
+
+    raise ImproperlyConfigured(
+        "Set DJANGO_SECRET_KEY to a long random value (production), or set DJANGO_DEBUG=True for local development."
+    )
 
 ALLOWED_HOSTS = env_list(
     "DJANGO_ALLOWED_HOSTS",
@@ -417,6 +425,23 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": ("rest_framework.pagination.PageNumberPagination"),
     "PAGE_SIZE": 24,
+    # Rate limiting (brute-force / abuse protection). Scoped rates are used by
+    # login, registration and the newsletter form.
+    # NOTE: the default cache is per-process; use Redis/Memcached in production
+    # (CACHES) so limits are shared between workers.
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": "300/min",
+        "user": "600/min",
+        "auth": "10/min",
+        "newsletter": "10/hour",
+    },
+    # Number of reverse proxies in front of Django (nginx = 1). Needed so the
+    # client IP, not the proxy IP, is used for throttling.
+    "NUM_PROXIES": int(os.getenv("DJANGO_NUM_PROXIES", "0")) or None,
 }
 
 
@@ -473,10 +498,10 @@ SECURE_PROXY_SSL_HEADER = (
 # We will turn these on in the production deployment.
 SECURE_SSL_REDIRECT = env_bool(
     "DJANGO_SECURE_SSL_REDIRECT",
-    False,
+    not DEBUG,
 )
 
-SECURE_HSTS_SECONDS = int(os.getenv("DJANGO_HSTS_SECONDS", "0"))
+SECURE_HSTS_SECONDS = int(os.getenv("DJANGO_HSTS_SECONDS", "0" if DEBUG else "2592000"))
 
 # ---------------------------------------------------------
 # Checkout/payment safety
