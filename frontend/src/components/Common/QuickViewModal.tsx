@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -148,12 +149,12 @@ export default function QuickViewModal() {
               <h2 className="mt-1 text-2xl font-semibold text-dark">{product.title}</h2>
 
               <div className="mt-5 text-2xl font-semibold text-dark">
-                {product.discountedPrice} {product.currency ?? ""}
+                {formatMoney(product.discountedPrice, product.currency ?? "")}
               </div>
 
               {product.price !== product.discountedPrice && (
                 <div className="mt-1 text-gray-4 line-through">
-                  {product.price} {product.currency ?? ""}
+                  {formatMoney(product.price, product.currency ?? "")}
                 </div>
               )}
 

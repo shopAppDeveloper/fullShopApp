@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 
 import React from "react";
 import Image from "next/image";
@@ -85,7 +86,7 @@ export default function Cart() {
                         </Link>
 
                         <span className="font-medium text-dark">
-                          {line.unit_price} {line.currency ?? currency}
+                          {formatMoney(line.unit_price, line.currency ?? currency)}
                         </span>
 
                         <div className="inline-flex w-fit items-center overflow-hidden rounded-md border border-gray-3">
@@ -111,7 +112,7 @@ export default function Cart() {
                         </div>
 
                         <span className="font-medium text-dark">
-                          {line.line_total} {line.currency ?? currency}
+                          {formatMoney(line.line_total, line.currency ?? currency)}
                         </span>
 
                         <button
@@ -136,7 +137,7 @@ export default function Cart() {
                   <div className="flex items-center justify-between py-5">
                     <span className="text-lg font-medium text-dark">مجموع</span>
                     <span className="text-lg font-semibold text-dark">
-                      {basket.total} {currency}
+                      {formatMoney(basket.total, currency)}
                     </span>
                   </div>
                   <Link

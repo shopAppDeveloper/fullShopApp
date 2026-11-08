@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -70,7 +71,7 @@ export default function SingleItem({ item }: { item: Product }) {
           </Link>
 
           <p className="mt-1 text-gray-5">
-            {item.discountedPrice} {item.currency ?? ""}
+            {formatMoney(item.discountedPrice, item.currency ?? "")}
           </p>
 
           {!canDirectlyAdd && (

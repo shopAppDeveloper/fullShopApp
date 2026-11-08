@@ -1,5 +1,6 @@
 "use client";
 
+import { formatNumber } from "@/lib/format";
 import React from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -202,7 +203,7 @@ export default function ShopWithSidebar() {
                     </select>
 
                     <span className="text-sm text-gray-5">
-                      {loading ? "در حال بارگذاری…" : `${total} product${total === 1 ? "" : "s"}`}
+                      {loading ? "در حال بارگذاری…" : `${formatNumber(total)} محصول`}
                     </span>
                   </div>
 

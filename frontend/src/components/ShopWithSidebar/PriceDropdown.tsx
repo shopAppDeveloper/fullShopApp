@@ -1,3 +1,4 @@
+import { formatNumber } from "@/lib/format";
 import { useState } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
@@ -59,16 +60,16 @@ const PriceDropdown = () => {
 
             <div className="price-amount flex items-center justify-between pt-4">
               <div className="text-custom-xs text-dark-4 flex rounded border border-gray-3/80">
-                <span className="block border-e border-gray-3/80 px-2.5 py-1.5">$</span>
+                <span className="block border-e border-gray-3/80 px-2.5 py-1.5">ریال</span>
                 <span id="minAmount" className="block px-3 py-1.5">
-                  {selectedPrice.from}
+                  {formatNumber(selectedPrice.from)}
                 </span>
               </div>
 
               <div className="text-custom-xs text-dark-4 flex rounded border border-gray-3/80">
-                <span className="block border-e border-gray-3/80 px-2.5 py-1.5">$</span>
+                <span className="block border-e border-gray-3/80 px-2.5 py-1.5">ریال</span>
                 <span id="maxAmount" className="block px-3 py-1.5">
-                  {selectedPrice.to}
+                  {formatNumber(selectedPrice.to)}
                 </span>
               </div>
             </div>

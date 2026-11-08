@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 
 import { orderStatusLabel } from "@/lib/labels";
 import React, { FormEvent, useEffect, useMemo, useState } from "react";
@@ -246,7 +247,7 @@ export default function Checkout() {
                     {line.title} × {line.quantity}
                   </span>
                   <span>
-                    {line.line_total} {order.currency}
+                    {formatMoney(line.line_total, order.currency)}
                   </span>
                 </div>
               ))}
@@ -419,7 +420,7 @@ export default function Checkout() {
                         <p className="mt-1 text-gray-5">تعداد: {line.quantity}</p>
                       </div>
                       <p className="text-sm font-medium text-dark">
-                        {line.line_total} {line.currency ?? basket.currency ?? ""}
+                        {formatMoney(line.line_total, line.currency ?? basket.currency ?? "")}
                       </p>
                     </div>
                   ))}
@@ -428,7 +429,7 @@ export default function Checkout() {
                 <div className="mt-5 space-y-3">
                   <SummaryRow
                     label="جمع جزء"
-                    value={`${subtotal} ${basket?.currency ?? shippingCurrency}`}
+                    value={formatMoney(subtotal, basket?.currency ?? shippingCurrency)}
                   />
                   <SummaryRow
                     label="ارسال"
@@ -437,7 +438,7 @@ export default function Checkout() {
                   <div className="flex justify-between border-t border-gray-3 pt-4 font-semibold text-dark">
                     <span>مجموع</span>
                     <span>
-                      {total} {basket?.currency ?? shippingCurrency}
+                      {formatMoney(total, basket?.currency ?? shippingCurrency)}
                     </span>
                   </div>
                 </div>

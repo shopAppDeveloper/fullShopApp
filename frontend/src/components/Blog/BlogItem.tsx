@@ -1,3 +1,4 @@
+import { formatNumber } from "@/lib/format";
 import React from "react";
 import { BlogItem } from "@/types/blogItem";
 import Image from "next/image";
@@ -20,7 +21,7 @@ const BlogItem = ({ blog }: { blog: BlogItem }) => {
           <span className="block w-px h-4 bg-gray-4"></span>
 
           <a href="#" className="text-custom-sm ease-out duration-200 hover:text-blue">
-            {blog.views} Views
+            {formatNumber(blog.views)} بازدید
           </a>
         </span>
 

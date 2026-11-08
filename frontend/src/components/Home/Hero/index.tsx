@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -47,7 +48,7 @@ const Hero = () => {
                     </p>
                     <div className="mt-7 flex items-center gap-4">
                       <span className="font-semibold text-heading-5 text-dark">
-                        {featured.discountedPrice} {featured.currency ?? ""}
+                        {formatMoney(featured.discountedPrice, featured.currency ?? "")}
                       </span>
                       <Link
                         href={
@@ -112,7 +113,7 @@ const Hero = () => {
                     <span className="block text-sm text-dark-4 mb-1.5">ویژه</span>
                     <h2 className="font-semibold text-dark text-lg sm:text-xl">{product.title}</h2>
                     <span className="mt-4 inline-flex font-medium text-dark">
-                      {product.discountedPrice} {product.currency ?? ""}
+                      {formatMoney(product.discountedPrice, product.currency ?? "")}
                     </span>
                   </div>
 

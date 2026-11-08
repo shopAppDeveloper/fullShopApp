@@ -1,12 +1,12 @@
 import Error from "@/components/Error";
 
-import RootLayout from "./(site)/layout";
+import SiteLayout from "./(site)/layout";
 
 const notFound = () => {
   return (
-    <RootLayout>
+    <SiteLayout>
       <Error />
-    </RootLayout>
+    </SiteLayout>
   );
 };
 

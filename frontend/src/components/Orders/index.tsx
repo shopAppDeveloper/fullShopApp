@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 
 import { orderStatusLabel } from "@/lib/labels";
 import React, { useEffect, useState } from "react";
@@ -79,7 +80,7 @@ export default function Orders() {
                 {order.lines.reduce((total, line) => total + line.quantity, 0)}
               </td>
               <td className="py-4 font-medium text-dark">
-                {order.total_incl_tax} {order.currency}
+                {formatMoney(order.total_incl_tax, order.currency)}
               </td>
             </tr>
           ))}

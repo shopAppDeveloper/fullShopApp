@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 
 import React, { useEffect } from "react";
 import Link from "next/link";
@@ -70,7 +71,7 @@ export default function CartSidebarModal() {
                       <div className="min-w-0">
                         <h3 className="truncate font-medium text-dark">{line.title}</h3>
                         <p className="text-custom-sm text-gray-5">
-                          {line.quantity} × {line.unit_price} {line.currency ?? basket.currency}
+                          {line.quantity} × {formatMoney(line.unit_price, line.currency ?? basket.currency)}
                         </p>
                       </div>
                     </Link>

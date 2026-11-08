@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import CustomSelect from "./CustomSelect";
@@ -226,7 +227,7 @@ const Header = () => {
                   <div>
                     <span className="block text-2xs text-dark-4 uppercase">سبد خرید</span>
                     <p className="font-medium text-custom-sm text-dark">
-                      {totalPrice} {currency}
+                      {formatMoney(totalPrice, currency)}
                     </p>
                   </div>
                 </button>

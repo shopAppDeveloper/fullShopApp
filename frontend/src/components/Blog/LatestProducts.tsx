@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -51,7 +52,7 @@ export default function LatestProducts() {
                   </h3>
 
                   <p className="text-custom-sm">
-                    قیمت : {product.discountedPrice} {product.currency ?? ""}
+                    قیمت : {formatMoney(product.discountedPrice, product.currency ?? "")}
                   </p>
                 </div>
               </div>

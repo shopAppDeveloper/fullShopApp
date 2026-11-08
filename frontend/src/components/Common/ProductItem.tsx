@@ -1,4 +1,5 @@
 "use client";
+import { formatMoney } from "@/lib/format";
 
 import React from "react";
 import Image from "next/image";
@@ -135,11 +136,11 @@ export default function ProductItem({ item }: { item: Product }) {
 
       <div className="flex items-center gap-2 font-medium text-lg">
         <span className="text-dark">
-          {item.discountedPrice} {item.currency ?? ""}
+          {formatMoney(item.discountedPrice, item.currency ?? "")}
         </span>
         {item.price !== item.discountedPrice && (
           <span className="text-dark-4 line-through">
-            {item.price} {item.currency ?? ""}
+            {formatMoney(item.price, item.currency ?? "")}
           </span>
         )}
       </div>
