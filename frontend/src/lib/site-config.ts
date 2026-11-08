@@ -7,4 +7,7 @@ export const siteConfig = {
   facebook: process.env.NEXT_PUBLIC_STORE_FACEBOOK || "",
   instagram: process.env.NEXT_PUBLIC_STORE_INSTAGRAM || "",
   twitter: process.env.NEXT_PUBLIC_STORE_TWITTER || "",
+  telegram: process.env.NEXT_PUBLIC_STORE_TELEGRAM || "",
+  appStoreUrl: process.env.NEXT_PUBLIC_APP_STORE_URL || "",
+  googlePlayUrl: process.env.NEXT_PUBLIC_GOOGLE_PLAY_URL || "",
 };
