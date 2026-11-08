@@ -9,6 +9,7 @@ from .views import (
     BasketLineView,
     BasketView,
     CategoryListView,
+    NewsletterSubscribeView,
     CountryListView,
     CreateOrderView,
     CsrfTokenView,
@@ -36,6 +37,7 @@ urlpatterns = [
     path("products/", ProductListView.as_view(), name="products"),
     path("products/<slug:slug>/", ProductDetailView.as_view(), name="product-detail"),
     # ======================================newly added apis
+    path("newsletter/", NewsletterSubscribeView.as_view(), name="newsletter"),
     path("categories/", CategoryListView.as_view(), name="categories"),
     path("countries/", CountryListView.as_view(), name="countries"),
     # Basket

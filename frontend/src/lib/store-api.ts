@@ -342,3 +342,10 @@ export function createOrder(input: {
     body: JSON.stringify(input),
   });
 }
+
+export function subscribeNewsletter(email: string) {
+  return apiFetch<{ detail: string }>("/api/newsletter/", {
+    method: "POST",
+    body: JSON.stringify({ email }),
+  });
+}

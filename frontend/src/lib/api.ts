@@ -8,6 +8,8 @@
  * This keeps Django's internal host/port out of browser code.
  */
 
+import { translateApiMessage } from "./api-messages";
+
 function getCookie(name: string): string | null {
   // document does not exist during server rendering.
   // Therefore this function only reads cookies in the browser.
@@ -93,6 +95,9 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
     }
   }
 
+  // Ask Django for Persian validation messages.
+  if (!headers.has("Accept-Language")) headers.set("Accept-Language", "fa");
+
   const response = await fetch(buildServerUrl(path), {
     ...options,
     method,
@@ -110,9 +115,9 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
     const detail =
       data && typeof data.detail === "string"
         ? data.detail
-        : `API request failed (${response.status}).`;
+        : `درخواست ناموفق بود (${response.status}).`;
 
-    throw new Error(detail);
+    throw new Error(translateApiMessage(detail, response.status));
   }
 
   return data as T;

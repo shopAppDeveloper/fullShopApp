@@ -20,6 +20,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.db import transaction
 from django.db.models import Q
 from django.middleware.csrf import get_token
@@ -36,7 +37,10 @@ from rest_framework import status
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
+
+from .models import NewsletterSubscriber
 
 Product = get_model("catalogue", "Product")
 Category = get_model("catalogue", "Category")
@@ -1064,3 +1068,29 @@ class AddressDetailView(APIView):
 
         address.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class NewsletterThrottle(AnonRateThrottle):
+    """Keeps the public newsletter form from being abused to flood the table."""
+
+    scope = "newsletter"
+    THROTTLE_RATES = {"newsletter": "10/hour"}
+
+
+class NewsletterSubscribeView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    throttle_classes = [NewsletterThrottle]
+
+    def post(self, request):
+        email = str(request.data.get("email", "")).strip().lower()
+        try:
+            validate_email(email)
+        except ValidationError:
+            return Response(
+                {"detail": "Enter a valid email address."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        # Same answer for new and existing addresses: never reveal who is subscribed.
+        NewsletterSubscriber.objects.get_or_create(email=email)
+        return Response({"detail": "Subscribed."}, status=status.HTTP_201_CREATED)
