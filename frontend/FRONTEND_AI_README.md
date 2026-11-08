@@ -95,10 +95,10 @@ src/types/product.ts
 IMPORTANT ROUTE-LAYOUT FACT
 ============================================================
 
-There is intentionally NO src/app/layout.tsx in the current application.
-The relevant root/site layout is src/app/(site)/layout.tsx and it contains <html> and <body>.
+The root layout is src/app/layout.tsx (server component): it owns <html lang dir> and <body> and the i18n provider.
+src/app/(site)/layout.tsx is only the storefront shell (providers, Header, Footer). It must NOT contain <html>/<body> or a client-side preloader.
 API routes are outside the (site) route group.
-Do not create a competing root layout unless the whole routing architecture is intentionally changed.
+Do not add a second root layout; keep one root layout so pages stay server-rendered.
 
 ============================================================
 NEXT.JS CONFIG
@@ -485,5 +485,5 @@ PERSIAN / RTL LOCALIZATION
 - The storefront document language is Persian (`lang="fa"`) and direction is RTL (`dir="rtl"`).
 - Shared RTL behavior and Persian-friendly system font fallbacks are defined at the end of `src/app/css/style.css`.
 - Main navigation, product browsing, cart, authentication, account, checkout, common messages, and several legacy template sections have Persian UI labels.
-- The app remains on the existing Next.js App Router structure; no new root layout was introduced.
+- Root layout moved to src/app/layout.tsx; Persian (fa, RTL) is the default language, UI text is Persian, numbers/prices use lib/format.ts.
 - Product titles/descriptions and other catalogue content come from Django/Oscar and should be entered in Persian in the backend when Persian catalogue content is desired.
