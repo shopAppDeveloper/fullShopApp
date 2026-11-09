@@ -88,3 +88,20 @@ class SecurityTests(TestCase):
         ]
         self.assertEqual(statuses[0], 400)
         self.assertIn(429, statuses)
+
+
+class SanitizeHtmlTests(TestCase):
+    def test_dangerous_markup_is_removed_and_formatting_kept(self):
+        from .sanitize import sanitize_html
+
+        dirty = (
+            '<p onclick="x()">سلام <strong>دنیا</strong></p>'
+            '<script>alert(1)</script><img src=x onerror=alert(1)>'
+            '<a href="javascript:alert(1)">bad</a><a href="https://example.com">ok</a>'
+            '<iframe src="https://evil"></iframe>'
+        )
+        clean = sanitize_html(dirty)
+        self.assertIn("<strong>دنیا</strong>", clean)
+        self.assertIn('href="https://example.com"', clean)
+        for bad in ("<script", "onclick", "onerror", "javascript:", "<iframe", "<img"):
+            self.assertNotIn(bad, clean)

@@ -41,6 +41,7 @@ from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
 from .models import NewsletterSubscriber
+from .sanitize import sanitize_html
 
 Product = get_model("catalogue", "Product")
 Category = get_model("catalogue", "Category")
@@ -195,7 +196,7 @@ def serialize_product(product, request):
         "id": product.id,
         "title": product.title,
         "slug": product.slug,
-        "description": product.description,
+        "description": sanitize_html(product.description),
         "rating": float(product.rating or 0),
         "images": images,
         "attributes": attributes,
