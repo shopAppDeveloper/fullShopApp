@@ -81,7 +81,7 @@ export default function Cart() {
                             <h3 className="truncate font-medium text-dark hover:text-blue">
                               {line.title}
                             </h3>
-                            <p className="mt-1 text-sm text-gray-5">SKU: {line.sku ?? "—"}</p>
+                            <p className="mt-1 text-sm text-gray-5">کد کالا: {line.sku ?? "—"}</p>
                           </div>
                         </Link>
 

@@ -32,7 +32,7 @@ const Contact = () => {
                         fill="#3C50E0"
                       />
                     </svg>
-                    Store: {siteConfig.name}
+                    فروشگاه: {siteConfig.name}
                   </p>
 
                   <p className="flex items-center gap-4">
@@ -60,7 +60,7 @@ const Contact = () => {
                         fill="#3C50E0"
                       />
                     </svg>
-                    Phone: {siteConfig.phone || "توسط مدیر فروشگاه تنظیم می‌شود."}
+                    تلفن: {siteConfig.phone || "توسط مدیر فروشگاه تنظیم می‌شود."}
                   </p>
 
                   <p className="flex gap-4">
@@ -79,7 +79,7 @@ const Contact = () => {
                         fill="#3C50E0"
                       />
                     </svg>
-                    Address: {siteConfig.address || "توسط مدیر فروشگاه تنظیم می‌شود."}
+                    آدرس: {siteConfig.address || "توسط مدیر فروشگاه تنظیم می‌شود."}
                   </p>
                 </div>
               </div>

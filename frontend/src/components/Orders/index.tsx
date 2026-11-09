@@ -60,9 +60,9 @@ export default function Orders() {
       <table className="w-full min-w-[650px] text-start">
         <thead>
           <tr className="border-b border-gray-3 text-sm text-gray-5">
-            <th className="pb-4 pe-5 font-medium">Order</th>
-            <th className="pb-4 pe-5 font-medium">Date</th>
-            <th className="pb-4 pe-5 font-medium">Status</th>
+            <th className="pb-4 pe-5 font-medium">سفارش</th>
+            <th className="pb-4 pe-5 font-medium">تاریخ</th>
+            <th className="pb-4 pe-5 font-medium">وضعیت</th>
             <th className="pb-4 pe-5 font-medium">اقلام</th>
             <th className="pb-4 font-medium">مجموع</th>
           </tr>

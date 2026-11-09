@@ -79,50 +79,6 @@ export const menuData: Menu[] = [
         newTab: false,
         path: "/contact",
       },
-      {
-        id: 62,
-        title: "خطا",
-        newTab: false,
-        path: "/error",
-      },
-      {
-        id: 63,
-        title: "ارسال موفق",
-        newTab: false,
-        path: "/mail-success",
-      },
-    ],
-  },
-  {
-    id: 7,
-    title: "وبلاگ",
-    newTab: false,
-    path: "/",
-    submenu: [
-      {
-        id: 71,
-        title: "وبلاگ با نوار کناری",
-        newTab: false,
-        path: "/blogs/blog-grid-with-sidebar",
-      },
-      {
-        id: 72,
-        title: "وبلاگ",
-        newTab: false,
-        path: "/blogs/blog-grid",
-      },
-      {
-        id: 73,
-        title: "جزئیات وبلاگ با نوار کناری",
-        newTab: false,
-        path: "/blogs/blog-details-with-sidebar",
-      },
-      {
-        id: 74,
-        title: "جزئیات وبلاگ",
-        newTab: false,
-        path: "/blogs/blog-details",
-      },
     ],
   },
   {

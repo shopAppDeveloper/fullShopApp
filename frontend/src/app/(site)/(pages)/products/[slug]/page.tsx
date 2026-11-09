@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     };
   } catch {
     return {
-      title: "Product | My Shop",
+      title: "محصول | فروشگاه من",
     };
   }
 }
