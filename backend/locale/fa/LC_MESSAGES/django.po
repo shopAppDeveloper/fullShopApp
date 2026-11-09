@@ -1,0 +1,455 @@
+# Persian (Iran) - completions for Oscar strings missing from the bundled translation.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Ancestor categories are public"
+msgstr "دسته‌بندی‌های والد عمومی هستند"
+
+msgid "The ancestors of this category are public"
+msgstr "دسته‌بندی‌های والد این دسته‌بندی عمومی هستند"
+
+msgid "One can't add a child product to a product with stock records."
+msgstr "نمی‌توان به محصولی که رکورد موجودی دارد، محصول فرزند افزود."
+
+msgid "Select an option group if using type \"Option\" or \"Multi Option\""
+msgstr "اگر نوع «گزینه» یا «چندگزینه‌ای» را انتخاب می‌کنید، یک گروه گزینه انتخاب کنید"
+
+msgid "Boolean attribute should not be required."
+msgstr "ویژگی بولی نباید الزامی باشد."
+
+msgid "Value multi option"
+msgstr "مقدار چندگزینه‌ای"
+
+msgid "Yes"
+msgstr "بله"
+
+msgid "No"
+msgstr "خیر"
+
+msgid "Select"
+msgstr "انتخابی"
+
+msgid "Radio"
+msgstr "رادیویی"
+
+msgid "Multi select"
+msgstr "انتخاب چندگانه"
+
+msgid "Checkbox"
+msgstr "چک‌باکس"
+
+msgid "Skip this option"
+msgstr "نادیده گرفتن این گزینه"
+
+msgid "Help text"
+msgstr "متن راهنما"
+
+msgid "Help text shown to the user on the add to basket form"
+msgstr "متن راهنمایی که در فرم افزودن به سبد خرید به کاربر نشان داده می‌شود"
+
+msgid "Ordering"
+msgstr "ترتیب"
+
+msgid "Controls the ordering of product options on product detail pages"
+msgstr "ترتیب نمایش گزینه‌های محصول را در صفحه‌ی جزئیات محصول مشخص می‌کند"
+
+msgid "Option Group is required for type %s"
+msgstr "برای نوع %s گروه گزینه الزامی است"
+
+msgid "Option Group can not be used with type %s"
+msgstr "گروه گزینه را نمی‌توان با نوع %s به کار برد"
+
+msgid "Percentage surcharge"
+msgstr "هزینه‌ی اضافی درصدی"
+
+msgid "Flat surcharge"
+msgstr "هزینه‌ی اضافی ثابت"
+
+msgid "Code can only contain the uppercase letters (A-Z), digits, and underscores, and can't start with a digit."
+msgstr "کد فقط می‌تواند شامل حروف بزرگ انگلیسی (A-Z)، ارقام و زیرخط باشد و نباید با رقم شروع شود."
+
+msgid "The shared accounts won't be able to access your wishlist because the visiblity is set to private."
+msgstr "حساب‌های اشتراکی نمی‌توانند به فهرست علاقه‌مندی‌های شما دسترسی داشته باشند، چون وضعیت نمایش آن «خصوصی» است."
+
+msgid "You have added shared accounts to your wishlist but the visiblity is public, this means everyone with a link has access to it."
+msgstr "شما حساب‌های اشتراکی را به فهرست علاقه‌مندی‌ها افزوده‌اید، اما وضعیت نمایش آن «عمومی» است؛ یعنی هر کسی که پیوند را داشته باشد به آن دسترسی دارد."
+
+msgid "Leave blank to generate from category name"
+msgstr "برای ساخت خودکار از نام دسته‌بندی، خالی بگذارید"
+
+msgid "Leave blank to generate from product title"
+msgstr "برای ساخت خودکار از عنوان محصول، خالی بگذارید"
+
+msgid "An option group is required"
+msgstr "گروه گزینه الزامی است"
+
+msgid "%s Option"
+msgid_plural "%s Options"
+msgstr[0] "%s گزینه"
+msgstr[1] "%s گزینه"
+
+msgid "%i products are still assigned to this option"
+msgstr "%i محصول هنوز به این گزینه اختصاص دارند"
+
+msgid "%i product classes are still assigned to this option"
+msgstr "%i دسته‌ی محصول هنوز به این گزینه اختصاص دارند"
+
+msgid "This can only be changed if it has no vouchers attached to it"
+msgstr "این مورد فقط زمانی قابل تغییر است که هیچ کد تخفیفی به آن متصل نباشد"
+
+msgid "Exclusive offers cannot be combined"
+msgstr "پیشنهادهای انحصاری قابل ترکیب با یکدیگر نیستند"
+
+msgid "No other options can be set if you are using a custom condition"
+msgstr "اگر از شرط سفارشی استفاده می‌کنید، گزینه‌ی دیگری را نمی‌توان تنظیم کرد"
+
+msgid "Offer type"
+msgstr "نوع پیشنهاد"
+
+msgid "Has vouchers?"
+msgstr "کد تخفیف دارد؟"
+
+msgid "Name matches \"%s\""
+msgstr "نام شامل «%s» است"
+
+msgid "Is active"
+msgstr "فعال است"
+
+msgid "Is inactive"
+msgstr "غیرفعال است"
+
+msgid "Is of type \"%s\""
+msgstr "از نوع «%s» است"
+
+msgid "Has vouchers"
+msgstr "کد تخفیف دارد"
+
+msgid "Has no vouchers"
+msgstr "کد تخفیف ندارد"
+
+msgid "Voucher code matches \"%s\""
+msgstr "کد تخفیف شامل «%s» است"
+
+msgid "Name, description and type"
+msgstr "نام، توضیحات و نوع"
+
+msgid "This offer can only be deleted if it has no vouchers attached to it"
+msgstr "این پیشنهاد فقط زمانی قابل حذف است که هیچ کد تخفیفی به آن متصل نباشد"
+
+msgid "Used voucher code \"{voucher_code}\""
+msgstr "از کد تخفیف «{voucher_code}» استفاده شد"
+
+msgid "Which offers apply for this voucher?"
+msgstr "کدام پیشنهادها برای این کد تخفیف اعمال شوند؟"
+
+msgid "In voucher set?"
+msgstr "در مجموعه‌ی کد تخفیف است؟"
+
+msgid "Has offers?"
+msgstr "پیشنهاد دارد؟"
+
+msgid "Which offers apply for this voucher set?"
+msgstr "کدام پیشنهادها برای این مجموعه‌ی کد تخفیف اعمال شوند؟"
+
+msgid "This cannot be used to delete vouchers (currently %s) in this set. You can do that on the <a href=\"%s\">detail</a> page."
+msgstr "با این کار نمی‌توان کدهای تخفیف (در حال حاضر %s) این مجموعه را حذف کرد. می‌توانید این کار را در صفحه‌ی <a href=\"%s\">جزئیات</a> انجام دهید."
+
+msgid "Not in a set"
+msgstr "در هیچ مجموعه‌ای نیست"
+
+msgid "Code is \"%s\""
+msgstr "کد «%s» است"
+
+msgid "Offer name matches \"%s\""
+msgstr "نام پیشنهاد شامل «%s» است"
+
+msgid "In a set"
+msgstr "در یک مجموعه است"
+
+msgid "Has offers"
+msgstr "پیشنهاد دارد"
+
+msgid "Has no offers"
+msgstr "پیشنهاد ندارد"
+
+msgid "The voucher can only be edited as part of its set"
+msgstr "کد تخفیف فقط به‌عنوان بخشی از مجموعه‌اش قابل ویرایش است"
+
+msgid "Code matches \"%s\""
+msgstr "کد شامل «%s» است"
+
+msgid "Voucher set deleted"
+msgstr "مجموعه‌ی کد تخفیف حذف شد"
+
+msgid "Select other non-exclusive offers that this offer can be combined with on the same items"
+msgstr "سایر پیشنهادهای غیرانحصاری را که این پیشنهاد می‌تواند روی همان کالاها با آن‌ها ترکیب شود انتخاب کنید"
+
+msgid "When an offer has given more discount to orders than this threshold, then the offer becomes unavailable"
+msgstr "وقتی یک پیشنهاد بیش از این سقف تخفیف به سفارش‌ها داده باشد، دیگر در دسترس نخواهد بود"
+
+msgid "Set this to prevent the discount consuming all items within the range that are in the basket."
+msgstr "این گزینه را تنظیم کنید تا تخفیف همه‌ی کالاهای موجود در سبد خرید که در این محدوده‌اند را مصرف نکند."
+
+msgid "No range should be selected as the condition range will be used instead."
+msgstr "هیچ محدوده‌ای نباید انتخاب شود، زیرا به‌جای آن از محدوده‌ی شرط استفاده می‌شود."
+
+msgid "Count conditions require a product range"
+msgstr "شرط‌های تعدادی به یک محدوده‌ی محصول نیاز دارند"
+
+msgid "Count conditions require a value"
+msgstr "شرط‌های تعدادی به یک مقدار نیاز دارند"
+
+msgid "Value conditions require a product range"
+msgstr "شرط‌های ارزشی به یک محدوده‌ی محصول نیاز دارند"
+
+msgid "Value conditions require a value"
+msgstr "شرط‌های ارزشی به یک مقدار نیاز دارند"
+
+msgid "Coverage conditions require a product range"
+msgstr "شرط‌های پوششی به یک محدوده‌ی محصول نیاز دارند"
+
+msgid "Coverage conditions require a value"
+msgstr "شرط‌های پوششی به یک مقدار نیاز دارند"
+
+msgid "Shipping absolute discount benefits"
+msgstr "مزایای تخفیف مطلق هزینه‌ی ارسال"
+
+msgid "Shipping percentage discount benefit"
+msgstr "مزیت تخفیف درصدی هزینه‌ی ارسال"
+
+msgid "Shipping percentage discount benefits"
+msgstr "مزایای تخفیف درصدی هزینه‌ی ارسال"
+
+msgid "Order Status Changes"
+msgstr "تغییرات وضعیت سفارش"
+
+msgid "%(order)s has changed status from %(old_status)s to %(new_status)s"
+msgstr "وضعیت %(order)s از %(old_status)s به %(new_status)s تغییر کرد"
+
+msgid "Discount of %(amount)r from order %(order)s"
+msgstr "تخفیف %(amount)r از سفارش %(order)s"
+
+msgid "Surcharge code"
+msgstr "کد هزینه‌ی اضافی"
+
+msgid "This is used within forms to identify this source type"
+msgstr "این مورد در فرم‌ها برای شناسایی این نوع منبع استفاده می‌شود"
+
+msgid "Times on orders"
+msgstr "دفعات استفاده در سفارش‌ها"
+
+msgid "This voucher is not available for this basket"
+msgstr "این کد تخفیف برای این سبد خرید قابل استفاده نیست"
+
+msgid "Wish list shared email"
+msgstr "ایمیل اشتراک‌گذاری فهرست علاقه‌مندی‌ها"
+
+msgid "You must be logged in to view the wish list"
+msgstr "برای مشاهده‌ی فهرست علاقه‌مندی‌ها باید وارد حساب کاربری شوید"
+
+msgid "---------"
+msgstr "---------"
+
+msgid "\n        Your basket total is now <strong>%(total)s</strong>\n        "
+msgstr "\n        مجموع سبد خرید شما اکنون <strong>%(total)s</strong> است\n        "
+
+msgid "\n                                        Add to '%(name)s' wish list\n                                    "
+msgstr "\n                                        افزودن به فهرست علاقه‌مندی‌های «%(name)s»\n                                    "
+
+msgid "\n                    <span class=\"float-left\">Product is in <a href=\"%(url)s\">'%(name)s'</a> wishlist.</span>\n                "
+msgstr "\n                    <span class=\"float-left\">محصول در فهرست علاقه‌مندی‌های <a href=\"%(url)s\">«%(name)s»</a> است.</span>\n                "
+
+msgid "Previous"
+msgstr "قبلی"
+
+msgid "Reset password"
+msgstr "بازنشانی رمز عبور"
+
+msgid "You can view the status of this order by clicking <a href=\"%(absolute_status_url)s\" title=\"order status\">here</a>"
+msgstr "برای مشاهده‌ی وضعیت این سفارش <a href=\"%(absolute_status_url)s\" title=\"وضعیت سفارش\">اینجا</a> را کلیک کنید"
+
+msgid "You can view the status of this order at the below URL:\n%(absolute_status_url)s"
+msgstr "وضعیت این سفارش را می‌توانید در نشانی زیر ببینید:\n%(absolute_status_url)s"
+
+msgid "\n            We are happy to inform you that our product '%(title)s' is back in stock:\n            %(url)s\n        "
+msgstr "\n            با خوشحالی اطلاع می‌دهیم که محصول «%(title)s» دوباره موجود شد:\n            %(url)s\n        "
+
+msgid "\nWe are happy to inform you that our product '%(title)s' is back in stock:\n%(url)s\n"
+msgstr "\nبا خوشحالی اطلاع می‌دهیم که محصول «%(title)s» دوباره موجود شد:\n%(url)s\n"
+
+msgid "\n        Hello,\n        <p>\n            Somebody (hopefully you) has requested an email alert when '%(title)s' is back in stock.\n            Please click the following link to confirm: %(confirm_url)s\n        </p>\n        <p>\n            You can cancel this alert at any time by clicking the following link: %(cancel_url)s\n        </p>\n\n        <p>\n            Thanks for your interest,\n            The %(site)s Team\n        </p>\n    "
+msgstr "\n        سلام،\n        <p>\n            شخصی (امیدواریم خودتان) درخواست کرده است وقتی «%(title)s» دوباره موجود شد ایمیل هشدار دریافت کند.\n            لطفاً برای تأیید روی پیوند زیر کلیک کنید: %(confirm_url)s\n        </p>\n        <p>\n            هر زمان می‌توانید با کلیک روی پیوند زیر این هشدار را لغو کنید: %(cancel_url)s\n        </p>\n\n        <p>\n            با سپاس از توجه شما،\n            تیم %(site)s\n        </p>\n    "
+
+msgid "\nHello,\n\nSomebody (hopefully you) has requested an email alert when\n'%(title)s' is back in stock.  Please click the following link\nto confirm: %(confirm_url)s\n\nYou can cancel this alert at any time by clicking the following link:\n%(cancel_url)s\n\nThanks for your interest,\nThe %(site)s Team\n"
+msgstr "\nسلام،\n\nشخصی (امیدواریم خودتان) درخواست کرده است وقتی\n«%(title)s» دوباره موجود شد ایمیل هشدار دریافت کند. لطفاً برای تأیید\nروی پیوند زیر کلیک کنید: %(confirm_url)s\n\nهر زمان می‌توانید با کلیک روی پیوند زیر این هشدار را لغو کنید:\n%(cancel_url)s\n\nبا سپاس از توجه شما،\nتیم %(site)s\n"
+
+msgid "Re-ordering..."
+msgstr "در حال سفارش مجدد..."
+
+msgid "Re-order"
+msgstr "سفارش مجدد"
+
+msgid "Re-order all items"
+msgstr "سفارش مجدد همه‌ی اقلام"
+
+msgid "Share wishlist"
+msgstr "اشتراک‌گذاری فهرست علاقه‌مندی‌ها"
+
+msgid "If you want to share your wishlist with others, you can add their email addresses below. The visibility must be set to shared in order for this to work."
+msgstr "اگر می‌خواهید فهرست علاقه‌مندی‌هایتان را با دیگران به اشتراک بگذارید، ایمیل آن‌ها را در زیر اضافه کنید. برای عملکرد این قابلیت، وضعیت نمایش باید روی «اشتراکی» باشد."
+
+msgid "Copy sharing link"
+msgstr "کپی پیوند اشتراک‌گذاری"
+
+msgid "Category details"
+msgstr "جزئیات دسته‌بندی"
+
+msgid "Search engine optimisation"
+msgstr "بهینه‌سازی برای موتورهای جستجو (سئو)"
+
+msgid "\n                    Updated a variant of '%(parent_name)s'.\n                "
+msgstr "\n                    یکی از تنوع‌های «%(parent_name)s» به‌روزرسانی شد.\n                "
+
+msgid "Create Option"
+msgstr "ایجاد گزینه"
+
+msgid "Delete Option?"
+msgstr "حذف گزینه؟"
+
+msgid "Please make sure option is not assigned to Products or Product Classes before deletion."
+msgstr "پیش از حذف مطمئن شوید که گزینه به هیچ محصول یا دسته‌ی محصولی اختصاص ندارد."
+
+msgid "Delete Option"
+msgstr "حذف گزینه"
+
+msgid "Delete Option <strong>%(name)s</strong> - are you sure?"
+msgstr "حذف گزینه‌ی <strong>%(name)s</strong> - مطمئن هستید؟"
+
+msgid "Option details"
+msgstr "جزئیات گزینه"
+
+msgid "No Option found."
+msgstr "هیچ گزینه‌ای پیدا نشد."
+
+msgid "Edit Option"
+msgstr "ویرایش گزینه"
+
+msgid "Drag images to re-order them. Space for additional images will appear when images are added."
+msgstr "برای تغییر ترتیب تصاویر، آن‌ها را بکشید. با افزودن تصویر، جای تصویر بعدی ظاهر می‌شود."
+
+msgid "Please save the product before trying to add variants."
+msgstr "پیش از افزودن تنوع، لطفاً محصول را ذخیره کنید."
+
+msgid "Offers, vouchers"
+msgstr "پیشنهادها و کدهای تخفیف"
+
+msgid "Active <em>%(offer_type)s</em> Offers"
+msgstr "پیشنهادهای فعال <em>%(offer_type)s</em>"
+
+msgid "Build a new incentive"
+msgstr "ساخت یک تشویق جدید"
+
+msgid "\n        Ranges can be created and edited from within the <a href=\"%(range_list_url)s\" target=\"_blank\">range dashboard</a>.\n        "
+msgstr "\n        محدوده‌ها را می‌توانید از <a href=\"%(range_list_url)s\" target=\"_blank\">بخش محدوده‌ها در داشبورد</a> ایجاد و ویرایش کنید.\n        "
+
+msgid "Num of vouchers"
+msgstr "تعداد کدهای تخفیف"
+
+msgid "Attached vouchers"
+msgstr "کدهای تخفیف متصل"
+
+msgid "No vouchers are attached to this offer."
+msgstr "هیچ کد تخفیفی به این پیشنهاد متصل نیست."
+
+msgid "Offer Search Results"
+msgstr "نتایج جستجوی پیشنهادها"
+
+msgid "All Offers"
+msgstr "همه‌ی پیشنهادها"
+
+msgid "1. Name, description and type"
+msgstr "۱. نام، توضیحات و نوع"
+
+msgid "Surcharge %(name)s"
+msgstr "هزینه‌ی اضافی %(name)s"
+
+msgid "Status Changes"
+msgstr "تغییرات وضعیت"
+
+msgid "No status changes."
+msgstr "هیچ تغییر وضعیتی ثبت نشده است."
+
+msgid "Order status breakdown"
+msgstr "تفکیک وضعیت سفارش‌ها"
+
+msgid "\n                        Page %(page_num)s of %(total_pages)s\n                    "
+msgstr "\n                        صفحه‌ی %(page_num)s از %(total_pages)s\n                    "
+
+msgid "Re-order"
+msgstr "سفارش مجدد"
+
+msgid "Number of offers"
+msgstr "تعداد پیشنهادها"
+
+msgid "Delete voucher '%(code)s'?"
+msgstr "حذف کد تخفیف «%(code)s»؟"
+
+msgid "Delete voucher '%(code)s' from set?"
+msgstr "حذف کد تخفیف «%(code)s» از مجموعه؟"
+
+msgid "Attached offers"
+msgstr "پیشنهادهای متصل"
+
+msgid "No offers are attached to this voucher."
+msgstr "هیچ پیشنهادی به این کد تخفیف متصل نیست."
+
+msgid "Edit set"
+msgstr "ویرایش مجموعه"
+
+msgid "Delete from set"
+msgstr "حذف از مجموعه"
+
+msgid "Voucher Search Results"
+msgstr "نتایج جستجوی کدهای تخفیف"
+
+msgid "All Vouchers"
+msgstr "همه‌ی کدهای تخفیف"
+
+msgid "Num offers"
+msgstr "تعداد پیشنهادها"
+
+msgid "Set"
+msgstr "مجموعه"
+
+msgid "Delete voucher set '%(name)s'?"
+msgstr "حذف مجموعه‌ی کد تخفیف «%(name)s»؟"
+
+msgid "Delete voucher set '%(name)s' and its %(count)s vouchers?"
+msgstr "حذف مجموعه‌ی کد تخفیف «%(name)s» و %(count)s کد تخفیف آن؟"
+
+msgid "Voucher set details"
+msgstr "جزئیات مجموعه‌ی کد تخفیف"
+
+msgid "Search vouchers"
+msgstr "جستجوی کدهای تخفیف"
+
+msgid "No offers are attached to this voucher set."
+msgstr "هیچ پیشنهادی به این مجموعه‌ی کد تخفیف متصل نیست."
+
+msgid "Edit voucher set"
+msgstr "ویرایش مجموعه‌ی کد تخفیف"
+
+msgid "Detail"
+msgstr "جزئیات"
+
+msgid "No voucher sets found."
+msgstr "هیچ مجموعه‌ی کد تخفیفی پیدا نشد."
+
+msgid "\n                        Total: %(total)s\n                    "
+msgstr "\n                        مجموع: %(total)s\n                    "
+
+msgid "This wish list is empty."
+msgstr "این فهرست علاقه‌مندی‌ها خالی است."
