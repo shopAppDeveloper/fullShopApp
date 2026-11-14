@@ -2,7 +2,7 @@
 
 from oscar.core.loading import get_model
 
-from .common import money
+from .common import currency_code, money
 from ..utils import get_strategy
 from ..sanitize import sanitize_html
 
@@ -32,7 +32,7 @@ def get_price_information(product, request):
     result = {
         "available": bool(availability.is_available_to_buy),
         "availability_message": availability.message,
-        "currency": price.currency,
+        "currency": currency_code(price.currency),
         "price": None,
         "price_excl_tax": None,
         "tax": None,

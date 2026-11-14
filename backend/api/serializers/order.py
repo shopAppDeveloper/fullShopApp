@@ -1,6 +1,6 @@
 """Order serialization."""
 
-from .common import money
+from .common import currency_code, money
 
 
 def serialize_order(order):
@@ -41,7 +41,7 @@ def serialize_order(order):
         "number": order.number,
         "status": order.status,
         "date_placed": order.date_placed,
-        "currency": order.currency,
+        "currency": currency_code(order.currency),
         "total_incl_tax": money(order.total_incl_tax),
         "total_excl_tax": money(order.total_excl_tax),
         "shipping_charge": money(order.shipping_incl_tax),

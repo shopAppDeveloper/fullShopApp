@@ -17,7 +17,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..serializers import money, serialize_order
+from ..serializers import currency_code, money, serialize_order
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +39,7 @@ class ShippingMethodListView(APIView):
                     "price": money(
                         charge.incl_tax if charge.is_tax_known else charge.excl_tax
                     ),
-                    "currency": charge.currency,
+                    "currency": currency_code(charge.currency),
                 }
             ]
         )

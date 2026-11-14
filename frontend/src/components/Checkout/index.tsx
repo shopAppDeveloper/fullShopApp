@@ -50,7 +50,7 @@ export default function Checkout() {
 
   const [countries, setCountries] = useState<StoreCountry[]>([]);
   const [addresses, setAddresses] = useState<StoreAddress[]>([]);
-  const [shippingPrice, setShippingPrice] = useState("0.00");
+  const [shippingPrice, setShippingPrice] = useState("0");
   const [shippingCurrency, setShippingCurrency] = useState("");
   const [form, setForm] = useState<FormState>(initialForm);
   const [loadingData, setLoadingData] = useState(true);
@@ -119,12 +119,12 @@ export default function Checkout() {
     };
   }, [user]);
 
-  const subtotal = basket?.total ?? "0.00";
+  const subtotal = basket?.total ?? "0";
   const total = useMemo(() => {
     const subtotalNumber = Number(subtotal);
     const shippingNumber = Number(shippingPrice);
     return Number.isFinite(subtotalNumber + shippingNumber)
-      ? (subtotalNumber + shippingNumber).toFixed(2)
+      ? (subtotalNumber + shippingNumber).toFixed(0)
       : subtotal;
   }, [subtotal, shippingPrice]);
 
@@ -433,7 +433,7 @@ export default function Checkout() {
                   />
                   <SummaryRow
                     label="ارسال"
-                    value={`${shippingPrice} ${shippingCurrency || basket?.currency || ""}`}
+                    value={formatMoney(shippingPrice, shippingCurrency || basket?.currency)}
                   />
                   <div className="flex justify-between border-t border-gray-3 pt-4 font-semibold text-dark">
                     <span>مجموع</span>

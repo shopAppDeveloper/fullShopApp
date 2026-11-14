@@ -6,6 +6,7 @@ import Image from "next/image";
 import Breadcrumb from "./Common/Breadcrumb";
 import { useStore } from "@/app/context/StoreContext";
 import type { ProductVariant, StoreProduct } from "@/lib/store-api";
+import { formatMoney } from "@/lib/format";
 
 function formatAttributeName(value: string) {
   return value.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
@@ -182,7 +183,7 @@ export default function ProductDetails({ product }: { product: StoreProduct }) {
               </div>
 
               <div className="mt-6 text-2xl font-semibold text-dark">
-                {effectivePrice.price ?? "—"} {effectivePrice.currency ?? ""}
+                {formatMoney(effectivePrice.price, effectivePrice.currency) || "—"}
               </div>
 
               <div className="mt-4 rounded-lg bg-gray-1 p-4">

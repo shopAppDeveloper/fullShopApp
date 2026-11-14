@@ -105,3 +105,14 @@ class SanitizeHtmlTests(TestCase):
         self.assertIn('href="https://example.com"', clean)
         for bad in ("<script", "onclick", "onerror", "javascript:", "<iframe", "<img"):
             self.assertNotIn(bad, clean)
+
+
+class TomanTests(TestCase):
+    def test_money_is_whole_toman(self):
+        from api.serializers import currency_code, money
+
+        self.assertEqual(money("1250000.00"), "1250000")
+        self.assertEqual(money("99.5"), "100")
+        self.assertIsNone(money(None))
+        self.assertEqual(currency_code("ریال"), "IRT")
+        self.assertEqual(currency_code(None), "IRT")

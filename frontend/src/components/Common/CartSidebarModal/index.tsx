@@ -131,7 +131,7 @@ export default function CartSidebarModal() {
             <div className="flex items-center justify-between gap-5 mb-6">
               <p className="font-medium text-xl text-dark">جمع جزء:</p>
               <p className="font-medium text-xl text-dark">
-                {basket?.total ?? "0.00"} {basket?.currency ?? ""}
+                {formatMoney(basket?.total ?? 0, basket?.currency)}
               </p>
             </div>
             <div className="flex items-center gap-4">

@@ -8,6 +8,6 @@ from .catalog import serialize_category
 from .catalog import serialize_image
 from .catalog import serialize_product
 from .catalog import serialize_variant
-from .common import money
+from .common import currency_code, money
 from .order import serialize_order
 from .user import serialize_user

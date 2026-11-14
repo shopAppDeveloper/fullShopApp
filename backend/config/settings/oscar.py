@@ -39,7 +39,9 @@ OSCAR_ORDER_STATUS_PIPELINE = {
 
 # Used when a new stock record is created in Oscar's dashboard.
 # Existing stock records retain their own configured currency.
-OSCAR_DEFAULT_CURRENCY = os.getenv("OSCAR_DEFAULT_CURRENCY", "ریال")
+# The store is single-currency: every price is in Toman (no decimals).
+STORE_CURRENCY = "IRT"
+OSCAR_DEFAULT_CURRENCY = os.getenv("OSCAR_DEFAULT_CURRENCY", "IRT")
 
 
 # ---------------------------------------------------------

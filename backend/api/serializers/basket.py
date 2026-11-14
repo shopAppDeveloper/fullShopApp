@@ -1,7 +1,7 @@
 """Basket serialization."""
 
 from .catalog import product_image_url
-from .common import money
+from .common import currency_code, money
 
 
 def serialize_basket_line(line, request):
@@ -26,7 +26,7 @@ def serialize_basket_line(line, request):
         "quantity": line.quantity,
         "unit_price": money(unit_price),
         "line_total": money(line_total),
-        "currency": purchase_info.price.currency,
+        "currency": currency_code(purchase_info.price.currency),
         "sku": purchase_info.stockrecord.partner_sku
         if purchase_info.stockrecord
         else None,
@@ -57,7 +57,7 @@ def serialize_basket(basket, request):
         "num_lines": basket.num_lines,
         "is_empty": basket.is_empty,
         "is_shipping_required": basket.is_shipping_required(),
-        "currency": basket.currency,
+        "currency": currency_code(basket.currency),
         "total": money(total),
         "total_excl_tax": money(total_excl_tax),
         "lines": lines,

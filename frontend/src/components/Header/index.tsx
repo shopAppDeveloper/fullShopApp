@@ -21,7 +21,7 @@ const Header = () => {
 
   const wishlistCount = useAppSelector((state) => state.wishlistReducer.items).length;
   const productCount = basket?.num_items ?? 0;
-  const totalPrice = basket?.total ?? "0.00";
+  const totalPrice = basket?.total ?? "0";
   const currency = basket?.currency ?? "";
 
   const handleOpenCartModal = () => {
