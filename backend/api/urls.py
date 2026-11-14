@@ -2,6 +2,8 @@
 
 from django.urls import path
 
+from .notifications.webhook import BotWebhookView
+
 from .views import (
     AddressDetailView,
     AddressListCreateView,
@@ -26,6 +28,7 @@ from .views import (
 )
 
 urlpatterns = [
+    path("bot/webhook/<str:secret>/", BotWebhookView.as_view(), name="bot-webhook"),
     path("health/", HealthCheckView.as_view(), name="health"),
     # Authentication
     path("auth/csrf/", CsrfTokenView.as_view(), name="csrf"),
