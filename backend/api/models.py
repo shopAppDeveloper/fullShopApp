@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -35,3 +36,15 @@ class SmsLog(models.Model):
 
     def __str__(self):
         return f"{self.to} [{self.status}] {self.purpose}"
+
+
+class Profile(models.Model):
+    """Extra customer data. The mobile number (09XXXXXXXXX) is the primary identity for sign-up and password reset."""
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
+    mobile = models.CharField(max_length=11, unique=True, null=True, blank=True)
+    mobile_verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user_id}: {self.mobile or '-'}"

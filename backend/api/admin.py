@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import NewsletterSubscriber, SmsLog
+from .models import NewsletterSubscriber, Profile, SmsLog
 
 
 @admin.register(NewsletterSubscriber)
@@ -19,3 +19,9 @@ class SmsLogAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ("user", "mobile", "mobile_verified", "created_at")
+    search_fields = ("mobile", "user__email")
