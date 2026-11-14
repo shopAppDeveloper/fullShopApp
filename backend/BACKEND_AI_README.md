@@ -44,7 +44,7 @@ Key app:
 api/
 
 Important files:
-config/settings.py
+config/settings/ (package: env, security, apps, database, general, oscar, api)
 config/urls.py
 api/views.py
 api/urls.py
