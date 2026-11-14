@@ -23,3 +23,4 @@ from .database import *  # noqa: F401,F403
 from .general import *  # noqa: F401,F403
 from .oscar import *  # noqa: F401,F403
 from .api import *  # noqa: F401,F403
+from .sms import *  # noqa: F401,F403
