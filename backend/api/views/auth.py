@@ -12,6 +12,7 @@ from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
 from ..serializers import serialize_user
+from ..notifications.events import signup as signup_event
 
 
 class LoginView(APIView):
@@ -103,6 +104,7 @@ class RegisterView(APIView):
             backend="django.contrib.auth.backends.ModelBackend",
         )
 
+        signup_event(user)
         return Response(
             {"user": serialize_user(user)},
             status=status.HTTP_201_CREATED,

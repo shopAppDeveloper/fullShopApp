@@ -64,3 +64,35 @@ class OnCommitTests(TestCase):
             up.assert_not_called()
             cbs[0]()
             up.assert_called_once()
+
+
+class StockAlertTests(TransactionTestCase):
+    def _record(self, stock):
+        from oscar.core.loading import get_model
+
+        Product = get_model("catalogue", "Product")
+        PC = get_model("catalogue", "ProductClass")
+        Partner = get_model("partner", "Partner")
+        SR = get_model("partner", "StockRecord")
+        pc = PC.objects.create(name="c", track_stock=True)
+        p = Product.objects.create(title="کالا", product_class=pc)
+        return SR.objects.create(product=p, partner=Partner.objects.create(name="p"),
+                                 partner_sku="s", price=1000, num_in_stock=stock)
+
+    @override_settings(NOTIFY_CONSOLE=True, LOW_STOCK_THRESHOLD=5, **{"NOTIFY_ASYNC": False})
+    def test_alert_only_when_crossing_threshold(self):
+        with mock.patch.object(dispatcher, "_deliver") as d:
+            sr = self._record(20)
+            self.assertEqual(d.call_count, 0)
+            sr.num_in_stock = 4
+            sr.save()
+            self.assertEqual(d.call_count, 1)
+            self.assertIn("کالا", d.call_args.args[0])
+            sr.num_in_stock = 3
+            sr.save()
+            self.assertEqual(d.call_count, 1)  # already low: no repeat
+            sr.num_in_stock = 50
+            sr.save()
+            sr.num_in_stock = 1
+            sr.save()
+            self.assertEqual(d.call_count, 2)  # crossed again
