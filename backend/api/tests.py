@@ -35,27 +35,6 @@ class AuthenticationApiTests(TestCase):
         self.assertEqual(response.status_code, 200)
         return response.json()["csrfToken"]
 
-    def test_customer_can_register_and_get_current_user(self):
-        csrf = self._csrf()
-
-        response = self.client.post(
-            "/api/auth/register/",
-            {
-                "email": "customer@example.com",
-                "password": "A-strong-test-password-123!",
-                "first_name": "Test",
-                "last_name": "Customer",
-            },
-            format="json",
-            HTTP_X_CSRFTOKEN=csrf,
-        )
-
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json()["user"]["email"], "customer@example.com")
-
-        response = self.client.get("/api/auth/me/")
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["user"]["email"], "customer@example.com")
 
 
 class SecurityTests(TestCase):

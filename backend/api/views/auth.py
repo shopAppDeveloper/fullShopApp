@@ -12,7 +12,6 @@ from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 
 from ..serializers import serialize_user
-from ..notifications.events import signup as signup_event
 
 
 class LoginView(APIView):
@@ -51,64 +50,6 @@ class LoginView(APIView):
 
         login(request, user)
         return Response({"user": serialize_user(user)})
-
-
-@method_decorator(csrf_protect, name="dispatch")
-class RegisterView(APIView):
-    permission_classes = [AllowAny]
-    authentication_classes = []
-    throttle_classes = [ScopedRateThrottle]
-    throttle_scope = "auth"
-
-    def post(self, request):
-        email = str(request.data.get("email", "")).strip().lower()
-        password = request.data.get("password", "")
-        first_name = str(request.data.get("first_name", "")).strip()
-        last_name = str(request.data.get("last_name", "")).strip()
-
-        if not email or not password:
-            return Response(
-                {"detail": "Email and password are required."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        User = get_user_model()
-
-        if User.objects.filter(email__iexact=email).exists():
-            return Response(
-                {"detail": "An account with this email already exists."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        user = User(
-            username=email,
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-            is_active=True,
-        )
-
-        try:
-            validate_password(password, user=user)
-        except ValidationError as exc:
-            return Response(
-                {"detail": exc.messages},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        user.set_password(password)
-        user.save()
-        login(
-            request,
-            user,
-            backend="django.contrib.auth.backends.ModelBackend",
-        )
-
-        signup_event(user)
-        return Response(
-            {"user": serialize_user(user)},
-            status=status.HTTP_201_CREATED,
-        )
 
 
 class MeView(APIView):

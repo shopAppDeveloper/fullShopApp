@@ -23,7 +23,8 @@ from .views import (
     OrderListView,
     ProductDetailView,
     ProductListView,
-    RegisterView,
+    SignupOtpView,
+    SignupView,
     ShippingMethodListView,
 )
 
@@ -33,7 +34,8 @@ urlpatterns = [
     # Authentication
     path("auth/csrf/", CsrfTokenView.as_view(), name="csrf"),
     path("auth/login/", LoginView.as_view(), name="login"),
-    path("auth/register/", RegisterView.as_view(), name="register"),
+    path("auth/signup/otp/", SignupOtpView.as_view(), name="signup-otp"),
+    path("auth/signup/", SignupView.as_view(), name="signup"),
     path("auth/logout/", LogoutView.as_view(), name="logout"),
     path("auth/me/", MeView.as_view(), name="me"),
     # Catalogue

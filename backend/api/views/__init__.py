@@ -8,7 +8,6 @@ from .auth import (
     LoginView,
     LogoutView,
     MeView,
-    RegisterView,
 )
 from .basket import (
     BasketItemCreateView,
@@ -27,6 +26,10 @@ from .orders import (
     OrderListView,
     ShippingMethodListView,
 )
+from .signup import (
+    SignupOtpView,
+    SignupView,
+)
 from .system import (
     CsrfTokenView,
     HealthCheckView,
@@ -34,12 +37,13 @@ from .system import (
 )
 
 __all__ = [
+    "SignupOtpView",
+    "SignupView",
     "AddressDetailView",
     "AddressListCreateView",
     "LoginView",
     "LogoutView",
     "MeView",
-    "RegisterView",
     "BasketItemCreateView",
     "BasketLineView",
     "BasketView",

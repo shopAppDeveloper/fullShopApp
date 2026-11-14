@@ -48,3 +48,18 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user_id}: {self.mobile or '-'}"
+
+
+class OtpCode(models.Model):
+    """One-time SMS code. Only a salted hash of the code is stored."""
+
+    mobile = models.CharField(max_length=11, db_index=True)
+    purpose = models.CharField(max_length=20)  # "signup" | "reset"
+    code_hash = models.CharField(max_length=64)
+    expires_at = models.DateTimeField()
+    attempts = models.PositiveSmallIntegerField(default=0)
+    used = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
