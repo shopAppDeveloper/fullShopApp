@@ -8,7 +8,7 @@ from pathlib import Path
 # Basic paths
 # ---------------------------------------------------------
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # ---------------------------------------------------------
