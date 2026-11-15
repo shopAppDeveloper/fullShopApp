@@ -43,6 +43,9 @@ class OtpTests(APITestCase):
 
 class SignupApiTests(APITestCase):
     def setUp(self):
+        from django.core.cache import cache
+
+        cache.clear()  # the "auth" throttle counter is shared across tests
         self.client = APIClient(enforce_csrf_checks=True)
         self.csrf = self.client.get("/api/auth/csrf/").json()["csrfToken"]
 

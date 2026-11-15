@@ -26,6 +26,10 @@ from .orders import (
     OrderListView,
     ShippingMethodListView,
 )
+from .password import (
+    PasswordResetOtpView,
+    PasswordResetView,
+)
 from .signup import (
     SignupOtpView,
     SignupView,
@@ -37,6 +41,8 @@ from .system import (
 )
 
 __all__ = [
+    "PasswordResetOtpView",
+    "PasswordResetView",
     "SignupOtpView",
     "SignupView",
     "AddressDetailView",
