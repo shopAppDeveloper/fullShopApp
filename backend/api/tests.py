@@ -95,3 +95,9 @@ class TomanTests(TestCase):
         self.assertIsNone(money(None))
         self.assertEqual(currency_code("ریال"), "IRT")
         self.assertEqual(currency_code(None), "IRT")
+
+
+class CatalogFilterTests(TestCase):
+    def test_price_and_bestselling_params_are_accepted(self):
+        for qs in ["min_price=1000&max_price=5000", "sort=bestselling", "min_price=abc"]:
+            self.assertEqual(self.client.get(f"/api/products/?{qs}").status_code, 200, qs)

@@ -8,12 +8,14 @@ import Dropdown from "./Dropdown";
 import { useStore } from "@/app/context/StoreContext";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
-import { getCategories } from "@/lib/store-api";
+import { getCategories, type StoreCategory } from "@/lib/store-api";
 import { useAppSelector } from "@/redux/store";
 import { formatNumber } from "@/lib/format";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [categories, setCategories] = useState<StoreCategory[]>([]);
+  const [categorySlug, setCategorySlug] = useState("");
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const { openCartModal } = useCartModalContext();
@@ -38,6 +40,12 @@ const Header = () => {
   };
 
   useEffect(() => {
+    getCategories()
+      .then(setCategories)
+      .catch(() => setCategories([]));
+  }, []);
+
+  useEffect(() => {
     window.addEventListener("scroll", handleStickyMenu);
 
     return () => {
@@ -45,9 +53,10 @@ const Header = () => {
     };
   }, []);
 
-  // Category filtering is handled on the Shop page from real Oscar data.
-  // Keep the header selector neutral until the menu is wired to those categories.
-  const options = [{ label: "همه دسته‌بندی‌ها", value: "0" }];
+  const options = [
+    { label: "همه دسته‌بندی‌ها", value: "" },
+    ...categories.map((c) => ({ label: c.name, value: c.slug })),
+  ];
 
   return (
     <header
@@ -73,13 +82,15 @@ const Header = () => {
                 onSubmit={(event) => {
                   event.preventDefault();
                   const query = searchQuery.trim();
-                  window.location.href = query
-                    ? `/shop-with-sidebar?search=${encodeURIComponent(query)}`
-                    : "/shop-with-sidebar";
+                  const params = new URLSearchParams();
+                  if (query) params.set("search", query);
+                  if (categorySlug) params.set("category", categorySlug);
+                  const qs = params.toString();
+                  window.location.href = qs ? `/shop-with-sidebar?${qs}` : "/shop-with-sidebar";
                 }}
               >
                 <div className="flex items-center">
-                  <CustomSelect options={options} />
+                  <CustomSelect options={options} onChange={(option) => setCategorySlug(option.value)} />
 
                   <div className="relative max-w-[333px] sm:min-w-[333px] w-full">
                     {/* <!-- divider --> */}

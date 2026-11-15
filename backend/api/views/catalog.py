@@ -1,7 +1,7 @@
 """catalog views."""
 from oscar.core.loading import get_model
 
-from django.db.models import Q
+from django.db.models import Count, Q
 from oscar.apps.address.models import Country
 from rest_framework import status
 from rest_framework.generics import ListAPIView
@@ -44,8 +44,16 @@ class ProductListView(ListAPIView):
         if category:
             queryset = queryset.filter(categories__slug=category)
 
+        # Price range in whole Toman (best-effort catalogue filter on the stock record price).
+        for param, lookup in (("min_price", "stockrecords__price__gte"), ("max_price", "stockrecords__price__lte")):
+            raw = str(self.request.query_params.get(param, "")).strip()
+            if raw.isdigit():
+                queryset = queryset.filter(**{lookup: int(raw)})
+
         if sort == "oldest":
             queryset = queryset.order_by("date_created")
+        elif sort == "bestselling":
+            queryset = queryset.annotate(sold=Count("line")).order_by("-sold", "-date_created")
         elif sort == "priority":
             queryset = queryset.order_by("-priority", "-date_created")
         elif sort == "price_asc":

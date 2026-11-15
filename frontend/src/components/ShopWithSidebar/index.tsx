@@ -18,7 +18,9 @@ export default function ShopWithSidebar() {
   const [view, setView] = useState<"grid" | "list">("grid");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const [sort, setSort] = useState<"latest" | "oldest" | "price_asc" | "price_desc">("latest");
+  const [sort, setSort] = useState<"latest" | "bestselling" | "oldest" | "price_asc" | "price_desc">("latest");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -52,6 +54,8 @@ export default function ShopWithSidebar() {
           category: category || undefined,
           sort,
           page,
+          min_price: minPrice || undefined,
+          max_price: maxPrice || undefined,
         });
 
         if (!active) return;
@@ -70,7 +74,7 @@ export default function ShopWithSidebar() {
       active = false;
       window.clearTimeout(timer);
     };
-  }, [search, category, sort, page]);
+  }, [search, category, sort, page, minPrice, maxPrice]);
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
@@ -83,12 +87,14 @@ export default function ShopWithSidebar() {
     setSearch("");
     setCategory("");
     setSort("latest");
+    setMinPrice("");
+    setMaxPrice("");
     setPage(1);
   };
 
   return (
     <>
-      <Breadcrumb title="فروشگاه" pages={["shop"]} />
+      <Breadcrumb title="فروشگاه" pages={["فروشگاه"]} />
 
       <section className="overflow-hidden bg-gray-2 py-12 lg:py-20">
         <div className="mx-auto w-full max-w-[1170px] px-4 sm:px-8 xl:px-0">
@@ -152,7 +158,7 @@ export default function ShopWithSidebar() {
                       <span
                         className="flex-1"
                         style={{
-                          paddingLeft: `${Math.max(0, (item.depth ?? 1) - 1) * 14}px`,
+                          paddingInlineStart: `${Math.max(0, (item.depth ?? 1) - 1) * 14}px`,
                         }}
                       >
                         {item.name}
@@ -160,6 +166,27 @@ export default function ShopWithSidebar() {
                       <span>{item.product_count ?? 0}</span>
                     </button>
                   ))}
+                </div>
+
+                <div className="rounded-lg bg-white p-5 shadow-1">
+                  <h3 className="mb-4 font-medium text-dark">محدوده‌ی قیمت (تومان)</h3>
+                  <div className="flex items-center gap-2">
+                    {([["از", minPrice, setMinPrice], ["تا", maxPrice, setMaxPrice]] as const).map(([label, value, set]) => (
+                      <input
+                        key={label}
+                        inputMode="numeric"
+                        dir="ltr"
+                        aria-label={label}
+                        placeholder={label}
+                        value={value}
+                        onChange={(event) => {
+                          set(event.target.value.replace(/[۰-۹]/g, (d) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(d))).replace(/\D/g, ""));
+                          setPage(1);
+                        }}
+                        className="w-full rounded-md border border-gray-3 bg-gray-1 px-3 py-2 text-sm outline-none focus:border-blue"
+                      />
+                    ))}
+                  </div>
                 </div>
 
                 <div className="rounded-lg bg-white p-5 shadow-1">
@@ -197,13 +224,14 @@ export default function ShopWithSidebar() {
                       className="rounded-md border border-gray-3 bg-gray-1 px-4 py-2.5 text-sm outline-none"
                     >
                       <option value="latest">جدیدترین محصولات</option>
+                      <option value="bestselling">پرفروش‌ترین‌ها</option>
                       <option value="oldest">قدیمی‌ترین محصولات</option>
                       <option value="price_asc">قیمت: کم به زیاد</option>
                       <option value="price_desc">قیمت: زیاد به کم</option>
                     </select>
 
                     <span className="text-sm text-gray-5">
-                      {loading ? "در حال بارگذاری…" : `${formatNumber(total)} محصول`}
+                      {loading ? "در حال بارگذاری…" : `نمایش ${formatNumber(products.length)} از ${formatNumber(total)} محصول`}
                     </span>
                   </div>
 

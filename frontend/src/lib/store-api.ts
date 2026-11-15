@@ -168,7 +168,9 @@ export function getProducts(params?: {
   search?: string;
   category?: string;
   page?: number;
-  sort?: "latest" | "oldest" | "priority" | "price_asc" | "price_desc";
+  sort?: "latest" | "bestselling" | "oldest" | "priority" | "price_asc" | "price_desc";
+  min_price?: string;
+  max_price?: string;
 }) {
   const query = buildQuery(params);
   return apiFetch<ProductListResponse>(query ? `/api/products/?${query}` : "/api/products/");
