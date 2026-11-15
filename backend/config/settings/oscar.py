@@ -29,7 +29,8 @@ OSCAR_RECENTLY_VIEWED_PRODUCTS = 20
 OSCAR_INITIAL_ORDER_STATUS = "Pending"
 OSCAR_INITIAL_LINE_STATUS = "Pending"
 OSCAR_ORDER_STATUS_PIPELINE = {
-    "Pending": ("Being processed", "Cancelled"),
+    "Pending": ("Paid", "Being processed", "Cancelled"),
+    "Paid": ("Being processed", "Cancelled"),
     "Being processed": ("Processed", "Cancelled"),
     "Processed": ("Shipped", "Cancelled"),
     "Shipped": ("Delivered",),
@@ -72,5 +73,5 @@ HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 
 CHECKOUT_ALLOW_PENDING_ORDERS = env_bool(
     "CHECKOUT_ALLOW_PENDING_ORDERS",
-    DEBUG,
+    DEBUG or bool(os.getenv("ZARINPAL_MERCHANT_ID")),
 )

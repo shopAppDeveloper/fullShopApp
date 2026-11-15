@@ -63,3 +63,26 @@ class OtpCode(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+
+class Payment(models.Model):
+    """One attempt to pay an order through the gateway. `amount` is whole Toman, taken from the order, never from the browser."""
+
+    PENDING, PAID, FAILED = "pending", "paid", "failed"
+    STATUS_CHOICES = [(PENDING, "pending"), (PAID, "paid"), (FAILED, "failed")]
+
+    order = models.ForeignKey("order.Order", on_delete=models.PROTECT, related_name="payments")
+    amount = models.PositiveBigIntegerField()
+    authority = models.CharField(max_length=64, unique=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=PENDING)
+    ref_id = models.CharField(max_length=40, blank=True)
+    card_pan = models.CharField(max_length=30, blank=True)
+    error = models.CharField(max_length=200, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    verified_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.order_id} {self.status} {self.authority}"

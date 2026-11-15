@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import NewsletterSubscriber, Profile, SmsLog
+from .models import NewsletterSubscriber, Payment, Profile, SmsLog
 
 
 @admin.register(NewsletterSubscriber)
@@ -25,3 +25,14 @@ class SmsLogAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ("user", "mobile", "mobile_verified", "created_at")
     search_fields = ("mobile", "user__email")
+
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ("order", "amount", "status", "ref_id", "created_at")
+    list_filter = ("status",)
+    search_fields = ("order__number", "authority", "ref_id")
+    readonly_fields = [f.name for f in Payment._meta.fields]
+
+    def has_add_permission(self, request):
+        return False

@@ -33,6 +33,10 @@ from .password import (
     PasswordResetOtpView,
     PasswordResetView,
 )
+from .payments import (
+    PaymentCallbackView,
+    StartPaymentView,
+)
 from .signup import (
     SignupOtpView,
     SignupView,
@@ -44,6 +48,8 @@ from .system import (
 )
 
 __all__ = [
+    "PaymentCallbackView",
+    "StartPaymentView",
     "SendCustomerSmsView",
     "PasswordResetOtpView",
     "PasswordResetView",

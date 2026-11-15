@@ -43,6 +43,7 @@ REST_FRAMEWORK = {
         "auth": "10/min",
         "newsletter": "10/hour",
         "admin_sms": "30/min",
+        "payment": "20/min",
     },
     # Number of reverse proxies in front of Django (nginx = 1). Needed so the
     # client IP, not the proxy IP, is used for throttling.

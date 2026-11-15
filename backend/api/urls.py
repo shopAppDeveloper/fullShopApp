@@ -24,6 +24,8 @@ from .views import (
     ProductDetailView,
     ProductListView,
     PasswordResetOtpView,
+    PaymentCallbackView,
+    StartPaymentView,
     SendCustomerSmsView,
     PasswordResetView,
     SignupOtpView,
@@ -33,6 +35,8 @@ from .views import (
 
 urlpatterns = [
     path("admin/sms/send/", SendCustomerSmsView.as_view(), name="admin-sms-send"),
+    path("payments/start/", StartPaymentView.as_view(), name="payment-start"),
+    path("payments/callback/", PaymentCallbackView.as_view(), name="payment-callback"),
     path("bot/webhook/<str:secret>/", BotWebhookView.as_view(), name="bot-webhook"),
     path("health/", HealthCheckView.as_view(), name="health"),
     # Authentication
