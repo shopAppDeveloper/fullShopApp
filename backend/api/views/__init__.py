@@ -26,6 +26,9 @@ from .orders import (
     OrderListView,
     ShippingMethodListView,
 )
+from .messaging import (
+    SendCustomerSmsView,
+)
 from .password import (
     PasswordResetOtpView,
     PasswordResetView,
@@ -41,6 +44,7 @@ from .system import (
 )
 
 __all__ = [
+    "SendCustomerSmsView",
     "PasswordResetOtpView",
     "PasswordResetView",
     "SignupOtpView",

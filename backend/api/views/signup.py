@@ -18,6 +18,7 @@ from ..accounts import create_mobile_user, find_user_by_mobile
 from ..notifications.events import signup as signup_event
 from ..serializers import serialize_user
 from ..sms import normalize_mobile
+from ..sms.events import signup_sms
 
 OTP_ERRORS = {
     otp.TOO_SOON: ("Please wait before requesting another code.", status.HTTP_429_TOO_MANY_REQUESTS),
@@ -88,4 +89,5 @@ class SignupView(AuthBase):
             return Response({"detail": "Registration failed."}, status=status.HTTP_400_BAD_REQUEST)
         login(request, user, backend="django.contrib.auth.backends.ModelBackend")
         signup_event(user)
+        signup_sms(user)
         return Response({"user": serialize_user(user)}, status=status.HTTP_201_CREATED)

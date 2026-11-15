@@ -18,6 +18,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..notifications import events as order_events
+from ..sms.events import order_placed_sms
 from ..serializers import currency_code, money, serialize_order
 
 logger = logging.getLogger(__name__)
@@ -207,6 +208,7 @@ class CreateOrderView(APIView):
         # has been placed. This also prevents the same basket from being reused.
         basket.submit()
         order_events.order_placed(order)
+        order_placed_sms(order)
 
         return Response(
             {

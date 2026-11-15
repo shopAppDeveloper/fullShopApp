@@ -42,8 +42,12 @@ REST_FRAMEWORK = {
         "user": "600/min",
         "auth": "10/min",
         "newsletter": "10/hour",
+        "admin_sms": "30/min",
     },
     # Number of reverse proxies in front of Django (nginx = 1). Needed so the
     # client IP, not the proxy IP, is used for throttling.
     "NUM_PROXIES": int(os.getenv("DJANGO_NUM_PROXIES", "0")) or None,
 }
+
+# Secret for server-to-server calls (X-API-Key header). Empty = API-key access disabled (staff session only).
+INTERNAL_API_KEY = os.getenv("INTERNAL_API_KEY", "")

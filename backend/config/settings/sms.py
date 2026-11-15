@@ -14,3 +14,4 @@ OTP_TTL_SECONDS = int(os.getenv("OTP_TTL_SECONDS", "300"))
 OTP_RESEND_SECONDS = int(os.getenv("OTP_RESEND_SECONDS", "60"))
 OTP_MAX_ATTEMPTS = int(os.getenv("OTP_MAX_ATTEMPTS", "5"))
 OTP_HOURLY_LIMIT = int(os.getenv("OTP_HOURLY_LIMIT", "5"))
+SMS_EVENTS_ENABLED = os.getenv("SMS_EVENTS_ENABLED", "True").lower() in ("1", "true", "yes", "on")  # customer SMS on signup/order
