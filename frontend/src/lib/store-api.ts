@@ -91,6 +91,8 @@ export interface StoreBasket {
 export interface StoreUser {
   id: number;
   email: string;
+  mobile: string | null;
+  mobile_verified: boolean;
   first_name: string;
   last_name: string;
   is_staff: boolean;
@@ -247,20 +249,44 @@ export function getCurrentUser() {
   return apiFetch<{ user: StoreUser }>("/api/auth/me/");
 }
 
-export function login(email: string, password: string) {
+/** `identifier` is a mobile number or an e-mail address. */
+export function login(identifier: string, password: string) {
   return apiFetch<{ user: StoreUser }>("/api/auth/login/", {
     method: "POST",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ identifier, password }),
   });
 }
 
-export function register(input: {
-  email: string;
+export function requestSignupOtp(mobile: string) {
+  return apiFetch<{ detail: string }>("/api/auth/signup/otp/", {
+    method: "POST",
+    body: JSON.stringify({ mobile }),
+  });
+}
+
+export function signup(input: {
+  mobile: string;
+  code: string;
   password: string;
   first_name: string;
   last_name: string;
+  email?: string;
 }) {
-  return apiFetch<{ user: StoreUser }>("/api/auth/register/", {
+  return apiFetch<{ user: StoreUser }>("/api/auth/signup/", {
+    method: "POST",
+    body: JSON.stringify(input),
+  });
+}
+
+export function requestPasswordOtp(mobile: string) {
+  return apiFetch<{ detail: string }>("/api/auth/password/otp/", {
+    method: "POST",
+    body: JSON.stringify({ mobile }),
+  });
+}
+
+export function resetPassword(input: { mobile: string; code: string; password: string }) {
+  return apiFetch<{ detail: string }>("/api/auth/password/reset/", {
     method: "POST",
     body: JSON.stringify(input),
   });

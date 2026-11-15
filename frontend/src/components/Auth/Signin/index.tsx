@@ -10,7 +10,7 @@ export default function Signin() {
   const router = useRouter();
   const { signIn } = useStore();
 
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -21,7 +21,7 @@ export default function Signin() {
     setSubmitting(true);
 
     try {
-      await signIn(email, password);
+      await signIn(identifier.trim(), password);
       router.push("/my-account");
       router.refresh();
     } catch (err) {
@@ -42,22 +42,23 @@ export default function Signin() {
               <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark mb-1.5">
                 وارد حساب کاربری خود شوید
               </h2>
-              <p className="text-gray-5">با ایمیل و رمز عبور حساب فروشگاه خود وارد شوید.</p>
+              <p className="text-gray-5">با شماره موبایل (یا ایمیل) و رمز عبور وارد شوید.</p>
             </div>
 
             <form onSubmit={handleSubmit}>
               <div className="mb-5">
-                <label htmlFor="email" className="mb-2.5 block">
-                  ایمیل
+                <label htmlFor="identifier" className="mb-2.5 block">
+                  شماره موبایل یا ایمیل
                 </label>
                 <input
                   required
-                  autoComplete="email"
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="example@gmail.com"
+                  autoComplete="username"
+                  type="text"
+                  dir="ltr"
+                  id="identifier"
+                  value={identifier}
+                  onChange={(event) => setIdentifier(event.target.value)}
+                  placeholder="09123456789"
                   className="rounded-full border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-hidden duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                 />
               </div>
@@ -68,7 +69,6 @@ export default function Signin() {
                 </label>
                 <input
                   required
-                  minLength={9}
                   autoComplete="current-password"
                   type="password"
                   id="password"
@@ -83,12 +83,12 @@ export default function Signin() {
                 <p className="mb-5 rounded-md bg-red-light-6 px-4 py-3 text-sm text-red">{error}</p>
               )}
 
-              <a
+              <Link
                 className="block text-center text-dark-4 mt-6 ease-out duration-200 hover:text-dark"
                 href="/forgot-password"
               >
-                رمز عبور را فراموش کرده‌اید?
-              </a>
+                رمز عبور را فراموش کرده‌اید؟
+              </Link>
 
               <button
                 type="submit"

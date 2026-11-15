@@ -20,12 +20,23 @@ const API_MESSAGES_FA: Record<string, string> = {
   "The product could not be added to the basket.": "محصول به سبد خرید اضافه نشد.",
   "This account is not active.": "این حساب کاربری فعال نیست.",
   "Your basket is empty.": "سبد خرید شما خالی است.",
+  "Enter a valid mobile number.": "شماره موبایل معتبر وارد کنید.",
+  "Mobile number and password are required.": "شماره موبایل و رمز عبور الزامی است.",
+  "Email or mobile number and password are required.": "ایمیل یا شماره موبایل و رمز عبور الزامی است.",
+  "Invalid or expired code.": "کد واردشده نادرست یا منقضی است.",
+  "Registration failed.": "ثبت‌نام انجام نشد؛ اطلاعات واردشده را بررسی کنید.",
+  "If the number is valid, a code has been sent.": "اگر شماره معتبر باشد، کد تأیید ارسال شد.",
+  "Please wait before requesting another code.": "کمی صبر کنید و دوباره کد بخواهید.",
+  "Too many codes requested. Try again later.": "درخواست کد بیش از حد مجاز بوده؛ بعداً تلاش کنید.",
+  "Password changed.": "رمز عبور تغییر کرد.",
   "Authentication credentials were not provided.": "برای این کار باید وارد حساب کاربری شوید.",
   "You do not have permission to perform this action.": "شما اجازه‌ی انجام این کار را ندارید.",
   "CSRF Failed: CSRF token missing.": "نشست امنیتی منقضی شده است؛ صفحه را دوباره بارگذاری کنید.",
 };
 
 export function translateApiMessage(message: string, status?: number): string {
-  if (status === 429) return "تعداد درخواست‌ها زیاد است؛ کمی بعد دوباره تلاش کنید.";
-  return API_MESSAGES_FA[message] ?? message;
+  return (
+    API_MESSAGES_FA[message] ??
+    (status === 429 ? "تعداد درخواست‌ها زیاد است؛ کمی بعد دوباره تلاش کنید." : message)
+  );
 }

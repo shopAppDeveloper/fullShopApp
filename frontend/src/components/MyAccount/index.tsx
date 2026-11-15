@@ -142,7 +142,7 @@ export default function MyAccount() {
                 <p className="font-medium text-dark">
                   {user.first_name} {user.last_name}
                 </p>
-                <p className="mt-1 text-sm text-gray-5">{user.email}</p>
+                <p className="mt-1 text-sm text-gray-5"><span dir="ltr">{user.mobile || user.email}</span></p>
               </div>
 
               <nav className="mt-4 flex flex-col gap-2">
@@ -180,7 +180,7 @@ export default function MyAccount() {
               {tab === "dashboard" && (
                 <div className="p-7.5">
                   <h2 className="text-2xl font-semibold text-dark">
-                    خوش آمدید، {user.first_name || user.email}.
+                    خوش آمدید، {user.first_name || user.mobile || user.email}.
                   </h2>
                   <p className="mt-3 max-w-2xl text-gray-5">
                     از حساب کاربری خود می‌توانید سفارش‌ها را ببینید، آدرس‌ها را مدیریت کنید و اطلاعات خود را به‌روز نگه دارید.
@@ -433,8 +433,13 @@ export default function MyAccount() {
                   </div>
 
                   <div className="mt-5 rounded-lg bg-gray-1 p-5">
+                    <p className="text-sm text-gray-5">شماره موبایل</p>
+                    <p className="mt-1 font-medium text-dark" dir="ltr">{user.mobile || "—"}</p>
+                  </div>
+
+                  <div className="mt-5 rounded-lg bg-gray-1 p-5">
                     <p className="text-sm text-gray-5">ایمیل</p>
-                    <p className="mt-1 font-medium text-dark">{user.email}</p>
+                    <p className="mt-1 font-medium text-dark" dir="ltr">{user.email || "—"}</p>
                   </div>
                 </div>
               )}

@@ -5,11 +5,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { useStore } from "@/app/context/StoreContext";
+import { requestSignupOtp } from "@/lib/store-api";
+import { formatNumber } from "@/lib/format";
+import { ErrorBox, Field, InfoBox, buttonClass, errorText, inputClass, useCountdown } from "../shared";
 
+/** Step 1: mobile number -> SMS code. Step 2: code + details -> account. */
 const Signup = () => {
   const router = useRouter();
   const { signUp } = useStore();
 
+  const [step, setStep] = useState<1 | 2>(1);
+  const [mobile, setMobile] = useState("");
+  const [code, setCode] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,31 +24,48 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [error, setError] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const resend = useCountdown(60);
+
+  async function sendCode(event?: FormEvent) {
+    event?.preventDefault();
+    setError(null);
+    setInfo(null);
+    setSubmitting(true);
+    try {
+      await requestSignupOtp(mobile.trim());
+      setStep(2);
+      setInfo("کد تأیید به شماره‌ی شما پیامک شد.");
+      resend.start();
+    } catch (err) {
+      setError(errorText(err, "ارسال کد انجام نشد."));
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
-
     if (password !== confirmPassword) {
       setError("رمزهای عبور مطابقت ندارند.");
       return;
     }
-
     setSubmitting(true);
-
     try {
       await signUp({
+        mobile: mobile.trim(),
+        code: code.trim(),
+        password,
         first_name: firstName,
         last_name: lastName,
-        email,
-        password,
+        email: email.trim() || undefined,
       });
-
       router.push("/my-account");
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "ایجاد حساب کاربری انجام نشد.");
+      setError(errorText(err, "ایجاد حساب کاربری انجام نشد."));
     } finally {
       setSubmitting(false);
     }
@@ -55,107 +79,92 @@ const Signup = () => {
         <div className="mx-auto w-full max-w-[1170px] px-4 sm:px-8 xl:px-0">
           <div className="mx-auto w-full max-w-[570px] rounded-xl bg-white p-4 shadow-1 sm:p-7.5 xl:p-11">
             <div className="mb-11 text-center">
-              <h2 className="mb-1.5 text-xl font-semibold text-dark sm:text-2xl">
-                ایجاد حساب کاربری
-              </h2>
-              <p className="text-gray-5">برای پیگیری سفارش‌ها و تسریع خرید، حساب کاربری بسازید.</p>
+              <h2 className="mb-1.5 text-xl font-semibold text-dark sm:text-2xl">ایجاد حساب کاربری</h2>
+              <p className="text-gray-5">با شماره موبایل خود ثبت‌نام کنید؛ کد تأیید پیامک می‌شود.</p>
             </div>
 
-            <form onSubmit={handleSubmit}>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="first_name" className="mb-2.5 block">
-                    نام
-                  </label>
+            {step === 1 ? (
+              <form onSubmit={sendCode}>
+                <Field id="mobile" label="شماره موبایل">
                   <input
                     required
-                    id="first_name"
-                    value={firstName}
-                    onChange={(event) => setFirstName(event.target.value)}
-                    className="w-full rounded-lg border border-gray-3 bg-gray-1 px-5 py-3 outline-none focus:ring-2 focus:ring-blue/20"
+                    id="mobile"
+                    type="tel"
+                    dir="ltr"
+                    inputMode="numeric"
+                    autoComplete="tel"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                    placeholder="09123456789"
+                    className={inputClass}
                   />
-                </div>
-
-                <div>
-                  <label htmlFor="last_name" className="mb-2.5 block">
-                    نام خانوادگی
-                  </label>
+                </Field>
+                <ErrorBox message={error} />
+                <button type="submit" disabled={submitting} className={buttonClass}>
+                  {submitting ? "در حال ارسال ..." : "ارسال کد تأیید"}
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <InfoBox message={info} />
+                <Field id="code" label={`کد تأیید ارسال‌شده به ${formatNumber(mobile)}`}>
                   <input
                     required
-                    id="last_name"
-                    value={lastName}
-                    onChange={(event) => setLastName(event.target.value)}
-                    className="w-full rounded-lg border border-gray-3 bg-gray-1 px-5 py-3 outline-none focus:ring-2 focus:ring-blue/20"
+                    id="code"
+                    dir="ltr"
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    maxLength={6}
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    className={inputClass}
                   />
+                </Field>
+                <div className="-mt-2 mb-5 flex justify-between text-sm">
+                  <button type="button" className="text-blue" onClick={() => setStep(1)}>
+                    تغییر شماره
+                  </button>
+                  <button
+                    type="button"
+                    disabled={resend.left > 0 || submitting}
+                    className="text-blue disabled:text-gray-5"
+                    onClick={() => sendCode()}
+                  >
+                    {resend.left > 0 ? `ارسال دوباره (${formatNumber(resend.left)})` : "ارسال دوباره کد"}
+                  </button>
                 </div>
-              </div>
 
-              <div className="mt-5">
-                <label htmlFor="email" className="mb-2.5 block">
-                  نشانی ایمیل
-                </label>
-                <input
-                  required
-                  autoComplete="email"
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  className="w-full rounded-lg border border-gray-3 bg-gray-1 px-5 py-3 outline-none focus:ring-2 focus:ring-blue/20"
-                />
-              </div>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <Field id="first_name" label="نام">
+                    <input id="first_name" value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputClass} />
+                  </Field>
+                  <Field id="last_name" label="نام خانوادگی">
+                    <input id="last_name" value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} />
+                  </Field>
+                </div>
+                <Field id="email" label="ایمیل (اختیاری)">
+                  <input id="email" type="email" dir="ltr" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} />
+                </Field>
+                <Field id="password" label="رمز عبور">
+                  <input required id="password" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass} />
+                </Field>
+                <Field id="confirm" label="تکرار رمز عبور">
+                  <input required id="confirm" type="password" autoComplete="new-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className={inputClass} />
+                </Field>
 
-              <div className="mt-5">
-                <label htmlFor="password" className="mb-2.5 block">
-                  رمز عبور
-                </label>
-                <input
-                  required
-                  minLength={9}
-                  autoComplete="new-password"
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  className="w-full rounded-lg border border-gray-3 bg-gray-1 px-5 py-3 outline-none focus:ring-2 focus:ring-blue/20"
-                />
-              </div>
+                <ErrorBox message={error} />
+                <button type="submit" disabled={submitting} className={buttonClass}>
+                  {submitting ? "در حال ثبت‌نام ..." : "ایجاد حساب"}
+                </button>
+              </form>
+            )}
 
-              <div className="mt-5">
-                <label htmlFor="confirm_password" className="mb-2.5 block">
-                  تکرار رمز عبور
-                </label>
-                <input
-                  required
-                  minLength={9}
-                  autoComplete="new-password"
-                  type="password"
-                  id="confirm_password"
-                  value={confirmPassword}
-                  onChange={(event) => setConfirmPassword(event.target.value)}
-                  className="w-full rounded-lg border border-gray-3 bg-gray-1 px-5 py-3 outline-none focus:ring-2 focus:ring-blue/20"
-                />
-              </div>
-
-              {error && (
-                <p className="mt-5 rounded-md bg-red-light-6 px-4 py-3 text-sm text-red">{error}</p>
-              )}
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className="mt-7.5 flex w-full justify-center rounded-lg bg-dark px-6 py-3 font-medium text-white duration-200 hover:bg-blue disabled:cursor-not-allowed disabled:bg-gray-4"
-              >
-                {submitting ? "در حال ساخت حساب..." : "ساخت حساب کاربری"}
-              </button>
-
-              <p className="mt-6 text-center">
-                قبلاً حساب ساخته‌اید؟
-                <Link href="/signin" className="ps-2 text-dark duration-200 hover:text-blue">
-                  ورود
-                </Link>
-              </p>
-            </form>
+            <p className="mt-6 text-center">
+              حساب کاربری دارید؟
+              <Link href="/signin" className="ps-1 text-dark duration-200 ease-out hover:text-blue">
+                ورود
+              </Link>
+            </p>
           </div>
         </div>
       </section>

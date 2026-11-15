@@ -8,7 +8,7 @@ import {
   getCurrentUser,
   login as loginRequest,
   logout as logoutRequest,
-  register as registerRequest,
+  signup as signupRequest,
   removeBasketLine,
   updateBasketLine,
   type StoreBasket,
@@ -26,12 +26,14 @@ interface StoreContextValue {
   updateBasketQuantity: (lineId: number, quantity: number) => Promise<void>;
   removeFromBasket: (lineId: number) => Promise<void>;
   emptyBasket: () => Promise<void>;
-  signIn: (email: string, password: string) => Promise<StoreUser>;
+  signIn: (identifier: string, password: string) => Promise<StoreUser>;
   signUp: (input: {
-    email: string;
+    mobile: string;
+    code: string;
     password: string;
     first_name: string;
     last_name: string;
+    email?: string;
   }) => Promise<StoreUser>;
   signOut: () => Promise<void>;
   refreshUser: () => Promise<StoreUser | null>;
@@ -106,20 +108,22 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setBasket(nextBasket);
   };
 
-  const signIn = async (email: string, password: string) => {
-    const result = await loginRequest(email, password);
+  const signIn = async (identifier: string, password: string) => {
+    const result = await loginRequest(identifier, password);
     setUser(result.user);
     await refreshBasket();
     return result.user;
   };
 
   const signUp = async (input: {
-    email: string;
+    mobile: string;
+    code: string;
     password: string;
     first_name: string;
     last_name: string;
+    email?: string;
   }) => {
-    const result = await registerRequest(input);
+    const result = await signupRequest(input);
     setUser(result.user);
     await refreshBasket();
     return result.user;
