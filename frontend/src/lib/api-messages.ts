@@ -32,7 +32,6 @@ const API_MESSAGES_FA: Record<string, string> = {
   "This order cannot be paid.": "این سفارش قابل پرداخت نیست.",
   "The payment gateway is unavailable. Try again later.": "درگاه پرداخت در دسترس نیست؛ کمی بعد دوباره تلاش کنید.",
   "Enter a discount code.": "کد تخفیف را وارد کنید.",
-  "Your basket is empty.": "سبد خرید شما خالی است.",
   "Invalid or expired discount code.": "کد تخفیف نامعتبر یا منقضی است.",
   "This discount code is already applied.": "این کد تخفیف قبلاً اعمال شده است.",
   "This discount code is not available for you.": "این کد تخفیف برای شما قابل استفاده نیست.",
