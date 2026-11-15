@@ -11,13 +11,14 @@ from oscar.apps.address.models import Country
 from oscar.apps.checkout.calculators import OrderTotalCalculator
 from oscar.apps.order.models import Order, ShippingAddress
 from oscar.apps.order.utils import OrderCreator
-from oscar.apps.shipping.methods import Free
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .. import shipping
 from ..notifications import events as order_events
+from ..payments import methods as payment_methods
 from ..sms.events import order_placed_sms
 from ..utils import normalize_postcode
 from ..serializers import currency_code, money, serialize_order
@@ -30,20 +31,32 @@ class ShippingMethodListView(APIView):
 
     def get(self, request):
         basket = request.basket
-        method = Free()
-        charge = method.calculate(basket)
-
-        return Response(
-            [
+        result = []
+        for code in shipping.METHODS:
+            method = shipping.get_method(code)
+            charge = method.calculate(basket)
+            result.append(
                 {
-                    "code": "free",
-                    "name": "Standard shipping",
-                    "description": "Standard delivery",
-                    "price": money(
-                        charge.incl_tax if charge.is_tax_known else charge.excl_tax
-                    ),
+                    "code": method.code,
+                    "name": method.name,
+                    "description": method.description,
+                    "price": money(charge.incl_tax if charge.is_tax_known else charge.excl_tax),
                     "currency": currency_code(charge.currency),
                 }
+            )
+        return Response(result)
+
+
+class PaymentMethodListView(APIView):
+    """Payment methods the checkout can offer (see payments/methods.py)."""
+
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response(
+            [
+                {"code": m.code, "name": m.name, "description": m.description, "logo": m.logo}
+                for m in payment_methods.enabled_methods()
             ]
         )
 
@@ -161,7 +174,9 @@ class CreateOrderView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        shipping_method = Free()
+        shipping_method = shipping.get_method(str(data.get("shipping_method", "")).strip() or None)
+        if shipping_method is None:
+            return Response({"detail": "Invalid shipping method."}, status=status.HTTP_400_BAD_REQUEST)
         shipping_charge = shipping_method.calculate(basket)
         order_total = OrderTotalCalculator().calculate(
             basket,

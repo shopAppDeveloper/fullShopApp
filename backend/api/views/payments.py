@@ -33,7 +33,13 @@ class StartPaymentView(APIView):
         if order.status != "Pending" or order.payments.filter(status=Payment.PAID).exists():
             return Response({"detail": "This order cannot be paid."}, status=status.HTTP_400_BAD_REQUEST)
         try:
-            url = payment_service.start_payment(order, callback_url=f"{settings.SITE_URL}/api/payments/callback/")
+            url = payment_service.start_payment(
+                order,
+                method=request.data.get("method") or None,
+                callback_url=f"{settings.SITE_URL}/api/payments/callback/",
+            )
+        except ValueError:
+            return Response({"detail": "Invalid payment method."}, status=status.HTTP_400_BAD_REQUEST)
         except ZarinpalError:
             return Response({"detail": "The payment gateway is unavailable. Try again later."}, status=status.HTTP_502_BAD_GATEWAY)
         return Response({"redirect_url": url})

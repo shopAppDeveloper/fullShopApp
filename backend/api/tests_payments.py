@@ -100,3 +100,30 @@ class NotConfiguredTests(APITestCase):
     def test_missing_merchant_id(self):
         with self.assertRaises(zarinpal.ZarinpalError):
             zarinpal.request_payment(amount=1, callback_url="x", description="d")
+
+
+@override_settings(ZARINPAL_MERCHANT_ID="m" * 36)
+class MethodsTests(APITestCase):
+    def test_lists_enabled_methods_and_shipping(self):
+        r = self.client.get("/api/checkout/payment-methods/").json()
+        self.assertEqual([m["code"] for m in r], ["zarinpal"])
+        s = self.client.get("/api/shipping/methods/").json()
+        self.assertEqual([(m["code"], m["price"]) for m in s], [("post", "0")])
+
+    @override_settings(ZARINPAL_MERCHANT_ID="", DEBUG=False)
+    def test_zarinpal_hidden_without_credentials_in_production(self):
+        self.assertEqual(self.client.get("/api/checkout/payment-methods/").json(), [])
+
+    @override_settings(POST_SHIPPING_PRICE=45000)
+    def test_post_price_from_settings(self):
+        self.assertEqual(self.client.get("/api/shipping/methods/").json()[0]["price"], "45000")
+
+    def test_unknown_payment_method_rejected(self):
+        cache.clear()
+        user = create_mobile_user("09123456789", "S3cret-pass!x")
+        make_order(user)
+        c = APIClient(enforce_csrf_checks=True)
+        c.force_login(user)
+        csrf = c.get("/api/auth/csrf/").json()["csrfToken"]
+        r = c.post("/api/payments/start/", {"order_number": "100001", "method": "paypal"}, format="json", HTTP_X_CSRFTOKEN=csrf)
+        self.assertEqual(r.status_code, 400)

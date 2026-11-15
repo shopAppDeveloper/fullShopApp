@@ -5,13 +5,16 @@ import { orderStatusLabel } from "@/lib/labels";
 import React, { FormEvent, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Breadcrumb from "../Common/Breadcrumb";
+import CouponBox from "../Common/CouponBox";
 import {
   createAddress,
   createOrder,
   startPayment,
   getAddresses,
   getCountries,
+  getPaymentMethods,
   getShippingMethods,
+  type StorePaymentMethod,
   type StoreAddress,
   type StoreCountry,
   type StoreOrder,
@@ -51,8 +54,10 @@ export default function Checkout() {
 
   const [countries, setCountries] = useState<StoreCountry[]>([]);
   const [addresses, setAddresses] = useState<StoreAddress[]>([]);
-  const [shippingPrice, setShippingPrice] = useState("0");
-  const [shippingCurrency, setShippingCurrency] = useState("");
+  const [shippingMethods, setShippingMethods] = useState<Awaited<ReturnType<typeof getShippingMethods>>>([]);
+  const [shippingCode, setShippingCode] = useState("");
+  const [paymentMethods, setPaymentMethods] = useState<StorePaymentMethod[]>([]);
+  const [paymentCode, setPaymentCode] = useState("");
   const [form, setForm] = useState<FormState>(initialForm);
   const [loadingData, setLoadingData] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -61,12 +66,16 @@ export default function Checkout() {
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState<string | null>(null);
 
+  const shipping = shippingMethods.find((m) => m.code === shippingCode) ?? shippingMethods[0];
+  const shippingPrice = shipping?.price ?? "0";
+  const shippingCurrency = shipping?.currency ?? "";
+
   async function handlePay() {
     if (!order) return;
     setPayError(null);
     setPaying(true);
     try {
-      const { redirect_url } = await startPayment(order.number);
+      const { redirect_url } = await startPayment(order.number, paymentCode || undefined);
       window.location.href = redirect_url;
     } catch (err) {
       setPayError(err instanceof Error ? err.message : "اتصال به درگاه پرداخت انجام نشد.");
@@ -84,10 +93,11 @@ export default function Checkout() {
 
     (async () => {
       try {
-        const [countryResult, addressResult, shippingResult] = await Promise.all([
+        const [countryResult, addressResult, shippingResult, paymentResult] = await Promise.all([
           getCountries(),
           getAddresses(),
           getShippingMethods(),
+          getPaymentMethods(),
         ]);
 
         if (!active) return;
@@ -95,10 +105,10 @@ export default function Checkout() {
         setCountries(countryResult);
         setAddresses(addressResult);
 
-        if (shippingResult[0]) {
-          setShippingPrice(shippingResult[0].price);
-          setShippingCurrency(shippingResult[0].currency);
-        }
+        setShippingMethods(shippingResult);
+        setShippingCode(shippingResult[0]?.code ?? "");
+        setPaymentMethods(paymentResult);
+        setPaymentCode(paymentResult[0]?.code ?? "");
 
         const preferred =
           addressResult.find((item) => item.is_default_for_shipping) ?? addressResult[0];
@@ -187,7 +197,14 @@ export default function Checkout() {
        * A real production payment provider must be connected before
        * treating this flow as a paid checkout.
        */
+      if (!paymentCode) {
+        setError("هیچ روش پرداختی فعال نیست.");
+        setSubmitting(false);
+        return;
+      }
+
       const result = await createOrder({
+        shipping_method: shippingCode || undefined,
         first_name: form.first_name,
         last_name: form.last_name,
         line1: form.line1,
@@ -201,6 +218,15 @@ export default function Checkout() {
       });
 
       setOrder(result.order);
+
+      // Go straight to the payment gateway; if that fails the confirmation page offers a retry.
+      try {
+        const { redirect_url } = await startPayment(result.order.number, paymentCode);
+        window.location.href = redirect_url;
+        return;
+      } catch (payErr) {
+        setPayError(payErr instanceof Error ? payErr.message : "اتصال به درگاه پرداخت انجام نشد.");
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "ثبت سفارش ممکن نشد.");
     } finally {
@@ -435,6 +461,8 @@ export default function Checkout() {
                 </label>
               </div>
 
+              <div className="flex h-fit flex-col gap-5">
+              <CouponBox />
               <div className="h-fit rounded-xl bg-white p-5 shadow-1 sm:p-8">
                 <h2 className="text-xl font-semibold text-dark">سفارش شما</h2>
 
@@ -458,8 +486,14 @@ export default function Checkout() {
                 <div className="mt-5 space-y-3">
                   <SummaryRow
                     label="جمع جزء"
-                    value={formatMoney(subtotal, basket?.currency ?? shippingCurrency)}
+                    value={formatMoney(basket?.subtotal ?? subtotal, basket?.currency ?? shippingCurrency)}
                   />
+                  {Number(basket?.discount) > 0 && (
+                    <SummaryRow
+                      label="تخفیف"
+                      value={`−${formatMoney(basket?.discount, basket?.currency)}`}
+                    />
+                  )}
                   <SummaryRow
                     label="ارسال"
                     value={formatMoney(shippingPrice, shippingCurrency || basket?.currency)}
@@ -472,17 +506,48 @@ export default function Checkout() {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-lg bg-yellow-light-4 p-4 text-sm text-dark">
-                  اتصال به درگاه پرداخت هنوز انجام نشده است. در حالت توسعه می‌توان سفارش «در انتظار پرداخت» ساخت؛ ثبت سفارش در محیط تولید تا اتصال تأیید پرداخت غیرفعال می‌ماند.
+                <h3 className="mt-8 font-medium text-dark">روش ارسال</h3>
+                <div className="mt-3 space-y-3">
+                  {shippingMethods.map((m) => (
+                    <OptionRadio
+                      key={m.code}
+                      name="shipping"
+                      checked={(shipping?.code ?? "") === m.code}
+                      onChange={() => setShippingCode(m.code)}
+                      title={m.name}
+                      hint={m.description}
+                      side={Number(m.price) > 0 ? formatMoney(m.price, m.currency) : "رایگان"}
+                    />
+                  ))}
+                </div>
+
+                <h3 className="mt-8 font-medium text-dark">روش پرداخت</h3>
+                <div className="mt-3 space-y-3">
+                  {paymentMethods.length === 0 && (
+                    <p className="rounded-lg bg-yellow-light-4 p-4 text-sm text-dark">
+                      در حال حاضر هیچ روش پرداختی فعال نیست. لطفاً بعداً تلاش کنید.
+                    </p>
+                  )}
+                  {paymentMethods.map((m) => (
+                    <OptionRadio
+                      key={m.code}
+                      name="payment"
+                      checked={paymentCode === m.code}
+                      onChange={() => setPaymentCode(m.code)}
+                      title={m.name}
+                      hint={m.description}
+                    />
+                  ))}
                 </div>
 
                 <button
                   type="submit"
-                  disabled={submitting || !basket || basket.is_empty}
+                  disabled={submitting || !basket || basket.is_empty || !paymentCode}
                   className="mt-6 w-full rounded-md bg-blue px-6 py-3 font-medium text-white hover:bg-blue-dark disabled:cursor-not-allowed disabled:bg-gray-4"
                 >
-                  {submitting ? "در حال ثبت سفارش..." : "ثبت سفارش"}
+                  {submitting ? "در حال ثبت سفارش..." : "ثبت سفارش و پرداخت"}
                 </button>
+              </div>
               </div>
             </div>
           </form>
@@ -525,5 +590,36 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
       <span className="text-gray-5">{label}</span>
       <span className="font-medium text-dark">{value}</span>
     </div>
+  );
+}
+
+function OptionRadio({
+  name,
+  checked,
+  onChange,
+  title,
+  hint,
+  side,
+}: {
+  name: string;
+  checked: boolean;
+  onChange: () => void;
+  title: string;
+  hint?: string;
+  side?: string;
+}) {
+  return (
+    <label
+      className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border p-4 ${checked ? "border-blue bg-blue-light-5/40" : "border-gray-3"}`}
+    >
+      <span className="flex items-center gap-3">
+        <input type="radio" name={name} checked={checked} onChange={onChange} className="accent-blue" />
+        <span>
+          <span className="block text-sm font-medium text-dark">{title}</span>
+          {hint && <span className="block text-xs text-gray-5">{hint}</span>}
+        </span>
+      </span>
+      {side && <span className="shrink-0 text-sm text-dark">{side}</span>}
+    </label>
   );
 }

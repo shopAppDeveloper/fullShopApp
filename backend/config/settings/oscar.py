@@ -75,3 +75,4 @@ CHECKOUT_ALLOW_PENDING_ORDERS = env_bool(
     "CHECKOUT_ALLOW_PENDING_ORDERS",
     DEBUG or bool(os.getenv("ZARINPAL_MERCHANT_ID")),
 )
+POST_SHIPPING_PRICE = int(os.getenv("POST_SHIPPING_PRICE", "0"))  # whole Toman; 0 = free

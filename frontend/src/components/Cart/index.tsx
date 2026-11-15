@@ -1,10 +1,11 @@
 "use client";
-import { formatMoney } from "@/lib/format";
+import { formatMoney, formatNumber } from "@/lib/format";
 
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Breadcrumb from "../Common/Breadcrumb";
+import CouponBox from "../Common/CouponBox";
 import { useStore } from "@/app/context/StoreContext";
 
 export default function Cart() {
@@ -95,7 +96,7 @@ export default function Cart() {
                               updateBasketQuantity(line.id, Math.max(1, line.quantity - 1))
                             }
                             className="px-3 py-2 text-lg hover:bg-gray-1"
-                            aria-label={`Decrease ${line.title} quantity`}
+                            aria-label={`کم کردن تعداد ${line.title}`}
                           >
                             −
                           </button>
@@ -105,7 +106,7 @@ export default function Cart() {
                           <button
                             onClick={() => updateBasketQuantity(line.id, line.quantity + 1)}
                             className="px-3 py-2 text-lg hover:bg-gray-1"
-                            aria-label={`Increase ${line.title} quantity`}
+                            aria-label={`افزایش تعداد ${line.title}`}
                           >
                             +
                           </button>
@@ -118,7 +119,7 @@ export default function Cart() {
                         <button
                           onClick={() => removeFromBasket(line.id)}
                           className="text-xl text-gray-5 hover:text-red"
-                          aria-label={`Remove ${line.title}`}
+                          aria-label={`حذف ${line.title}`}
                         >
                           ×
                         </button>
@@ -128,11 +129,31 @@ export default function Cart() {
                 </div>
               </div>
 
-              <div className="mt-8 flex justify-end">
+              <div className="mt-8 flex flex-col gap-7.5 lg:flex-row lg:items-start lg:justify-between">
+                <div className="w-full lg:max-w-[480px]">
+                  <CouponBox />
+                </div>
                 <div className="w-full max-w-[420px] rounded-xl bg-white p-7.5 shadow-1">
-                  <div className="flex items-center justify-between border-b border-gray-3 pb-5">
+                  <h3 className="mb-4 font-medium text-dark">خلاصه‌ی سفارش</h3>
+                  {basket.lines.map((line) => (
+                    <div key={line.id} className="flex justify-between gap-4 pb-2 text-sm">
+                      <span className="truncate text-gray-5">{line.title} × {formatNumber(line.quantity)}</span>
+                      <span className="shrink-0 text-dark">{formatMoney(line.line_total, line.currency ?? currency)}</span>
+                    </div>
+                  ))}
+                  <div className="mt-3 flex items-center justify-between border-t border-gray-3 pt-4 text-sm">
+                    <span className="text-gray-5">جمع جزء</span>
+                    <span className="text-dark">{formatMoney(basket.subtotal ?? basket.total, currency)}</span>
+                  </div>
+                  {Number(basket.discount) > 0 && (
+                    <div className="flex items-center justify-between pt-2 text-sm text-green">
+                      <span>تخفیف</span>
+                      <span>−{formatMoney(basket.discount, currency)}</span>
+                    </div>
+                  )}
+                  <div className="mt-4 flex items-center justify-between border-t border-gray-3 pb-5 pt-4 text-sm">
                     <span className="text-dark">تعداد اقلام</span>
-                    <span className="font-medium text-dark">{basket.num_items}</span>
+                    <span className="font-medium text-dark">{formatNumber(basket.num_items)}</span>
                   </div>
                   <div className="flex items-center justify-between py-5">
                     <span className="text-lg font-medium text-dark">مجموع</span>

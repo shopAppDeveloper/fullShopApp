@@ -3,6 +3,8 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import {
   addBasketItem,
+  applyVoucher,
+  removeVoucher,
   clearBasket,
   getBasket,
   getCurrentUser,
@@ -26,6 +28,8 @@ interface StoreContextValue {
   updateBasketQuantity: (lineId: number, quantity: number) => Promise<void>;
   removeFromBasket: (lineId: number) => Promise<void>;
   emptyBasket: () => Promise<void>;
+  applyDiscountCode: (code: string) => Promise<void>;
+  removeDiscountCode: (code: string) => Promise<void>;
   signIn: (identifier: string, password: string) => Promise<StoreUser>;
   signUp: (input: {
     mobile: string;
@@ -108,6 +112,14 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setBasket(nextBasket);
   };
 
+  const applyDiscountCode = async (code: string) => {
+    setBasket(await applyVoucher(code));
+  };
+
+  const removeDiscountCode = async (code: string) => {
+    setBasket(await removeVoucher(code));
+  };
+
   const signIn = async (identifier: string, password: string) => {
     const result = await loginRequest(identifier, password);
     setUser(result.user);
@@ -147,6 +159,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       updateBasketQuantity,
       removeFromBasket,
       emptyBasket,
+      applyDiscountCode,
+      removeDiscountCode,
       signIn,
       signUp,
       signOut,

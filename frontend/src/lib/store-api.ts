@@ -85,6 +85,10 @@ export interface StoreBasket {
   currency: string | null;
   total: string | null;
   total_excl_tax: string | null;
+  /** Before discount codes / offers. */
+  subtotal: string | null;
+  discount: string | null;
+  vouchers: string[];
   lines: StoreBasketLine[];
 }
 
@@ -357,6 +361,7 @@ export function createOrder(input: {
   country: string;
   phone_number?: string;
   notes?: string;
+  shipping_method?: string;
 }) {
   return apiFetch<{
     order: StoreOrder;
@@ -379,9 +384,31 @@ export function subscribeNewsletter(email: string) {
 }
 
 /** Starts a Zarinpal payment for the customer's own pending order; redirect the browser to `redirect_url`. */
-export function startPayment(orderNumber: string) {
+export function startPayment(orderNumber: string, method?: string) {
   return apiFetch<{ redirect_url: string }>("/api/payments/start/", {
     method: "POST",
-    body: JSON.stringify({ order_number: orderNumber }),
+    body: JSON.stringify({ order_number: orderNumber, method }),
   });
+}
+
+export interface StorePaymentMethod {
+  code: string;
+  name: string;
+  description: string;
+  logo: string;
+}
+
+export function getPaymentMethods() {
+  return apiFetch<StorePaymentMethod[]>("/api/checkout/payment-methods/");
+}
+
+export function applyVoucher(code: string) {
+  return apiFetch<StoreBasket>("/api/basket/voucher/", {
+    method: "POST",
+    body: JSON.stringify({ code }),
+  });
+}
+
+export function removeVoucher(code: string) {
+  return apiFetch<StoreBasket>(`/api/basket/voucher/${encodeURIComponent(code)}/`, { method: "DELETE" });
 }

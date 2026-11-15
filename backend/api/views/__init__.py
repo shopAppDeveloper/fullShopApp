@@ -24,6 +24,7 @@ from .orders import (
     CreateOrderView,
     OrderDetailView,
     OrderListView,
+    PaymentMethodListView,
     ShippingMethodListView,
 )
 from .voucher import (
@@ -76,6 +77,7 @@ __all__ = [
     "CreateOrderView",
     "OrderDetailView",
     "OrderListView",
+    "PaymentMethodListView",
     "ShippingMethodListView",
     "CsrfTokenView",
     "HealthCheckView",

@@ -72,6 +72,7 @@ class Payment(models.Model):
     STATUS_CHOICES = [(PENDING, "pending"), (PAID, "paid"), (FAILED, "failed")]
 
     order = models.ForeignKey("order.Order", on_delete=models.PROTECT, related_name="payments")
+    method = models.CharField(max_length=20, default="zarinpal")
     amount = models.PositiveBigIntegerField()
     authority = models.CharField(max_length=64, unique=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=PENDING)

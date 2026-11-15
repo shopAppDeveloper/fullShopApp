@@ -8,7 +8,7 @@ from django.utils import timezone
 from ..accounts import real_email
 from ..models import Payment, Profile
 from ..notifications import events
-from ..payments import zarinpal
+from ..payments import methods, zarinpal
 from . import orders as order_service
 
 logger = logging.getLogger(__name__)
@@ -19,8 +19,16 @@ def order_amount(order) -> int:
     return int(order.total_incl_tax)
 
 
-def start_payment(order, *, callback_url: str) -> str:
-    """Request a payment session for `order` and return the gateway URL to redirect the customer to."""
+def start_payment(order, *, method=None, callback_url: str) -> str:
+    """Start paying `order` with the chosen method code; returns the URL to redirect the customer to."""
+    chosen = methods.get_method(method)
+    if chosen is None:
+        raise ValueError("unknown or disabled payment method")
+    return chosen.start(order, callback_url)
+
+
+def start_zarinpal(order, *, callback_url: str) -> str:
+    """Request a Zarinpal session for `order` and return the gateway URL."""
     amount = order_amount(order)
     profile = Profile.objects.filter(user_id=order.user_id).first() if order.user_id else None
     authority = zarinpal.request_payment(
@@ -31,7 +39,7 @@ def start_payment(order, *, callback_url: str) -> str:
         email=real_email(order.user) if order.user_id else "",
         order_number=str(order.number),
     )
-    Payment.objects.create(order=order, amount=amount, authority=authority)
+    Payment.objects.create(order=order, amount=amount, authority=authority, method="zarinpal")
     return zarinpal.start_url(authority)
 
 
