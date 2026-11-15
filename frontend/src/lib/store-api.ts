@@ -375,3 +375,11 @@ export function subscribeNewsletter(email: string) {
     body: JSON.stringify({ email }),
   });
 }
+
+/** Starts a Zarinpal payment for the customer's own pending order; redirect the browser to `redirect_url`. */
+export function startPayment(orderNumber: string) {
+  return apiFetch<{ redirect_url: string }>("/api/payments/start/", {
+    method: "POST",
+    body: JSON.stringify({ order_number: orderNumber }),
+  });
+}

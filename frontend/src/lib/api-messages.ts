@@ -29,6 +29,8 @@ const API_MESSAGES_FA: Record<string, string> = {
   "Please wait before requesting another code.": "کمی صبر کنید و دوباره کد بخواهید.",
   "Too many codes requested. Try again later.": "درخواست کد بیش از حد مجاز بوده؛ بعداً تلاش کنید.",
   "Password changed.": "رمز عبور تغییر کرد.",
+  "This order cannot be paid.": "این سفارش قابل پرداخت نیست.",
+  "The payment gateway is unavailable. Try again later.": "درگاه پرداخت در دسترس نیست؛ کمی بعد دوباره تلاش کنید.",
   "Authentication credentials were not provided.": "برای این کار باید وارد حساب کاربری شوید.",
   "You do not have permission to perform this action.": "شما اجازه‌ی انجام این کار را ندارید.",
   "CSRF Failed: CSRF token missing.": "نشست امنیتی منقضی شده است؛ صفحه را دوباره بارگذاری کنید.",

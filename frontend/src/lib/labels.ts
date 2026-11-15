@@ -1,6 +1,7 @@
 /** Persian labels for backend (Oscar) status values. Unknown values are shown as-is. */
 const ORDER_STATUS_FA: Record<string, string> = {
   Pending: "در انتظار پرداخت",
+  Paid: "پرداخت‌شده",
   "Being processed": "در حال پردازش",
   Processed: "پردازش‌شده",
   Shipped: "ارسال‌شده",

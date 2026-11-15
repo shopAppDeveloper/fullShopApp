@@ -8,6 +8,7 @@ import Breadcrumb from "../Common/Breadcrumb";
 import {
   createAddress,
   createOrder,
+  startPayment,
   getAddresses,
   getCountries,
   getShippingMethods,
@@ -57,6 +58,21 @@ export default function Checkout() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [order, setOrder] = useState<StoreOrder | null>(null);
+  const [paying, setPaying] = useState(false);
+  const [payError, setPayError] = useState<string | null>(null);
+
+  async function handlePay() {
+    if (!order) return;
+    setPayError(null);
+    setPaying(true);
+    try {
+      const { redirect_url } = await startPayment(order.number);
+      window.location.href = redirect_url;
+    } catch (err) {
+      setPayError(err instanceof Error ? err.message : "اتصال به درگاه پرداخت انجام نشد.");
+      setPaying(false);
+    }
+  }
 
   useEffect(() => {
     if (!user) {
@@ -234,7 +250,7 @@ export default function Checkout() {
             <p className="text-sm font-medium text-blue">سفارش ثبت شد</p>
             <h1 className="mt-2 text-3xl font-semibold text-dark">سفارش شماره‌ی {order.number}</h1>
             <p className="mt-4 text-gray-5">
-              وضعیت سفارش شما: <strong>{orderStatusLabel(order.status)}</strong>. هنوز هیچ پرداختی تأیید نشده است.
+              وضعیت سفارش شما: <strong>{orderStatusLabel(order.status)}</strong>. برای نهایی شدن سفارش، پرداخت را انجام دهید.
             </p>
 
             <div className="mt-8 border-y border-gray-3 py-5">
@@ -252,6 +268,19 @@ export default function Checkout() {
                 </div>
               ))}
             </div>
+
+            {payError && (
+              <p className="mt-6 rounded-md bg-red-light-6 px-4 py-3 text-sm text-red">{payError}</p>
+            )}
+
+            <button
+              type="button"
+              onClick={handlePay}
+              disabled={paying}
+              className="mt-6 flex w-full items-center justify-center rounded-md bg-dark px-6 py-3 font-medium text-white hover:bg-blue disabled:opacity-60"
+            >
+              {paying ? "در حال انتقال به درگاه ..." : `پرداخت ${formatMoney(order.total_incl_tax, order.currency)}`}
+            </button>
 
             <div className="mt-6 flex gap-3">
               <Link
