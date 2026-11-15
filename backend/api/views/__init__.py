@@ -26,6 +26,10 @@ from .orders import (
     OrderListView,
     ShippingMethodListView,
 )
+from .voucher import (
+    BasketVoucherRemoveView,
+    BasketVoucherView,
+)
 from .messaging import (
     SendCustomerSmsView,
 )
@@ -48,6 +52,8 @@ from .system import (
 )
 
 __all__ = [
+    "BasketVoucherRemoveView",
+    "BasketVoucherView",
     "PaymentCallbackView",
     "StartPaymentView",
     "SendCustomerSmsView",

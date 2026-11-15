@@ -19,6 +19,7 @@ from rest_framework.views import APIView
 
 from ..notifications import events as order_events
 from ..sms.events import order_placed_sms
+from ..utils import normalize_postcode
 from ..serializers import currency_code, money, serialize_order
 
 logger = logging.getLogger(__name__)
@@ -146,7 +147,7 @@ class CreateOrderView(APIView):
             line3=str(data.get("line3", "")).strip(),
             line4=str(data.get("city", data.get("line4", ""))).strip(),
             state=str(data.get("state", "")).strip(),
-            postcode=str(data.get("postcode", "")).strip(),
+            postcode=normalize_postcode(data.get("postcode", "")),
             country=country,
             phone_number=str(data.get("phone_number", "")).strip(),
             notes=str(data.get("notes", "")).strip(),
@@ -183,17 +184,20 @@ class CreateOrderView(APIView):
             )
 
         try:
-            order = OrderCreator().place_order(
-                basket=basket,
-                total=order_total,
-                shipping_method=shipping_method,
-                shipping_charge=shipping_charge,
-                user=request.user,
-                shipping_address=shipping_address,
-                billing_address=None,
-                status=order_status,
-                request=request,
-            )
+            with transaction.atomic():  # savepoint: a failure must not poison the request transaction
+                # Oscar links the order to an already-saved address.
+                shipping_address.save()
+                order = OrderCreator().place_order(
+                    basket=basket,
+                    total=order_total,
+                    shipping_method=shipping_method,
+                    shipping_charge=shipping_charge,
+                    user=request.user,
+                    shipping_address=shipping_address,
+                    billing_address=None,
+                    status=order_status,
+                    request=request,
+                )
         except Exception:
             logger.exception(
                 "Unable to create order for user %s.",

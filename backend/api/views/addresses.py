@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..utils import parse_bool
+from ..utils import parse_bool, normalize_postcode
 
 
 class AddressListCreateView(APIView):
@@ -62,7 +62,7 @@ class AddressListCreateView(APIView):
             line3=str(data.get("line3", "")).strip(),
             line4=str(data.get("line4", "")).strip(),
             state=str(data.get("state", "")).strip(),
-            postcode=str(data.get("postcode", "")).strip(),
+            postcode=normalize_postcode(data.get("postcode", "")),
             country=country,
             phone_number=str(data.get("phone_number", "")).strip(),
             is_default_for_shipping=parse_bool(

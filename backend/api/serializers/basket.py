@@ -50,6 +50,8 @@ def serialize_basket(basket, request):
         total = basket.total_excl_tax
         total_excl_tax = basket.total_excl_tax
 
+    subtotal = basket.total_incl_tax_excl_discounts if basket.is_tax_known else basket.total_excl_tax_excl_discounts
+
     return {
         "id": basket.id,
         "status": basket.status,
@@ -60,5 +62,8 @@ def serialize_basket(basket, request):
         "currency": currency_code(basket.currency),
         "total": money(total),
         "total_excl_tax": money(total_excl_tax),
+        "subtotal": money(subtotal),
+        "discount": money(subtotal - total),
+        "vouchers": [v.code for v in basket.vouchers.all()],
         "lines": lines,
     }

@@ -23,6 +23,8 @@ from .views import (
     OrderListView,
     ProductDetailView,
     ProductListView,
+    BasketVoucherRemoveView,
+    BasketVoucherView,
     PasswordResetOtpView,
     PaymentCallbackView,
     StartPaymentView,
@@ -35,6 +37,8 @@ from .views import (
 
 urlpatterns = [
     path("admin/sms/send/", SendCustomerSmsView.as_view(), name="admin-sms-send"),
+    path("basket/voucher/", BasketVoucherView.as_view(), name="basket-voucher"),
+    path("basket/voucher/<str:code>/", BasketVoucherRemoveView.as_view(), name="basket-voucher-remove"),
     path("payments/start/", StartPaymentView.as_view(), name="payment-start"),
     path("payments/callback/", PaymentCallbackView.as_view(), name="payment-callback"),
     path("bot/webhook/<str:secret>/", BotWebhookView.as_view(), name="bot-webhook"),

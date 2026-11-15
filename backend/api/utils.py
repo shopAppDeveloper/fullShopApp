@@ -38,3 +38,11 @@ def parse_positive_int(value, default=1, maximum=99):
         return None
 
     return result
+
+
+def normalize_postcode(value):
+    """Iranian postcodes: accept Persian digits and 10 digits without the dash (Oscar expects 12345-67890)."""
+    digits = str(value).strip().translate(str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789"))
+    if len(digits) == 10 and digits.isdigit():
+        return f"{digits[:5]}-{digits[5:]}"
+    return digits
