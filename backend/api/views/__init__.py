@@ -15,6 +15,7 @@ from .basket import (
     BasketView,
 )
 from .catalog import (
+    FilterOptionsView,
     CategoryListView,
     CountryListView,
     ProductDetailView,
@@ -53,6 +54,7 @@ from .system import (
 )
 
 __all__ = [
+    "FilterOptionsView",
     "BasketVoucherRemoveView",
     "BasketVoucherView",
     "PaymentCallbackView",

@@ -101,3 +101,31 @@ class CatalogFilterTests(TestCase):
     def test_price_and_bestselling_params_are_accepted(self):
         for qs in ["min_price=1000&max_price=5000", "sort=bestselling", "min_price=abc"]:
             self.assertEqual(self.client.get(f"/api/products/?{qs}").status_code, 200, qs)
+
+
+class AttributeFilterTests(TestCase):
+    def test_color_and_size_filters(self):
+        from oscar.core.loading import get_model
+
+        Product = get_model("catalogue", "Product")
+        PC = get_model("catalogue", "ProductClass")
+        PA = get_model("catalogue", "ProductAttribute")
+        pc = PC.objects.create(name="clothes")
+        PA.objects.create(product_class=pc, name="Color", code="color", type="text")
+        PA.objects.create(product_class=pc, name="Size", code="size", type="text")
+        for title, color, size in [("a", "black", "xl"), ("b", "red", "xl"), ("c", "black", "sm")]:
+            p = Product.objects.create(title=title, product_class=pc, is_public=True)
+            p.attr.color, p.attr.size = color, size
+            p.attr.save()
+
+        def titles(qs):
+            r = self.client.get(f"/api/products/?{qs}").json()
+            return sorted(x["title"] for x in r["results"])
+
+        self.assertEqual(titles("color=black"), ["a", "c"])
+        self.assertEqual(titles("color=black&size=xl"), ["a"])
+        self.assertEqual(titles("color=red,black&size=sm"), ["c"])
+        opts = self.client.get("/api/filters/").json()
+        self.assertEqual([c["value"] for c in opts["colors"]], ["black", "red"])
+        self.assertEqual(opts["colors"][0]["hex"], "#000000")
+        self.assertEqual([s["value"] for s in opts["sizes"]], ["sm", "xl"])

@@ -32,6 +32,7 @@ from .views import (
     PasswordResetView,
     SignupOtpView,
     SignupView,
+    FilterOptionsView,
     PaymentMethodListView,
     ShippingMethodListView,
 )
@@ -62,6 +63,7 @@ urlpatterns = [
     path("categories/", CategoryListView.as_view(), name="categories"),
     path("countries/", CountryListView.as_view(), name="countries"),
     # Basket
+    path("filters/", FilterOptionsView.as_view(), name="filters"),
     path("basket/", BasketView.as_view(), name="basket"),
     path("basket/items/", BasketItemCreateView.as_view(), name="basket-add"),
     path("basket/items/<int:line_id>/", BasketLineView.as_view(), name="basket-line"),

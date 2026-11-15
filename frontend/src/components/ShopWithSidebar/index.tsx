@@ -7,7 +7,14 @@ import Link from "next/link";
 import Breadcrumb from "../Common/Breadcrumb";
 import SingleGridItem from "../Shop/SingleGridItem";
 import SingleListItem from "../Shop/SingleListItem";
-import { adaptOscarProduct, getCategories, getProducts, type StoreCategory } from "@/lib/store-api";
+import {
+  adaptOscarProduct,
+  getCategories,
+  getFilterOptions,
+  getProducts,
+  type StoreCategory,
+  type StoreFilterOptions,
+} from "@/lib/store-api";
 import type { Product } from "@/types/product";
 
 const PAGE_SIZE = 24;
@@ -19,6 +26,9 @@ export default function ShopWithSidebar() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState<"latest" | "bestselling" | "oldest" | "price_asc" | "price_desc">("latest");
+  const [filterOptions, setFilterOptions] = useState<StoreFilterOptions>({ colors: [], sizes: [] });
+  const [colors, setColors] = useState<string[]>([]);
+  const [sizes, setSizes] = useState<string[]>([]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [page, setPage] = useState(1);
@@ -34,6 +44,15 @@ export default function ShopWithSidebar() {
     setSearch(initialSearch);
     setCategory(initialCategory);
   }, []);
+
+  useEffect(() => {
+    getFilterOptions()
+      .then(setFilterOptions)
+      .catch(() => setFilterOptions({ colors: [], sizes: [] }));
+  }, []);
+
+  const toggle = (list: string[], value: string) =>
+    list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
 
   useEffect(() => {
     getCategories()
@@ -54,6 +73,8 @@ export default function ShopWithSidebar() {
           category: category || undefined,
           sort,
           page,
+          color: colors.join(",") || undefined,
+          size: sizes.join(",") || undefined,
           min_price: minPrice || undefined,
           max_price: maxPrice || undefined,
         });
@@ -74,7 +95,7 @@ export default function ShopWithSidebar() {
       active = false;
       window.clearTimeout(timer);
     };
-  }, [search, category, sort, page, minPrice, maxPrice]);
+  }, [search, category, sort, page, minPrice, maxPrice, colors, sizes]);
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
@@ -89,6 +110,8 @@ export default function ShopWithSidebar() {
     setSort("latest");
     setMinPrice("");
     setMaxPrice("");
+    setColors([]);
+    setSizes([]);
     setPage(1);
   };
 
@@ -167,6 +190,59 @@ export default function ShopWithSidebar() {
                     </button>
                   ))}
                 </div>
+
+                {filterOptions.sizes.length > 0 && (
+                  <div className="rounded-lg bg-white p-5 shadow-1">
+                    <h3 className="mb-4 font-medium text-dark">سایز</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {filterOptions.sizes.map((s) => (
+                        <button
+                          key={s.value}
+                          type="button"
+                          onClick={() => {
+                            setSizes((cur) => toggle(cur, s.value));
+                            setPage(1);
+                          }}
+                          className={`rounded-md border px-3 py-1.5 text-sm ${sizes.includes(s.value) ? "border-blue bg-blue text-white" : "border-gray-3 hover:bg-gray-1"}`}
+                        >
+                          {s.value}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {filterOptions.colors.length > 0 && (
+                  <div className="rounded-lg bg-white p-5 shadow-1">
+                    <h3 className="mb-4 font-medium text-dark">رنگ</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {filterOptions.colors.map((c) => {
+                        const active = colors.includes(c.value);
+                        return (
+                          <button
+                            key={c.value}
+                            type="button"
+                            title={c.value}
+                            aria-label={c.value}
+                            aria-pressed={active}
+                            onClick={() => {
+                              setColors((cur) => toggle(cur, c.value));
+                              setPage(1);
+                            }}
+                            className={
+                              c.hex
+                                ? `h-7 w-7 rounded-full border-2 ${active ? "border-blue ring-2 ring-blue/30" : "border-gray-3"}`
+                                : `rounded-md border px-3 py-1.5 text-sm ${active ? "border-blue bg-blue text-white" : "border-gray-3 hover:bg-gray-1"}`
+                            }
+                            style={c.hex ? { backgroundColor: c.hex } : undefined}
+                          >
+                            {c.hex ? null : c.value}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
 
                 <div className="rounded-lg bg-white p-5 shadow-1">
                   <h3 className="mb-4 font-medium text-dark">محدوده‌ی قیمت (تومان)</h3>

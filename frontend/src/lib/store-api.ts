@@ -175,9 +175,21 @@ export function getProducts(params?: {
   sort?: "latest" | "bestselling" | "oldest" | "priority" | "price_asc" | "price_desc";
   min_price?: string;
   max_price?: string;
+  /** Comma-separated attribute values, e.g. "black,red". */
+  color?: string;
+  size?: string;
 }) {
   const query = buildQuery(params);
   return apiFetch<ProductListResponse>(query ? `/api/products/?${query}` : "/api/products/");
+}
+
+export interface StoreFilterOptions {
+  colors: Array<{ value: string; hex: string | null }>;
+  sizes: Array<{ value: string }>;
+}
+
+export function getFilterOptions() {
+  return apiFetch<StoreFilterOptions>("/api/filters/");
 }
 
 export function getProduct(slug: string) {

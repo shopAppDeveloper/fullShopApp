@@ -9,6 +9,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from ..filters import apply_attribute_filters, filter_options
 from ..serializers import serialize_category, serialize_product
 
 Product = get_model("catalogue", "Product")
@@ -43,6 +44,8 @@ class ProductListView(ListAPIView):
 
         if category:
             queryset = queryset.filter(categories__slug=category)
+
+        queryset = apply_attribute_filters(queryset, self.request.query_params)
 
         # Price range in whole Toman (best-effort catalogue filter on the stock record price).
         for param, lookup in (("min_price", "stockrecords__price__gte"), ("max_price", "stockrecords__price__lte")):
@@ -137,3 +140,13 @@ class CountryListView(APIView):
                 for country in countries
             ]
         )
+
+
+class FilterOptionsView(APIView):
+    """Colours and sizes that exist in the catalogue (empty lists hide the sidebar blocks)."""
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request):
+        return Response(filter_options())
