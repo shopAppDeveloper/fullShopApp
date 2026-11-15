@@ -15,5 +15,6 @@ def serialize_user(user):
         "mobile_verified": bool(profile and profile.mobile_verified),
         "first_name": user.first_name,
         "last_name": user.last_name,
+        "date_joined": user.date_joined.isoformat(),
         "is_staff": user.is_staff,
     }

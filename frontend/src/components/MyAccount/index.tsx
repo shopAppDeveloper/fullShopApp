@@ -143,6 +143,11 @@ export default function MyAccount() {
                   {user.first_name} {user.last_name}
                 </p>
                 <p className="mt-1 text-sm text-gray-5"><span dir="ltr">{user.mobile || user.email}</span></p>
+                {user.date_joined && (
+                  <p className="mt-1 text-xs text-gray-5">
+                    عضو از {new Date(user.date_joined).toLocaleDateString("fa-IR", { year: "numeric", month: "long" })}
+                  </p>
+                )}
               </div>
 
               <nav className="mt-4 flex flex-col gap-2">
@@ -209,7 +214,7 @@ export default function MyAccount() {
                   <div>
                     <h2 className="text-xl font-semibold text-dark">نشانی‌های ذخیره‌شده</h2>
                     <p className="mt-1 text-sm text-gray-5">
-                      نشانی‌ها در Django/Oscar ذخیره می‌شوند، نه در مرورگر.
+                      نشانی‌هایی که برای ارسال سفارش‌ها ذخیره کرده‌اید.
                     </p>
                   </div>
 

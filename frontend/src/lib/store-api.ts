@@ -97,6 +97,7 @@ export interface StoreUser {
   email: string;
   mobile: string | null;
   mobile_verified: boolean;
+  date_joined?: string;
   first_name: string;
   last_name: string;
   is_staff: boolean;

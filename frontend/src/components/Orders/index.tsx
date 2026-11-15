@@ -3,7 +3,7 @@ import { formatMoney } from "@/lib/format";
 
 import { orderStatusLabel } from "@/lib/labels";
 import React, { useEffect, useState } from "react";
-import { getOrders, type StoreOrder } from "@/lib/store-api";
+import { getOrders, startPayment, type StoreOrder } from "@/lib/store-api";
 import { useStore } from "@/app/context/StoreContext";
 
 export default function Orders() {
@@ -11,6 +11,19 @@ export default function Orders() {
   const [orders, setOrders] = useState<StoreOrder[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [payingNumber, setPayingNumber] = useState<string | null>(null);
+
+  async function pay(number: string) {
+    setPayingNumber(number);
+    setError(null);
+    try {
+      const { redirect_url } = await startPayment(number);
+      window.location.href = redirect_url;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "اتصال به درگاه پرداخت انجام نشد.");
+      setPayingNumber(null);
+    }
+  }
 
   useEffect(() => {
     if (!user) {
@@ -64,7 +77,8 @@ export default function Orders() {
             <th className="pb-4 pe-5 font-medium">تاریخ</th>
             <th className="pb-4 pe-5 font-medium">وضعیت</th>
             <th className="pb-4 pe-5 font-medium">اقلام</th>
-            <th className="pb-4 font-medium">مجموع</th>
+            <th className="pb-4 pe-5 font-medium">مجموع</th>
+            <th className="pb-4 font-medium">عملیات</th>
           </tr>
         </thead>
 
@@ -73,14 +87,26 @@ export default function Orders() {
             <tr key={order.id} className="border-b border-gray-3 last:border-b-0">
               <td className="py-4 pe-5 font-medium text-dark">#{order.number}</td>
               <td className="py-4 pe-5 text-sm text-gray-5">
-                {new Date(order.date_placed).toLocaleDateString()}
+                {new Date(order.date_placed).toLocaleDateString("fa-IR")}
               </td>
               <td className="py-4 pe-5 text-sm text-gray-5">{orderStatusLabel(order.status)}</td>
               <td className="py-4 pe-5 text-sm text-gray-5">
                 {order.lines.reduce((total, line) => total + line.quantity, 0)}
               </td>
-              <td className="py-4 font-medium text-dark">
+              <td className="py-4 pe-5 font-medium text-dark">
                 {formatMoney(order.total_incl_tax, order.currency)}
+              </td>
+              <td className="py-4">
+                {order.status === "Pending" && (
+                  <button
+                    type="button"
+                    onClick={() => pay(order.number)}
+                    disabled={payingNumber === order.number}
+                    className="rounded-md bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-dark disabled:opacity-60"
+                  >
+                    {payingNumber === order.number ? "در حال انتقال…" : "پرداخت"}
+                  </button>
+                )}
               </td>
             </tr>
           ))}
